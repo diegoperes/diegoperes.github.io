@@ -86,10 +86,10 @@ button {
 }
 
 :root[data-theme="light"] {
-  --bg: #f7f8fa;
-  --bg-alt: #ffffff;
+  --bg: #e4e7eb;
+  --bg-alt: #d9dde2;
   --surface: #ffffff;
-  --surface-border: #e3e7eb;
+  --surface-border: #cdd2d8;
   --text: #12181f;
   --text-muted: #56626d;
   --accent: #0f9e8b;
@@ -171,7 +171,7 @@ body {
 }
 
 :root[data-theme="light"] .header {
-  background: rgba(247, 248, 250, 0.78);
+  background: rgba(228, 231, 235, 0.85);
 }
 
 .header--scrolled {
