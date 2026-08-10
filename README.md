@@ -39,6 +39,10 @@ Crie estas variaveis em **Settings -> Secrets and variables -> Actions**:
 - `USER_GITHUB`
 - `USER_LINKEDIN`
 
+Variavel opcional:
+
+- `GA_MEASUREMENT_ID`
+
 O workflow aceita tanto **Variables** quanto **Secrets** com esses nomes.
 
 Depois disso, o deploy gera este bloco automaticamente:
@@ -48,10 +52,13 @@ window.SITE_CONFIG = {
   linkedin: "https://www.linkedin.com/in/SEU_USUARIO/",
   github: "https://github.com/SEU_USUARIO",
   email: "seuemail@dominio.com",
+  analyticsMeasurementId: "G-XXXXXXXXXX",
 };
 ```
 
 Esses valores preenchem automaticamente os botoes e links do site.
+Se `GA_MEASUREMENT_ID` estiver preenchido, o site tambem carrega o Google
+Analytics 4.
 
 Para testar localmente sem commitar seus dados, copie
 [`js/site-config.local.example.js`](js/site-config.local.example.js) para
@@ -84,8 +91,8 @@ CSS no início de [`css/style.css`](css/style.css) (`:root` e
    `SEU-USUARIO.github.io` (ou qualquer outro repositório, se preferir
    publicar em um subcaminho).
 2. No GitHub, acesse **Settings → Pages**.
-3. Em **Build and deployment**, selecione **Source: Deploy from a branch**.
-4. Escolha a branch (`main` ou `master`) e a pasta `/ (root)`.
+3. Em **Build and deployment**, selecione **Source: GitHub Actions**.
+4. Use o workflow **Static HTML** ou o workflow personalizado do repositório.
 5. Salve. Em alguns minutos o site estará disponível em:
    - `https://SEU-USUARIO.github.io` (se o repositório se chamar
      `SEU-USUARIO.github.io`), ou

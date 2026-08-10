@@ -32,6 +32,7 @@ jobs:
           EMAIL: ${{ vars.EMAIL || secrets.EMAIL }}
           USER_GITHUB: ${{ vars.USER_GITHUB || secrets.USER_GITHUB }}
           USER_LINKEDIN: ${{ vars.USER_LINKEDIN || secrets.USER_LINKEDIN }}
+          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID || secrets.GA_MEASUREMENT_ID }}
         run: |
           python3 <<'PY'
           import os
@@ -48,6 +49,7 @@ jobs:
           email = os.environ["EMAIL"].strip()
           user_github = os.environ["USER_GITHUB"].strip().strip("/")
           user_linkedin = os.environ["USER_LINKEDIN"].strip().strip("/")
+          ga_measurement_id = os.environ.get("GA_MEASUREMENT_ID", "").strip()
 
           config_path = Path("js/site-config.js")
           config_path.write_text(
@@ -57,6 +59,7 @@ jobs:
                       f'  linkedin: "https://www.linkedin.com/in/{user_linkedin}/",',
                       f'  github: "https://github.com/{user_github}",',
                       f'  email: "{email}",',
+                      f'  analyticsMeasurementId: "{ga_measurement_id}",',
                       "};",
                       "",
                   ]
