@@ -27,6 +27,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Prepare site with repository variables
+        env:
+          EMAIL: ${{ vars.EMAIL }}
+          USER_GITHUB: ${{ vars.USER_GITHUB }}
+          USER_LINKEDIN: ${{ vars.USER_LINKEDIN }}
+        run: |
+          python3 <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          email = os.environ["EMAIL"].strip()
+          user_github = os.environ["USER_GITHUB"].strip().strip("/")
+          user_linkedin = os.environ["USER_LINKEDIN"].strip().strip("/")
+
+          script_path = Path("js/script.js")
+          script = script_path.read_text(encoding="utf-8")
+          script = script.replace("__USER_GITHUB__", f"https://github.com/{user_github}")
+          script = script.replace("__USER_LINKEDIN__", f"https://www.linkedin.com/in/{user_linkedin}/")
+          script = script.replace(
+              "__EMAIL_ENCODED__",
+              json.dumps([ord(char) for char in email], ensure_ascii=False),
+          )
+          script_path.write_text(script, encoding="utf-8")
+          PY
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

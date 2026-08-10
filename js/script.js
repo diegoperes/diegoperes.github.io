@@ -2,32 +2,12 @@
    Diego Peres — Portfólio pessoal
    ========================================================= */
 
-/* ---------------------------------------------------------
-   PERSONALIZAR
-   Edite os valores abaixo. Todos os links do site (hero,
-   contato, rodapé) são preenchidos automaticamente a partir
-   deste único objeto — não é necessário editar o HTML.
-   --------------------------------------------------------- */
 const CONFIG = {
-  linkedin: "https://www.linkedin.com/in/diegoperes-developer/",
-  github: "https://github.com/diegoperes",
+  linkedin: "__USER_LINKEDIN__",
+  github: "__USER_GITHUB__",
 };
 
-/* ---------------------------------------------------------
-   PERSONALIZAR
-   O e-mail fica codificado (não em texto puro) para dificultar a
-   coleta automática por bots que varrem o HTML/JS do site. Ele só é
-   decodificado no navegador após um clique do usuário (ver
-   initEmailProtection). Isso não é criptografia — apenas evita expor
-   o endereço em texto puro nos arquivos estáticos do site.
-
-   Para trocar o e-mail, gere um novo array no console do navegador:
-   [...'seuemail@dominio.com'].map(c => c.charCodeAt(0))
-   --------------------------------------------------------- */
-const EMAIL_ENCODED = [
-  99, 111, 110, 116, 97, 116, 111, 64, 100, 105, 101, 103, 111, 112, 101, 114,
-  101, 115, 46, 99, 111, 109, 46, 98, 114,
-];
+const EMAIL_ENCODED = __EMAIL_ENCODED__;
 
 function decodeEmail() {
   return String.fromCharCode(...EMAIL_ENCODED);
