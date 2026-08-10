@@ -1,4 +1,4 @@
-# Diego — Portfólio Pessoal
+# Diego Peres — Portfólio Pessoal
 
 Site pessoal em página única (HTML5, CSS3 e JavaScript puro, sem build e sem
 dependências de backend), pronto para ser publicado no GitHub Pages.

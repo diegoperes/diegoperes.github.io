@@ -7,6 +7,6 @@
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
   <text x="90" y="300" font-family="'JetBrains Mono', 'Courier New', monospace" font-size="26" fill="#5eead4">&lt;/&gt;</text>
-  <text x="90" y="380" font-family="Arial, sans-serif" font-size="72" font-weight="700" fill="#f5f7fa">Diego</text>
+  <text x="90" y="380" font-family="Arial, sans-serif" font-size="60" font-weight="700" fill="#f5f7fa">Diego Peres</text>
   <text x="90" y="440" font-family="Arial, sans-serif" font-size="34" fill="#9aa5b1">Senior Backend Developer | C# | .NET</text>
 </svg>
