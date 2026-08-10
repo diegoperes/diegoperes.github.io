@@ -631,7 +631,45 @@ body {
   transform: translateY(0);
 }
 
-/* ---------- 12. Responsivo ---------- */
+/* ---------- 12. Easter eggs ---------- */
+.egg-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translate(-50%, 12px);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--text);
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  z-index: 2000;
+  pointer-events: none;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.egg-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.egg-matrix {
+  position: fixed;
+  inset: 0;
+  z-index: 1900;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 600ms ease;
+}
+
+.egg-matrix.is-fading {
+  opacity: 0;
+}
+
+/* ---------- 13. Responsivo ---------- */
 @media (max-width: 860px) {
   .nav__toggle {
     display: flex;
