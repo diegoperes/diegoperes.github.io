@@ -1,4 +1,297 @@
-<html>
-Diego Peres
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Diego — Senior Backend Developer | C# / .NET</title>
+    <meta name="description"
+        content="Diego, desenvolvedor backend sênior especializado em C# e .NET. Experiência com microsserviços, alta complexidade, grandes volumes de dados e cloud.">
+    <meta name="author" content="Diego">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0b0f14">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Diego — Senior Backend Developer | C# / .NET">
+    <meta property="og:description"
+        content="Desenvolvedor backend especializado em C# e ecossistema .NET, com experiência em sistemas de alta complexidade, microsserviços e processamento de grandes volumes de dados.">
+    <meta property="og:image" content="assets/og-image.svg">
+    <!-- PERSONALIZAR: og:url deve apontar para o domínio final do site -->
+    <meta property="og:url" content="https://SEU-USUARIO.github.io/">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Diego — Senior Backend Developer | C# / .NET">
+    <meta name="twitter:description" content="Desenvolvedor backend especializado em C# e ecossistema .NET.">
+    <meta name="twitter:image" content="assets/og-image.svg">
+
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="canonical" href="https://SEU-USUARIO.github.io/"> <!-- PERSONALIZAR -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <!-- ===================== HEADER / NAV ===================== -->
+    <header class="header" id="header">
+        <nav class="nav" aria-label="Navegação principal">
+            <a href="#hero" class="nav__brand">Diego<span class="dot">.</span></a>
+
+            <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu"
+                aria-label="Abrir menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul class="nav__menu" id="navMenu">
+                <li><a href="#sobre" class="nav__link">Sobre</a></li>
+                <li><a href="#stack" class="nav__link">Stack</a></li>
+                <li><a href="#experiencia" class="nav__link">Experiência</a></li>
+                <li><a href="#contato" class="nav__link">Contato</a></li>
+            </ul>
+
+            <div class="nav__actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro"
+                    title="Alternar tema">
+                    <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4" />
+                        <path
+                            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                    </svg>
+                    <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="conteudo">
+
+        <!-- ===================== HERO ===================== -->
+        <section class="hero" id="hero">
+            <div class="container hero__content">
+                <p class="hero__eyebrow reveal">Olá, eu sou</p>
+                <h1 class="hero__name reveal">Diego</h1>
+                <p class="hero__role reveal">Senior Backend Developer <span class="sep">|</span> C# <span
+                        class="sep">|</span> .NET</p>
+                <p class="hero__text reveal">
+                    Desenvolvedor backend especializado em C# e ecossistema .NET, com experiência no
+                    desenvolvimento de sistemas de alta complexidade, microsserviços e processamento
+                    de grandes volumes de dados.
+                </p>
+
+                <div class="hero__actions reveal">
+                    <!-- PERSONALIZAR: links configurados em js/script.js (objeto CONFIG) -->
+                    <a data-config="linkedin" class="btn btn--primary" target="_blank"
+                        rel="noopener noreferrer">LinkedIn</a>
+                    <a data-config="github" class="btn btn--outline" target="_blank"
+                        rel="noopener noreferrer">GitHub</a>
+                    <a href="#contato" class="btn btn--ghost">Contato</a>
+                </div>
+            </div>
+
+            <a href="#sobre" class="scroll-hint" aria-label="Rolar para a próxima seção">
+                <span></span>
+            </a>
+        </section>
+
+        <!-- ===================== SOBRE ===================== -->
+        <section class="section" id="sobre">
+            <div class="container">
+                <h2 class="section__title reveal"><span class="section__num">01.</span> Sobre mim</h2>
+
+                <div class="about">
+                    <p class="about__text reveal">
+                        Sou desenvolvedor de software com experiência desde 2010, especializado em
+                        desenvolvimento backend utilizando C# e .NET. Ao longo da carreira, trabalhei com
+                        sistemas de alta complexidade, grande volume de dados, microsserviços, mensageria,
+                        bancos de dados e ambientes de cloud.
+                    </p>
+                    <p class="about__text reveal">
+                        Ao longo da carreira, atuei em sistemas de gestão financeira, comercial e estoque —
+                        passando por desenvolvimento desktop, evoluindo para APIs backend e, mais
+                        recentemente, para arquiteturas em nuvem e microsserviços. Gosto de projetar
+                        soluções que se mantêm simples mesmo quando o problema não é, com código testável
+                        e serviços que continuam de pé sob carga.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== STACK ===================== -->
+        <section class="section section--alt" id="stack">
+            <div class="container">
+                <h2 class="section__title reveal"><span class="section__num">02.</span> Stack &amp; Conhecimentos</h2>
+
+                <div class="stack-grid">
+
+                    <div class="stack-card reveal">
+                        <h3 class="stack-card__title">Backend</h3>
+                        <ul class="tag-list">
+                            <li>C#</li>
+                            <li>.NET</li>
+                            <li>ASP.NET Core</li>
+                            <li>Entity Framework</li>
+                            <li>Dapper</li>
+                            <li>MediatR</li>
+                            <li>REST APIs</li>
+                            <li>Microservices</li>
+                            <li>Swagger</li>
+                            <li>Scalar</li>
+                        </ul>
+                    </div>
+
+                    <div class="stack-card reveal">
+                        <h3 class="stack-card__title">Banco de Dados</h3>
+                        <ul class="tag-list">
+                            <li>SQL Server</li>
+                            <li>MySQL</li>
+                        </ul>
+                    </div>
+
+                    <div class="stack-card reveal">
+                        <h3 class="stack-card__title">Mensageria</h3>
+                        <ul class="tag-list">
+                            <li>RabbitMQ</li>
+                            <li>Azure Service Bus</li>
+                        </ul>
+                    </div>
+
+                    <div class="stack-card reveal">
+                        <h3 class="stack-card__title">Cloud &amp; DevOps</h3>
+                        <ul class="tag-list">
+                            <li>Azure</li>
+                            <li>Azure DevOps</li>
+                            <li>AWS</li>
+                            <li>Docker</li>
+                            <li>Rancher</li>
+                            <li>Keda</li>
+                            <li>CI/CD</li>
+                            <li>Git</li>
+                        </ul>
+                    </div>
+
+                    <div class="stack-card reveal">
+                        <h3 class="stack-card__title">Testes</h3>
+                        <ul class="tag-list">
+                            <li>NUnit</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== EXPERIÊNCIA ===================== -->
+        <section class="section" id="experiencia">
+            <div class="container">
+                <h2 class="section__title reveal"><span class="section__num">03.</span> Experiência</h2>
+
+                <ol class="timeline">
+
+                    <li class="timeline__item reveal">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__card">
+                            <span class="timeline__period">08/2024 — Atual</span>
+                            <h3 class="timeline__role">Desenvolvedor Backend | C# | .NET</h3>
+                            <p class="timeline__company">Ambev Tech</p>
+                            <p class="timeline__desc">
+                                Desenvolvimento backend em C# e .NET, com Entity Framework, MediatR e padrão
+                                Repository. Integração entre sistemas via Azure Service Bus, com persistência
+                                em SQL Server.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="timeline__item reveal">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__card">
+                            <span class="timeline__period">06/2021 — 08/2024</span>
+                            <h3 class="timeline__role">Desenvolvedor Backend | C# | .NET</h3>
+                            <p class="timeline__company">BTG Pactual</p>
+                            <p class="timeline__desc">
+                                Desenvolvimento de microsserviços em C# e ASP.NET, com mensageria via RabbitMQ
+                                e persistência com Entity Framework e Dapper sobre MySQL. Orquestração de
+                                containers com Docker e Rancher, com autoscaling via Keda. Pipelines de CI/CD
+                                e versionamento no Azure DevOps, documentação de APIs com Swagger.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="timeline__item reveal">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__card">
+                            <span class="timeline__period">01/2010 — 05/2021</span>
+                            <h3 class="timeline__role">Analista Desenvolvedor C# ASP.NET Core / Delphi</h3>
+                            <p class="timeline__company">ao3 — Curitiba e Região, Brasil</p>
+                            <p class="timeline__desc">
+                                Mais de 11 anos em sistemas de gestão financeira, comercial e estoque. Trajetória
+                                que passou por desenvolvimento desktop em Delphi, evoluiu para APIs backend em
+                                C# e ASP.NET Core com microsserviços e Docker, e por fim para arquitetura em
+                                nuvem — incluindo CI/CD na AWS (Docker, CodeCommit, CodeBuild, S3) e adaptação
+                                dos sistemas para operação multi-tenant.
+                            </p>
+                        </div>
+                    </li>
+
+                </ol>
+            </div>
+        </section>
+
+        <!-- ===================== CONTATO ===================== -->
+        <section class="section section--alt" id="contato">
+            <div class="container contact">
+                <h2 class="section__title reveal"><span class="section__num">04.</span> Contato</h2>
+                <p class="contact__text reveal">
+                    Aberto a novas oportunidades e conversas sobre backend, arquitetura e engenharia de software.
+                    O melhor caminho é me chamar por um dos canais abaixo.
+                </p>
+
+                <div class="contact__actions reveal">
+                    <button type="button" class="btn btn--primary" data-email-trigger="send">Enviar e-mail</button>
+                    <a data-config="linkedin" class="btn btn--outline" target="_blank"
+                        rel="noopener noreferrer">LinkedIn</a>
+                    <a data-config="github" class="btn btn--outline" target="_blank"
+                        rel="noopener noreferrer">GitHub</a>
+                </div>
+
+                <!--
+          Proteção simples contra coleta automática de e-mail: o endereço fica
+          codificado em js/script.js e só é decodificado/exibido após o clique
+          do usuário (ver initEmailProtection em js/script.js).
+        -->
+                <p class="contact__direct reveal">
+                    E-mail: <a href="#" class="email-reveal" data-email-trigger="show">Clique para revelar</a>
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="container footer__content">
+            <p>&copy; <span id="year">2026</span> Diego — Senior Backend Developer</p>
+            <div class="footer__links">
+                <a data-config="linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a data-config="github" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
 
 </html>

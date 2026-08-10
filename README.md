@@ -1,0 +1,108 @@
+# Diego — Portfólio Pessoal
+
+Site pessoal em página única (HTML5, CSS3 e JavaScript puro, sem build e sem
+dependências de backend), pronto para ser publicado no GitHub Pages.
+
+## Estrutura
+
+```
+/
+├── index.html          # Conteúdo e estrutura da página
+├── css/
+│   └── style.css        # Estilos (tema dark/light, layout, animações)
+├── js/
+│   └── script.js         # Configuração de links, tema, menu e animações
+├── assets/
+│   ├── favicon.svg       # Ícone da aba do navegador
+│   └── og-image.svg      # Imagem de pré-visualização (Open Graph)
+├── .nojekyll             # Evita processamento Jekyll no GitHub Pages
+└── README.md
+```
+
+Abra `index.html` diretamente no navegador — não é necessário servidor local
+nem processo de build.
+
+## Personalização
+
+Tudo que precisa ser editado está marcado no código com `PERSONALIZAR`.
+
+### 1. Links (LinkedIn, GitHub)
+
+Edite **um único lugar**, no topo de [`js/script.js`](js/script.js):
+
+```js
+const CONFIG = {
+  linkedin: "https://www.linkedin.com/in/SEU-USUARIO",
+  github: "https://github.com/SEU-USUARIO",
+};
+```
+
+Esses valores preenchem automaticamente os botões e links do site (hero,
+contato e rodapé).
+
+### 1.1 E-mail (protegido contra coleta automática)
+
+O e-mail **não** fica em texto puro no código — ele é armazenado como uma
+lista de códigos de caractere (`EMAIL_ENCODED`, logo abaixo do `CONFIG` em
+[`js/script.js`](js/script.js)) e só é decodificado no navegador quando o
+usuário clica em "Enviar e-mail" ou em "Clique para revelar" na seção de
+contato. Isso evita que bots que apenas leem o HTML/JS estático colham o
+endereço, sem depender de reCAPTCHA ou qualquer serviço externo.
+
+Para trocar o e-mail, gere um novo array no console do navegador (DevTools):
+
+```js
+[...'seuemail@dominio.com'].map(c => c.charCodeAt(0))
+```
+
+e substitua o valor de `EMAIL_ENCODED` pelo resultado.
+
+### 2. Experiência profissional
+
+Edite a lista `<ol class="timeline">` na seção `#experiencia` em
+[`index.html`](index.html). Cada item (`<li class="timeline__item">`) tem
+período, cargo, empresa e descrição.
+
+### 3. Textos, SEO e Open Graph
+
+O texto de "Sobre mim" está na seção `#sobre`. As tags de SEO/Open Graph
+(`<meta name="description">`, `og:title`, `og:image`, `og:url`,
+`rel="canonical"`) estão no `<head>` de `index.html` — atualize `og:url` e
+`canonical` para a URL final do seu site.
+
+### 4. Tema
+
+O site abre em **dark mode** por padrão. O botão no menu alterna para o modo
+claro e salva a preferência em `localStorage`. As cores ficam em variáveis
+CSS no início de [`css/style.css`](css/style.css) (`:root` e
+`:root[data-theme="light"]`).
+
+## Publicar no GitHub Pages
+
+1. Faça commit e push destes arquivos para o repositório
+   `SEU-USUARIO.github.io` (ou qualquer outro repositório, se preferir
+   publicar em um subcaminho).
+2. No GitHub, acesse **Settings → Pages**.
+3. Em **Build and deployment**, selecione **Source: Deploy from a branch**.
+4. Escolha a branch (`main` ou `master`) e a pasta `/ (root)`.
+5. Salve. Em alguns minutos o site estará disponível em:
+   - `https://SEU-USUARIO.github.io` (se o repositório se chamar
+     `SEU-USUARIO.github.io`), ou
+   - `https://SEU-USUARIO.github.io/NOME-DO-REPOSITORIO/` (para qualquer
+     outro nome de repositório).
+
+## Configurar um domínio próprio
+
+1. No seu provedor de DNS, crie os registros apontando para o GitHub Pages:
+   - Para um domínio raiz (`seudominio.com`): registros **A** apontando para
+     os IPs do GitHub Pages (`185.199.108.153`, `185.199.109.153`,
+     `185.199.110.153`, `185.199.111.153`).
+   - Para um subdomínio (`www.seudominio.com`): registro **CNAME** apontando
+     para `SEU-USUARIO.github.io`.
+2. No repositório, vá em **Settings → Pages → Custom domain**, informe o
+   domínio e salve. O GitHub cria automaticamente um arquivo `CNAME` na raiz
+   do repositório.
+3. Marque a opção **Enforce HTTPS** assim que o certificado estiver
+   disponível (pode levar alguns minutos após a configuração do DNS).
+4. Atualize as tags `og:url` e `canonical` em `index.html` para o novo
+   domínio.
