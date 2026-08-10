@@ -349,7 +349,24 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="js/site-config.js"></script>
+    <script>
+        (function loadScripts() {
+            const appScript = document.createElement("script");
+            appScript.src = "js/script.js";
+
+            const localConfigScript = document.createElement("script");
+            localConfigScript.src = "js/site-config.local.js";
+            localConfigScript.onload = function () {
+                document.body.appendChild(appScript);
+            };
+            localConfigScript.onerror = function () {
+                document.body.appendChild(appScript);
+            };
+
+            document.body.appendChild(localConfigScript);
+        })();
+    </script>
 </body>
 
 </html>

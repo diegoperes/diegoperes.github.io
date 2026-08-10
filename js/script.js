@@ -5,18 +5,14 @@
 document.documentElement.classList.add("js");
 
 const CONFIG = {
-  linkedin: "__USER_LINKEDIN__",
-  github: "__USER_GITHUB__",
+  linkedin: "",
+  github: "",
+  email: "",
+  ...(window.SITE_CONFIG ?? {}),
 };
 
-const EMAIL_ENCODED = "__EMAIL_ENCODED__";
-
 function decodeEmail() {
-  if (!Array.isArray(EMAIL_ENCODED)) {
-    return "";
-  }
-
-  return String.fromCharCode(...EMAIL_ENCODED);
+  return CONFIG.email.trim();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -42,7 +38,7 @@ function applyConfig() {
 }
 
 function applyLinkConfig(el, href) {
-  if (!href || href.startsWith("__")) {
+  if (!href) {
     el.hidden = true;
     return;
   }

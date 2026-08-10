@@ -26,36 +26,37 @@ nem processo de build.
 
 Tudo que precisa ser editado está marcado no código com `PERSONALIZAR`.
 
-### 1. Links (LinkedIn, GitHub)
+### 1. Links (LinkedIn, GitHub) e e-mail
 
-Edite **um único lugar**, no topo de [`js/script.js`](js/script.js):
+Os dados pessoais nao precisam ficar no codigo versionado. O site le os
+valores de [`js/site-config.js`](js/site-config.js), e o workflow
+[`deploy-pages.yml`](.github/workflows/deploy-pages.yml) gera esse arquivo
+durante o deploy no GitHub Pages.
+
+Crie estas variaveis em **Settings -> Secrets and variables -> Actions**:
+
+- `EMAIL`
+- `USER_GITHUB`
+- `USER_LINKEDIN`
+
+O workflow aceita tanto **Variables** quanto **Secrets** com esses nomes.
+
+Depois disso, o deploy gera este bloco automaticamente:
 
 ```js
-const CONFIG = {
-  linkedin: "https://www.linkedin.com/in/SEU-USUARIO",
-  github: "https://github.com/SEU-USUARIO",
+window.SITE_CONFIG = {
+  linkedin: "https://www.linkedin.com/in/SEU_USUARIO/",
+  github: "https://github.com/SEU_USUARIO",
+  email: "seuemail@dominio.com",
 };
 ```
 
-Esses valores preenchem automaticamente os botões e links do site (hero,
-contato e rodapé).
+Esses valores preenchem automaticamente os botoes e links do site.
 
-### 1.1 E-mail (protegido contra coleta automática)
-
-O e-mail **não** fica em texto puro no código — ele é armazenado como uma
-lista de códigos de caractere (`EMAIL_ENCODED`, logo abaixo do `CONFIG` em
-[`js/script.js`](js/script.js)) e só é decodificado no navegador quando o
-usuário clica em "Enviar e-mail" ou em "Clique para revelar" na seção de
-contato. Isso evita que bots que apenas leem o HTML/JS estático colham o
-endereço, sem depender de reCAPTCHA ou qualquer serviço externo.
-
-Para trocar o e-mail, gere um novo array no console do navegador (DevTools):
-
-```js
-[...'seuemail@dominio.com'].map(c => c.charCodeAt(0))
-```
-
-e substitua o valor de `EMAIL_ENCODED` pelo resultado.
+Para testar localmente sem commitar seus dados, copie
+[`js/site-config.local.example.js`](js/site-config.local.example.js) para
+`js/site-config.local.js` e preencha com seus valores. Esse arquivo esta no
+`.gitignore` e sobrescreve a configuracao publica apenas no seu ambiente.
 
 ### 2. Experiência profissional
 
