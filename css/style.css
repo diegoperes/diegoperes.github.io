@@ -730,6 +730,13 @@ body {
     display: none !important;
   }
 
+  /* LinkedIn/GitHub aparecem em três lugares na tela (hero, contato,
+     rodapé); no papel, só faz sentido manter uma vez, na seção contato. */
+  .hero__actions [data-config],
+  .footer__links [data-config] {
+    display: none !important;
+  }
+
   main {
     padding-top: 0 !important;
   }
