@@ -2,14 +2,20 @@
    Diego Peres — Portfólio pessoal
    ========================================================= */
 
+document.documentElement.classList.add("js");
+
 const CONFIG = {
   linkedin: "__USER_LINKEDIN__",
   github: "__USER_GITHUB__",
 };
 
-const EMAIL_ENCODED = __EMAIL_ENCODED__;
+const EMAIL_ENCODED = "__EMAIL_ENCODED__";
 
 function decodeEmail() {
+  if (!Array.isArray(EMAIL_ENCODED)) {
+    return "";
+  }
+
   return String.fromCharCode(...EMAIL_ENCODED);
 }
 
@@ -27,12 +33,21 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ---------- Aplica os links do CONFIG nos elementos ---------- */
 function applyConfig() {
   document.querySelectorAll('[data-config="linkedin"]').forEach((el) => {
-    el.href = CONFIG.linkedin;
+    applyLinkConfig(el, CONFIG.linkedin);
   });
 
   document.querySelectorAll('[data-config="github"]').forEach((el) => {
-    el.href = CONFIG.github;
+    applyLinkConfig(el, CONFIG.github);
   });
+}
+
+function applyLinkConfig(el, href) {
+  if (!href || href.startsWith("__")) {
+    el.hidden = true;
+    return;
+  }
+
+  el.href = href;
 }
 
 /* ---------- E-mail protegido: só decodifica após clique do usuário ---------- */
@@ -48,6 +63,10 @@ function initEmailProtection() {
 
       event.preventDefault();
       const email = decodeEmail();
+
+      if (!email) {
+        return;
+      }
 
       if (action === "show") {
         el.textContent = email;
