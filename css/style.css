@@ -12,7 +12,9 @@
    9. Contato
    10. Footer
    11. Animações / reveal
-   12. Responsivo
+   12. Easter eggs
+   13. Impressão
+   14. Responsivo
    ========================================================= */
 
 /* ---------- 1. Reset & base ---------- */
@@ -22,6 +24,12 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* Garante que o atributo hidden vença qualquer display de classe
+   (ex: .btn usa display: inline-flex, que por padrão sobrescreveria [hidden]). */
+[hidden] {
+  display: none !important;
 }
 
 html {
@@ -678,7 +686,101 @@ body {
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
 }
 
-/* ---------- 13. Responsivo ---------- */
+/* ---------- 13. Impressão ---------- */
+@media print {
+  /* Reaproveita as variáveis de tema: força uma paleta clara e sóbria
+     independente do dark/light mode ativo na tela. */
+  :root,
+  :root[data-theme="light"] {
+    --bg: #ffffff;
+    --bg-alt: #ffffff;
+    --surface: #ffffff;
+    --surface-border: #cccccc;
+    --text: #111111;
+    --text-muted: #333333;
+    --accent: #000000;
+    --accent-soft: transparent;
+    --accent-contrast: #ffffff;
+  }
+
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Garante que todo o conteúdo apareça, mesmo o que nunca entrou
+     na viewport (a animação de reveal depende de scroll). */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .header,
+  .skip-link,
+  .scroll-hint,
+  .hero__eyebrow,
+  .btn--ghost,
+  [data-email-trigger="send"],
+  .btn .icon,
+  .icon-brand,
+  .egg-toast,
+  .egg-matrix,
+  .egg-particle {
+    display: none !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+  }
+
+  .hero {
+    min-height: 0;
+    padding: 0 0 16px;
+    display: block;
+  }
+
+  .section {
+    padding: 16px 0;
+  }
+
+  @page {
+    margin: 1.5cm;
+  }
+
+  body {
+    font-size: 11pt;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  /* Como o clique não funciona no papel, imprime a URL ao lado do link */
+  a[data-config]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0;
+    margin: 0 20px 8px 0;
+    border: none !important;
+    background: none !important;
+    color: var(--text) !important;
+    font-weight: 600;
+  }
+
+  .stack-card,
+  .timeline__card {
+    break-inside: avoid;
+  }
+}
+
+/* ---------- 14. Responsivo ---------- */
 @media (max-width: 860px) {
   .nav__toggle {
     display: flex;

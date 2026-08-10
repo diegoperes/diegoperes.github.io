@@ -18,6 +18,7 @@ function decodeEmail() {
 document.addEventListener("DOMContentLoaded", () => {
   applyConfig();
   initEmailProtection();
+  initPrintEmailReveal();
   initTheme();
   initMobileMenu();
   initHeaderScroll();
@@ -72,6 +73,35 @@ function initEmailProtection() {
         window.location.href = `mailto:${email}`;
       }
     });
+  });
+}
+
+/* ---------- Revela o e-mail automaticamente ao imprimir ---------- */
+function initPrintEmailReveal() {
+  const trigger = document.querySelector('[data-email-trigger="show"]');
+  if (!trigger) return;
+
+  let autoRevealed = false;
+
+  window.addEventListener("beforeprint", () => {
+    if (trigger.classList.contains("is-revealed")) return;
+
+    const email = decodeEmail();
+    if (!email) return;
+
+    trigger.textContent = email;
+    trigger.href = `mailto:${email}`;
+    trigger.classList.add("is-revealed");
+    autoRevealed = true;
+  });
+
+  window.addEventListener("afterprint", () => {
+    if (!autoRevealed) return;
+
+    trigger.textContent = "Clique para revelar";
+    trigger.removeAttribute("href");
+    trigger.classList.remove("is-revealed");
+    autoRevealed = false;
   });
 }
 
