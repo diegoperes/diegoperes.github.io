@@ -5,31 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Diego Peres — Senior Backend Developer | C# / .NET</title>
+    <title>Diego Peres | Desenvolvedor Backend C# .NET em Curitiba</title>
     <meta name="description"
-        content="Diego Peres, desenvolvedor backend sênior especializado em C# e .NET. Experiência com microsserviços, alta complexidade, grandes volumes de dados e cloud.">
+        content="Diego Peres é desenvolvedor backend em Curitiba, Brasil, especializado em C# e .NET, com experiência em microsserviços, mensageria, cloud e sistemas de alta complexidade.">
+    <meta name="keywords"
+        content="Diego Peres, desenvolvedor backend, C#, .NET, ASP.NET Core, microsserviços, Curitiba, Brasil">
     <meta name="author" content="Diego Peres">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#0b0f14">
+    <meta name="googlebot" content="index, follow, max-image-preview:large">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Diego Peres — Senior Backend Developer | C# / .NET">
+    <meta property="og:title" content="Diego Peres | Desenvolvedor Backend C# .NET em Curitiba">
     <meta property="og:description"
-        content="Desenvolvedor backend especializado em C# e ecossistema .NET, com experiência em sistemas de alta complexidade, microsserviços e processamento de grandes volumes de dados.">
+        content="Portfólio de Diego Peres, desenvolvedor backend em Curitiba, Brasil, com experiência em C#, .NET, microsserviços, mensageria e cloud.">
     <meta property="og:image" content="assets/og-image.svg">
-    <!-- PERSONALIZAR: og:url deve apontar para o domínio final do site -->
-    <meta property="og:url" content="https://SEU-USUARIO.github.io/">
+    <meta property="og:url" content="https://www.diegoperes.com.br/">
+    <meta property="og:site_name" content="Diego Peres">
     <meta property="og:locale" content="pt_BR">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Diego Peres — Senior Backend Developer | C# / .NET">
-    <meta name="twitter:description" content="Desenvolvedor backend especializado em C# e ecossistema .NET.">
+    <meta name="twitter:title" content="Diego Peres | Desenvolvedor Backend C# .NET em Curitiba">
+    <meta name="twitter:description"
+        content="Portfólio de Diego Peres, desenvolvedor backend em Curitiba, Brasil, com experiência em C# e .NET.">
     <meta name="twitter:image" content="assets/og-image.svg">
 
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <link rel="canonical" href="https://SEU-USUARIO.github.io/"> <!-- PERSONALIZAR -->
+    <link rel="canonical" href="https://www.diegoperes.com.br/">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +44,52 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/site-config.js"></script>
     <script>
+        (function injectStructuredData() {
+            const sameAs = [
+                window.SITE_CONFIG?.linkedin?.trim(),
+                window.SITE_CONFIG?.github?.trim()
+            ].filter(Boolean);
+
+            const person = {
+                "@context": "https://schema.org",
+                "@type": "Person",
+                name: "Diego Peres",
+                url: "https://www.diegoperes.com.br/",
+                jobTitle: "Desenvolvedor Backend",
+                address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Curitiba",
+                    addressCountry: "BR"
+                },
+                knowsAbout: [
+                    "C#",
+                    ".NET",
+                    "ASP.NET Core",
+                    "Microsserviços",
+                    "RabbitMQ",
+                    "Azure Service Bus",
+                    "SQL Server",
+                    "MySQL",
+                    "Azure",
+                    "AWS",
+                    "Docker"
+                ]
+            };
+
+            if (sameAs.length > 0) {
+                person.sameAs = sameAs;
+            }
+
+            const structuredDataScript = document.createElement("script");
+            structuredDataScript.type = "application/ld+json";
+            structuredDataScript.text = JSON.stringify(person);
+            document.head.appendChild(structuredDataScript);
+        })();
+
+        (function addPageTitle() {
+            document.title = "Diego Peres | Desenvolvedor Backend C# .NET em Curitiba";
+        })();
+
         (function initGoogleAnalytics() {
             const measurementId = window.SITE_CONFIG?.analyticsMeasurementId?.trim();
             if (!measurementId) return;
@@ -107,9 +157,10 @@
                 <p class="hero__role reveal">Senior Backend Developer <span class="sep">|</span> C# <span
                         class="sep">|</span> .NET</p>
                 <p class="hero__text reveal">
-                    Sou de Curitiba, Brasil, e atuo como desenvolvedor backend especializado em C#
-                    e ecossistema .NET, com experiência no desenvolvimento de sistemas de alta
-                    complexidade, microsserviços e processamento de grandes volumes de dados.
+                    Sou Diego Peres, de Curitiba, Brasil, e atuo como desenvolvedor backend
+                    especializado em C# e ecossistema .NET, com experiência no desenvolvimento de
+                    sistemas de alta complexidade, microsserviços e processamento de grandes
+                    volumes de dados.
                 </p>
 
                 <div class="hero__actions reveal">
