@@ -72,6 +72,74 @@
     }, duration);
   }
 
+  /* ---------- Chuva de emojis cobrindo a tela (usado nos efeitos de empresa) ---------- */
+  function spawnEmojiRain(emojis, duration = 2800) {
+    const spawnInterval = 60;
+    const elapsedLimit = duration;
+    let elapsed = 0;
+
+    const spawnOne = () => {
+      const el = document.createElement("span");
+      el.className = "egg-particle";
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const x = Math.random() * window.innerWidth;
+      const fall = window.innerHeight + 120;
+      const drift = (Math.random() - 0.5) * 160;
+      const rotate = (Math.random() - 0.5) * 200;
+      const fallDuration = 1900 + Math.random() * 1400;
+
+      el.style.left = `${x}px`;
+      el.style.top = "-40px";
+      el.style.fontSize = `${1.6 + Math.random() * 1.4}rem`;
+      document.body.appendChild(el);
+
+      const animation = el.animate(
+        [
+          { transform: "translate(-50%, 0) rotate(0deg)", opacity: 0 },
+          { transform: "translate(-50%, 0) rotate(0deg)", opacity: 1, offset: 0.06 },
+          {
+            transform: `translate(calc(-50% + ${drift}px), ${fall}px) rotate(${rotate}deg)`,
+            opacity: 1,
+            offset: 0.88,
+          },
+          {
+            transform: `translate(calc(-50% + ${drift}px), ${fall}px) rotate(${rotate}deg)`,
+            opacity: 0,
+          },
+        ],
+        { duration: fallDuration, easing: "cubic-bezier(.4, 0, .7, 1)" }
+      );
+
+      animation.onfinish = () => el.remove();
+    };
+
+    const timer = setInterval(() => {
+      spawnOne();
+      elapsed += spawnInterval;
+      if (elapsed >= elapsedLimit) clearInterval(timer);
+    }, spawnInterval);
+  }
+
+  /* ---------- 6. Duplo clique nas empresas da timeline ---------- */
+  function initCompanyEffects() {
+    const effects = {
+      beer: { emojis: ["🍺", "🍻", "🫧"], message: "🍺 Ambev, é claro." },
+      money: { emojis: ["💵", "💰", "🤑"], message: "💰 BTG Pactual, o dinheiro fala." },
+      stock: { emojis: ["📦", "🧾", "📊", "🧮"], message: "📦 ao3 — 11 anos de financeiro, comercial e estoque." },
+    };
+
+    document.querySelectorAll("[data-egg]").forEach((el) => {
+      const effect = effects[el.dataset.egg];
+      if (!effect) return;
+
+      el.addEventListener("dblclick", () => {
+        spawnEmojiRain(effect.emojis);
+        toast(effect.message);
+      });
+    });
+  }
+
   /* ---------- 1. Mensagem no console ---------- */
   function initConsoleMessage() {
     const title = "color:#5eead4; font-family:monospace; font-size:13px; font-weight:bold;";
@@ -168,5 +236,6 @@
     initSecretWords();
     initLogoClicks();
     initTabTitleSwap();
+    initCompanyEffects();
   });
 })();

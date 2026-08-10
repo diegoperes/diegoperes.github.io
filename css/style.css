@@ -669,6 +669,15 @@ body {
   opacity: 0;
 }
 
+.egg-particle {
+  position: fixed;
+  z-index: 2000;
+  line-height: 1;
+  pointer-events: none;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
+}
+
 /* ---------- 13. Responsivo ---------- */
 @media (max-width: 860px) {
   .nav__toggle {
