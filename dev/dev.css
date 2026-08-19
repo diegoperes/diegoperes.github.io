@@ -252,6 +252,46 @@ input.tool-input {
   display: none;
 }
 
+.timer-display {
+  font-family: var(--font-mono);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.pomodoro-status {
+  text-align: center;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.simbolos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 6px;
+}
+
+.simbolo-item {
+  font-size: 1.3rem;
+  padding: 10px 0;
+  text-align: center;
+  border: 1px solid var(--surface-border);
+  border-radius: 6px;
+  background: var(--bg);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.simbolo-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
 @media (max-width: 860px) {
   .dev-layout {
     grid-template-columns: 1fr;

@@ -43,6 +43,31 @@ document.addEventListener("DOMContentLoaded", () => {
   initPerfilCard(document.querySelector('[data-tool="perfil"]'));
   initEmpresaCard(document.querySelector('[data-tool="empresa"]'));
   initSorteioCard(document.querySelector('[data-tool="sorteio"]'));
+
+  initQrWifiCard(document.querySelector('[data-tool="qr-wifi"]'));
+  initQrPixCard(document.querySelector('[data-tool="qr-pix"]'));
+  initBarcodeCard(document.querySelector('[data-tool="codigo-barras"]'));
+  initBinarioCard(document.querySelector('[data-tool="binario-texto"]'));
+  initMorseCard(document.querySelector('[data-tool="morse"]'));
+  initSimbolosCard(document.querySelector('[data-tool="simbolos"]'));
+  initWhatsappCard(document.querySelector('[data-tool="whatsapp-link"]'));
+  initFlipCard(document.querySelector('[data-tool="texto-invertido"]'));
+  initStackCard(document.querySelector('[data-tool="letras-empilhadas"]'));
+  initPrefixoSufixoCard(document.querySelector('[data-tool="prefixo-sufixo"]'));
+  initCompareCard(document.querySelector('[data-tool="comparar-textos"]'));
+  initUnidadesCard(document.querySelector('[data-tool="unidades"]'));
+  initFracaoCard(document.querySelector('[data-tool="fracao"]'));
+  initFeriadosCard(document.querySelector('[data-tool="feriados"]'));
+  initDiasUteisCard(document.querySelector('[data-tool="dias-uteis"]'));
+  initCalcularIdadeCard(document.querySelector('[data-tool="calcular-idade"]'));
+  initSignoCard(document.querySelector('[data-tool="signo"]'));
+  initFaseLuaCard(document.querySelector('[data-tool="fase-lua"]'));
+  initCronometroCard(document.querySelector('[data-tool="cronometro"]'));
+  initPomodoroCard(document.querySelector('[data-tool="pomodoro"]'));
+  initPoupancaCard(document.querySelector('[data-tool="poupanca"]'));
+  initFinanciamentoCard(document.querySelector('[data-tool="financiamento"]'));
+  initMoedaCard(document.querySelector('[data-tool="moeda"]'));
+  initSalarioMinimoCard(document.querySelector('[data-tool="salario-minimo"]'));
 });
 
 /* ---------- Filtro de busca da sidebar ---------- */
@@ -172,6 +197,8 @@ function initToolCard(card) {
     renavam: () => generateRENAVAM(),
     titulo: () => generateTitulo(parseInt(card.querySelector(".titulo-uf").value, 10) || null),
     cartao: () => generateCreditCard(card.querySelector(".cartao-bandeira").value),
+    cep: () => generateCEP(),
+    "conta-bancaria": () => generateContaBancaria(),
   };
 
   const generate = generators[tool];
@@ -1282,7 +1309,6 @@ function initQrCard(card) {
   if (!card) return;
   const input = card.querySelector(".qr-input");
   const canvas = card.querySelector(".qr-canvas");
-  const ctx = canvas.getContext("2d");
   let hasRendered = false;
 
   function render() {
@@ -1291,26 +1317,11 @@ function initQrCard(card) {
       showToast("Digite um texto primeiro.");
       return false;
     }
-    let matrix;
     try {
-      matrix = generateQR(text);
+      renderQrToCanvas(canvas, text);
     } catch (err) {
       showToast(err.message);
       return false;
-    }
-    const n = matrix.length;
-    const scale = Math.max(6, Math.floor(440 / n));
-    const quiet = 4;
-    const size = (n + quiet * 2) * scale;
-    canvas.width = size;
-    canvas.height = size;
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, size, size);
-    ctx.fillStyle = "#000000";
-    for (let r = 0; r < n; r++) {
-      for (let c = 0; c < n; c++) {
-        if (matrix[r][c]) ctx.fillRect((c + quiet) * scale, (r + quiet) * scale, scale, scale);
-      }
     }
     hasRendered = true;
     return true;
@@ -1320,10 +1331,7 @@ function initQrCard(card) {
 
   card.querySelector(".qr-download").addEventListener("click", () => {
     if (!hasRendered && !render()) return;
-    const link = document.createElement("a");
-    link.download = "qrcode.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+    downloadCanvas(canvas, "qrcode.png");
   });
 }
 
@@ -1986,6 +1994,973 @@ function initSorteioCard(card) {
       resultado.sort((a, b) => a - b);
     }
     output.value = resultado.join(", ");
+  });
+}
+
+/* ---------- CEP e Conta Bancária (fictícios) ---------- */
+function generateCEP() {
+  const digits = randomDigits(8).join("");
+  return `${digits.slice(0, 5)}-${digits.slice(5)}`;
+}
+
+function generateContaBancaria() {
+  const bancos = [
+    { codigo: "001", nome: "Banco do Brasil" },
+    { codigo: "104", nome: "Caixa Econômica" },
+    { codigo: "237", nome: "Bradesco" },
+    { codigo: "341", nome: "Itaú" },
+    { codigo: "033", nome: "Santander" },
+    { codigo: "260", nome: "Nubank" },
+  ];
+  const banco = bancos[Math.floor(Math.random() * bancos.length)];
+  const agencia = randomDigits(4).join("");
+  const contaBase = randomDigits(7);
+  const pesos = [2, 3, 4, 5, 6, 7, 8];
+  const soma = contaBase.reduce((acc, d, i) => acc + d * pesos[i], 0);
+  const dv = soma % 11;
+  return `${banco.codigo} (${banco.nome}) | Ag: ${agencia} | Conta: ${contaBase.join("")}-${dv}`;
+}
+
+/* ---------- QR Code: helper compartilhado de renderização/download ---------- */
+function renderQrToCanvas(canvas, text) {
+  const ctx = canvas.getContext("2d");
+  const matrix = generateQR(text);
+  const n = matrix.length;
+  const scale = Math.max(6, Math.floor(440 / n));
+  const quiet = 4;
+  const size = (n + quiet * 2) * scale;
+  canvas.width = size;
+  canvas.height = size;
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = "#000000";
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (matrix[r][c]) ctx.fillRect((c + quiet) * scale, (r + quiet) * scale, scale, scale);
+    }
+  }
+}
+
+function downloadCanvas(canvas, filename) {
+  const link = document.createElement("a");
+  link.download = filename;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
+/* ---------- QR Wi-Fi ---------- */
+function wifiEscape(text) {
+  return text.replace(/([\\;,":])/g, "\\$1");
+}
+
+function buildWifiPayload(ssid, password, security) {
+  if (security === "nopass") return `WIFI:T:nopass;S:${wifiEscape(ssid)};H:false;;`;
+  return `WIFI:T:${security};S:${wifiEscape(ssid)};P:${wifiEscape(password)};H:false;;`;
+}
+
+function initQrWifiCard(card) {
+  if (!card) return;
+  const ssid = card.querySelector(".wifi-ssid");
+  const senha = card.querySelector(".wifi-senha");
+  const seguranca = card.querySelector(".wifi-seguranca");
+  const canvas = card.querySelector(".qr-canvas");
+  let hasRendered = false;
+
+  function render() {
+    if (!ssid.value.trim()) {
+      showToast("Digite o nome da rede.");
+      return false;
+    }
+    renderQrToCanvas(canvas, buildWifiPayload(ssid.value.trim(), senha.value, seguranca.value));
+    hasRendered = true;
+    return true;
+  }
+
+  card.querySelector(".wifi-generate").addEventListener("click", render);
+  card.querySelector(".wifi-download").addEventListener("click", () => {
+    if (!hasRendered && !render()) return;
+    downloadCanvas(canvas, "qrcode-wifi.png");
+  });
+}
+
+/* ---------- QR Pix (BR Code / EMV) ---------- */
+function crc16ccitt(text) {
+  let crc = 0xffff;
+  for (let i = 0; i < text.length; i++) {
+    crc ^= text.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) {
+      crc = crc & 0x8000 ? (crc << 1) ^ 0x1021 : crc << 1;
+      crc &= 0xffff;
+    }
+  }
+  return crc.toString(16).toUpperCase().padStart(4, "0");
+}
+
+function emvField(id, value) {
+  const len = String(value.length).padStart(2, "0");
+  return `${id}${len}${value}`;
+}
+
+function buildPixPayload({ chave, nome, cidade, valor, txid }) {
+  const merchantAccount = emvField("00", "br.gov.bcb.pix") + emvField("01", chave);
+  let payload =
+    emvField("00", "01") +
+    emvField("26", merchantAccount) +
+    emvField("52", "0000") +
+    emvField("53", "986") +
+    (valor ? emvField("54", Number(valor).toFixed(2)) : "") +
+    emvField("58", "BR") +
+    emvField("59", (nome || "RECEBEDOR").slice(0, 25).toUpperCase()) +
+    emvField("60", (cidade || "CIDADE").slice(0, 15).toUpperCase()) +
+    emvField("62", emvField("05", txid || "***"));
+  payload += "6304";
+  return payload + crc16ccitt(payload);
+}
+
+function initQrPixCard(card) {
+  if (!card) return;
+  const chave = card.querySelector(".pix-chave");
+  const valor = card.querySelector(".pix-valor");
+  const nome = card.querySelector(".pix-nome");
+  const cidade = card.querySelector(".pix-cidade");
+  const canvas = card.querySelector(".qr-canvas");
+  let hasRendered = false;
+
+  function render() {
+    if (!chave.value.trim()) {
+      showToast("Digite a chave Pix.");
+      return false;
+    }
+    const payload = buildPixPayload({
+      chave: chave.value.trim(),
+      nome: nome.value.trim(),
+      cidade: cidade.value.trim(),
+      valor: valor.value,
+    });
+    renderQrToCanvas(canvas, payload);
+    hasRendered = true;
+    return true;
+  }
+
+  card.querySelector(".pix-generate").addEventListener("click", render);
+  card.querySelector(".pix-download").addEventListener("click", () => {
+    if (!hasRendered && !render()) return;
+    downloadCanvas(canvas, "qrcode-pix.png");
+  });
+}
+
+/* ---------- Código de Barras (Code 128, conjunto B) ---------- */
+const CODE128B_CHARS = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+const CODE128_PATTERNS = [
+  "11011001100", "11001101100", "11001100110", "10010011000", "10010001100", "10001001100", "10011001000", "10011000100", "10001100100", "11001001000",
+  "11001000100", "11000100100", "10110011100", "10011011100", "10011001110", "10111001100", "10011101100", "10011100110", "11001110010", "11001011100",
+  "11001001110", "11011100100", "11001110100", "11101101110", "11101001100", "11100101100", "11100100110", "11101100100", "11100110100", "11100110010",
+  "11011011000", "11011000110", "11000110110", "10100011000", "10001011000", "10001000110", "10110001000", "10001101000", "10001100010", "11010001000",
+  "11000101000", "11000100010", "10110111000", "10110001110", "10001101110", "10111011000", "10111000110", "10001110110", "11101110110", "11010001110",
+  "11000101110", "11011101000", "11011100010", "11011101110", "11101011000", "11101000110", "11100010110", "11101101000", "11101100010", "11100011010",
+  "11101111010", "11001000010", "11110001010", "10100110000", "10100001100", "10010110000", "10010000110", "10000101100", "10000100110", "10110010000",
+  "10110000100", "10011010000", "10011000010", "10000110100", "10000110010", "11000010010", "11001010000", "11110111010", "11000010100", "10001111010",
+  "10100111100", "10010111100", "10010011110", "10111100100", "10011110100", "10011110010", "11110100100", "11110010100", "11110010010", "11011011110",
+  "11011110110", "11110110110", "10101111000", "10100011110", "10001011110", "10111101000", "10111100010", "11110101000", "11110100010", "10111011110",
+  "10111101110", "11101011110", "11110101110", "11010000100", "11010010000", "11010011100", "1100011101011",
+];
+
+function code128bEncode(text) {
+  const values = [104];
+  for (const ch of text) {
+    const idx = CODE128B_CHARS.indexOf(ch);
+    if (idx === -1) throw new Error(`Caractere não suportado: "${ch}"`);
+    values.push(idx);
+  }
+  let checksum = values[0];
+  for (let i = 1; i < values.length; i++) checksum += values[i] * i;
+  values.push(checksum % 103);
+  values.push(106);
+  return values.map((v) => CODE128_PATTERNS[v]).join("");
+}
+
+function initBarcodeCard(card) {
+  if (!card) return;
+  const input = card.querySelector(".barcode-input");
+  const canvas = card.querySelector(".barcode-canvas");
+  const ctx = canvas.getContext("2d");
+  let hasRendered = false;
+
+  function render() {
+    const text = input.value.trim();
+    if (!text) {
+      showToast("Digite um texto primeiro.");
+      return false;
+    }
+    let pattern;
+    try {
+      pattern = code128bEncode(text);
+    } catch (err) {
+      showToast(err.message);
+      return false;
+    }
+    const scale = 3;
+    const quiet = 20;
+    const height = 120;
+    const width = pattern.length * scale + quiet * 2;
+    canvas.width = width;
+    canvas.height = height;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = "#000000";
+    let x = quiet;
+    for (const bit of pattern) {
+      if (bit === "1") ctx.fillRect(x, 10, scale, height - 30);
+      x += scale;
+    }
+    ctx.font = "14px monospace";
+    ctx.textAlign = "center";
+    ctx.fillText(text, width / 2, height - 8);
+    hasRendered = true;
+    return true;
+  }
+
+  card.querySelector(".barcode-generate").addEventListener("click", render);
+  card.querySelector(".barcode-download").addEventListener("click", () => {
+    if (!hasRendered && !render()) return;
+    downloadCanvas(canvas, "barcode.png");
+  });
+}
+
+/* ---------- Texto em Binário ---------- */
+function textToBinary(text) {
+  const bytes = new TextEncoder().encode(text);
+  return Array.from(bytes, (b) => b.toString(2).padStart(8, "0")).join(" ");
+}
+
+function binaryToText(binary) {
+  const bytes = binary.trim().split(/\s+/).map((b) => parseInt(b, 2));
+  if (bytes.some(Number.isNaN)) throw new Error("Binário inválido");
+  return new TextDecoder().decode(Uint8Array.from(bytes));
+}
+
+function initBinarioCard(card) {
+  if (!card) return;
+  const input = card.querySelector(".tool-input");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".bin-encode").addEventListener("click", () => {
+    output.value = textToBinary(input.value);
+  });
+
+  card.querySelector(".bin-decode").addEventListener("click", () => {
+    try {
+      output.value = binaryToText(input.value);
+    } catch (err) {
+      output.value = err.message;
+    }
+  });
+}
+
+/* ---------- Código Morse ---------- */
+const MORSE_MAP = {
+  A: ".-", B: "-...", C: "-.-.", D: "-..", E: ".", F: "..-.", G: "--.", H: "....", I: "..", J: ".---",
+  K: "-.-", L: ".-..", M: "--", N: "-.", O: "---", P: ".--.", Q: "--.-", R: ".-.", S: "...", T: "-",
+  U: "..-", V: "...-", W: ".--", X: "-..-", Y: "-.--", Z: "--..",
+  0: "-----", 1: ".----", 2: "..---", 3: "...--", 4: "....-", 5: ".....", 6: "-....", 7: "--...", 8: "---..", 9: "----.",
+  ".": ".-.-.-", ",": "--..--", "?": "..--..", "'": ".----.", "!": "-.-.--", "/": "-..-.", "(": "-.--.", ")": "-.--.-",
+  "&": ".-...", ":": "---...", ";": "-.-.-.", "=": "-...-", "+": ".-.-.", "-": "-....-", _: "..--.-", '"': ".-..-.",
+  $: "...-..-", "@": ".--.-.",
+};
+const MORSE_MAP_REVERSE = Object.fromEntries(Object.entries(MORSE_MAP).map(([k, v]) => [v, k]));
+
+function textToMorse(text) {
+  return text.toUpperCase().split(" ").map((word) =>
+    Array.from(word).map((ch) => MORSE_MAP[ch] ?? "").filter(Boolean).join(" ")
+  ).join(" / ");
+}
+
+function morseToText(morse) {
+  return morse.trim().split(" / ").map((word) =>
+    word.trim().split(/\s+/).map((code) => MORSE_MAP_REVERSE[code] ?? "").join("")
+  ).join(" ");
+}
+
+function initMorseCard(card) {
+  if (!card) return;
+  const input = card.querySelector(".tool-input");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".morse-encode").addEventListener("click", () => {
+    output.value = textToMorse(input.value);
+  });
+
+  card.querySelector(".morse-decode").addEventListener("click", () => {
+    output.value = morseToText(input.value);
+  });
+}
+
+/* ---------- Símbolos e Emojis ---------- */
+const SIMBOLOS_LISTA = [
+  "😀", "😂", "😍", "🤔", "😎", "😢", "😡", "👍", "👎", "🙏",
+  "🔥", "✨", "🎉", "❤️", "💡", "⭐", "✅", "❌", "⚠️", "📌",
+  "→", "←", "↑", "↓", "•", "★", "☆", "©", "®", "™",
+  "§", "¶", "±", "≈", "≠", "≤", "≥", "∞", "√", "π",
+  "€", "£", "¥", "¢", "°", "…", "–", "—", "«", "»",
+];
+
+function initSimbolosCard(card) {
+  if (!card) return;
+  const grid = card.querySelector(".simbolos-grid");
+  SIMBOLOS_LISTA.forEach((simbolo) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "simbolo-item";
+    btn.textContent = simbolo;
+    btn.addEventListener("click", () => {
+      copyToClipboard(simbolo);
+      showToast("Copiado!");
+    });
+    grid.appendChild(btn);
+  });
+}
+
+/* ---------- Link do WhatsApp ---------- */
+function initWhatsappCard(card) {
+  if (!card) return;
+  const telefone = card.querySelector(".wa-telefone");
+  const mensagem = card.querySelector(".wa-mensagem");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".wa-generate").addEventListener("click", () => {
+    const numero = telefone.value.replace(/\D/g, "");
+    if (!numero) {
+      output.value = "Digite um telefone válido (com DDI e DDD).";
+      return;
+    }
+    const texto = mensagem.value ? `?text=${encodeURIComponent(mensagem.value)}` : "";
+    output.value = `https://wa.me/${numero}${texto}`;
+  });
+}
+
+/* ---------- Texto de Cabeça pra Baixo ---------- */
+const FLIP_MAP = {
+  a: "ɐ", b: "q", c: "ɔ", d: "p", e: "ǝ", f: "ɟ", g: "ƃ", h: "ɥ", i: "ᴉ", j: "ɾ", k: "ʞ", l: "l", m: "ɯ",
+  n: "u", o: "o", p: "d", q: "b", r: "ɹ", s: "s", t: "ʇ", u: "n", v: "ʌ", w: "ʍ", x: "x", y: "ʎ", z: "z",
+  A: "Ɐ", B: "𐐒", C: "Ɔ", D: "D", E: "Ǝ", F: "Ⅎ", G: "⅁", H: "H", I: "I", J: "ſ", K: "ʞ", L: "˥", M: "W",
+  N: "N", O: "O", P: "Ԁ", Q: "Ό", R: "ᴚ", S: "S", T: "⊥", U: "∩", V: "Λ", W: "M", X: "X", Y: "⅄", Z: "Z",
+  0: "0", 1: "Ɩ", 2: "ᄅ", 3: "Ɛ", 4: "ㄣ", 5: "ϛ", 6: "9", 7: "ㄥ", 8: "8", 9: "6",
+  ".": "˙", ",": "'", "'": ",", '"': ",,", "?": "¿", "!": "¡", "(": ")", ")": "(",
+  "[": "]", "]": "[", "{": "}", "}": "{", "<": ">", ">": "<", "&": "⅋", _: "‾", ";": "؛",
+};
+
+function upsideDown(text) {
+  return Array.from(text).reverse().map((ch) => FLIP_MAP[ch] ?? ch).join("");
+}
+
+function initFlipCard(card) {
+  if (!card) return;
+  const input = card.querySelector(".tool-input");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".flip-generate").addEventListener("click", () => {
+    output.value = upsideDown(input.value);
+  });
+}
+
+/* ---------- Letras Empilhadas ---------- */
+function initStackCard(card) {
+  if (!card) return;
+  const input = card.querySelector(".tool-input");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".stack-generate").addEventListener("click", () => {
+    output.value = Array.from(input.value).join("\n");
+  });
+}
+
+/* ---------- Prefixo e Sufixo ---------- */
+function initPrefixoSufixoCard(card) {
+  if (!card) return;
+  const input = card.querySelector(".tool-input");
+  const prefixo = card.querySelector(".ps-prefixo");
+  const sufixo = card.querySelector(".ps-sufixo");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".ps-generate").addEventListener("click", () => {
+    const lines = input.value.split("\n");
+    output.value = lines.map((line) => `${prefixo.value}${line}${sufixo.value}`).join("\n");
+  });
+}
+
+/* ---------- Comparar Textos (diff por linha, LCS) ---------- */
+function lineDiff(textA, textB) {
+  const linesA = textA.split("\n");
+  const linesB = textB.split("\n");
+  const n = linesA.length;
+  const m = linesB.length;
+  const dp = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
+
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = m - 1; j >= 0; j--) {
+      dp[i][j] = linesA[i] === linesB[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+    }
+  }
+
+  const result = [];
+  let i = 0;
+  let j = 0;
+  while (i < n && j < m) {
+    if (linesA[i] === linesB[j]) {
+      result.push(`  ${linesA[i]}`);
+      i++;
+      j++;
+    } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+      result.push(`- ${linesA[i]}`);
+      i++;
+    } else {
+      result.push(`+ ${linesB[j]}`);
+      j++;
+    }
+  }
+  while (i < n) {
+    result.push(`- ${linesA[i]}`);
+    i++;
+  }
+  while (j < m) {
+    result.push(`+ ${linesB[j]}`);
+    j++;
+  }
+  return result.join("\n");
+}
+
+function initCompareCard(card) {
+  if (!card) return;
+  const a = card.querySelector(".compare-a");
+  const b = card.querySelector(".compare-b");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".compare-generate").addEventListener("click", () => {
+    output.value = lineDiff(a.value, b.value);
+  });
+}
+
+/* ---------- Conversor de Unidades ---------- */
+const UNIT_CATEGORIES = {
+  comprimento: { label: "Comprimento", units: { mm: "mm", cm: "cm", m: "m", km: "km", pol: "pol", pe: "pé", milha: "milha" }, factors: { mm: 0.001, cm: 0.01, m: 1, km: 1000, pol: 0.0254, pe: 0.3048, milha: 1609.344 } },
+  peso: { label: "Peso", units: { mg: "mg", g: "g", kg: "kg", ton: "tonelada", lb: "libra", oz: "onça" }, factors: { mg: 0.000001, g: 0.001, kg: 1, ton: 1000, lb: 0.45359237, oz: 0.0283495 } },
+  volume: { label: "Volume", units: { ml: "ml", l: "litro", m3: "m³", galao: "galão (US)" }, factors: { ml: 0.001, l: 1, m3: 1000, galao: 3.785411784 } },
+  temperatura: { label: "Temperatura", units: { c: "Celsius", f: "Fahrenheit", k: "Kelvin" } },
+};
+
+function convertTemperature(value, from, to) {
+  let celsius;
+  if (from === "c") celsius = value;
+  else if (from === "f") celsius = ((value - 32) * 5) / 9;
+  else celsius = value - 273.15;
+
+  if (to === "c") return celsius;
+  if (to === "f") return (celsius * 9) / 5 + 32;
+  return celsius + 273.15;
+}
+
+function convertUnit(category, value, from, to) {
+  if (category === "temperatura") return convertTemperature(value, from, to);
+  const { factors } = UNIT_CATEGORIES[category];
+  return (value * factors[from]) / factors[to];
+}
+
+function populateUnitSelects(card) {
+  const categoria = card.querySelector(".unidade-categoria").value;
+  const de = card.querySelector(".unidade-de");
+  const para = card.querySelector(".unidade-para");
+  const { units } = UNIT_CATEGORIES[categoria];
+  const options = Object.entries(units).map(([value, label]) => `<option value="${value}">${label}</option>`).join("");
+  de.innerHTML = options;
+  para.innerHTML = options;
+  if (para.options.length > 1) para.selectedIndex = 1;
+}
+
+function initUnidadesCard(card) {
+  if (!card) return;
+  const categoria = card.querySelector(".unidade-categoria");
+  const valor = card.querySelector(".unidade-valor");
+  const de = card.querySelector(".unidade-de");
+  const para = card.querySelector(".unidade-para");
+  const output = card.querySelector(".tool-output");
+
+  populateUnitSelects(card);
+  categoria.addEventListener("change", () => populateUnitSelects(card));
+
+  card.querySelector(".unidade-converter").addEventListener("click", () => {
+    const value = parseFloat(valor.value);
+    if (Number.isNaN(value)) {
+      output.value = "Digite um valor válido.";
+      return;
+    }
+    const result = convertUnit(categoria.value, value, de.value, para.value);
+    output.value = `${value} ${de.value} = ${result.toLocaleString("pt-BR", { maximumFractionDigits: 6 })} ${para.value}`;
+  });
+}
+
+/* ---------- Calculadora de Fração ---------- */
+function fractionGcd(a, b) {
+  return b === 0 ? a : fractionGcd(b, a % b);
+}
+
+function simplifyFraction(num, den) {
+  if (den < 0) {
+    num = -num;
+    den = -den;
+  }
+  const g = fractionGcd(Math.abs(num), Math.abs(den)) || 1;
+  return [num / g, den / g];
+}
+
+function fractionOperation(a, b, c, d, op) {
+  let num;
+  let den;
+  if (op === "+") { num = a * d + c * b; den = b * d; }
+  else if (op === "-") { num = a * d - c * b; den = b * d; }
+  else if (op === "*") { num = a * c; den = b * d; }
+  else { num = a * d; den = b * c; }
+  return simplifyFraction(num, den);
+}
+
+function initFracaoCard(card) {
+  if (!card) return;
+  const aNum = card.querySelector(".frac-a-num");
+  const aDen = card.querySelector(".frac-a-den");
+  const op = card.querySelector(".frac-op");
+  const bNum = card.querySelector(".frac-b-num");
+  const bDen = card.querySelector(".frac-b-den");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".frac-calcular").addEventListener("click", () => {
+    const a = parseInt(aNum.value, 10);
+    const b = parseInt(aDen.value, 10);
+    const c = parseInt(bNum.value, 10);
+    const d = parseInt(bDen.value, 10);
+    if ([a, b, c, d].some(Number.isNaN) || b === 0 || d === 0) {
+      output.value = "Preencha todos os campos (denominadores não podem ser 0).";
+      return;
+    }
+    const [num, den] = fractionOperation(a, b, c, d, op.value);
+    output.value = `${num}/${den}${den !== 0 ? ` (≈ ${(num / den).toLocaleString("pt-BR", { maximumFractionDigits: 4 })})` : ""}`;
+  });
+}
+
+/* ---------- Feriados Nacionais (fixos + Páscoa via Computus) ---------- */
+function easterDate(year) {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(year, month - 1, day);
+}
+
+function addDaysToDate(date, days) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+function nationalHolidays(year) {
+  const easter = easterDate(year);
+  const fixos = [
+    [0, 1, "Confraternização Universal"],
+    [3, 21, "Tiradentes"],
+    [4, 1, "Dia do Trabalho"],
+    [8, 7, "Independência do Brasil"],
+    [9, 12, "Nossa Senhora Aparecida"],
+    [10, 2, "Finados"],
+    [10, 15, "Proclamação da República"],
+    [11, 25, "Natal"],
+  ].map(([month, day, nome]) => ({ date: new Date(year, month, day), nome }));
+
+  const moveis = [
+    { date: addDaysToDate(easter, -47), nome: "Carnaval" },
+    { date: addDaysToDate(easter, -2), nome: "Sexta-feira Santa" },
+    { date: easter, nome: "Páscoa" },
+    { date: addDaysToDate(easter, 60), nome: "Corpus Christi" },
+  ];
+
+  return [...fixos, ...moveis].sort((x, y) => x.date - y.date);
+}
+
+function initFeriadosCard(card) {
+  if (!card) return;
+  const ano = card.querySelector(".feriados-ano");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".feriados-listar").addEventListener("click", () => {
+    const year = parseInt(ano.value, 10) || new Date().getFullYear();
+    const holidays = nationalHolidays(year);
+    output.value = holidays.map((h) => `${h.date.toLocaleDateString("pt-BR")} — ${h.nome}`).join("\n");
+  });
+}
+
+/* ---------- Dias Úteis ---------- */
+function initDiasUteisCard(card) {
+  if (!card) return;
+  const inicio = card.querySelector(".du-inicio");
+  const fim = card.querySelector(".du-fim");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".du-calcular").addEventListener("click", () => {
+    if (!inicio.value || !fim.value) {
+      output.value = "Preencha as duas datas.";
+      return;
+    }
+    let d1 = new Date(`${inicio.value}T00:00:00`);
+    const d2 = new Date(`${fim.value}T00:00:00`);
+    if (d1 > d2) [d1, d2] = [d2, d1];
+
+    let count = 0;
+    const current = new Date(d1);
+    while (current <= d2) {
+      const day = current.getDay();
+      if (day !== 0 && day !== 6) count++;
+      current.setDate(current.getDate() + 1);
+    }
+    output.value = `${count} dia(s) útil(eis) (feriados não descontados)`;
+  });
+}
+
+/* ---------- Calcular Idade ---------- */
+function initCalcularIdadeCard(card) {
+  if (!card) return;
+  const nascimento = card.querySelector(".idade-nascimento");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".idade-calcular").addEventListener("click", () => {
+    if (!nascimento.value) {
+      output.value = "Selecione uma data de nascimento.";
+      return;
+    }
+    const nasc = new Date(`${nascimento.value}T00:00:00`);
+    const hoje = new Date();
+    if (nasc > hoje) {
+      output.value = "Data no futuro.";
+      return;
+    }
+    let anos = hoje.getFullYear() - nasc.getFullYear();
+    let meses = hoje.getMonth() - nasc.getMonth();
+    let dias = hoje.getDate() - nasc.getDate();
+    if (dias < 0) {
+      meses--;
+      dias += new Date(hoje.getFullYear(), hoje.getMonth(), 0).getDate();
+    }
+    if (meses < 0) {
+      anos--;
+      meses += 12;
+    }
+    const totalDias = Math.floor((hoje - nasc) / 86400000);
+    output.value = `${anos} anos, ${meses} meses e ${dias} dias (${totalDias.toLocaleString("pt-BR")} dias no total)`;
+  });
+}
+
+/* ---------- Signo do Zodíaco ---------- */
+const ZODIAC_SIGNS = [
+  [20, "Capricórnio"], [19, "Aquário"], [20, "Peixes"], [20, "Áries"], [21, "Touro"], [21, "Gêmeos"],
+  [22, "Câncer"], [22, "Leão"], [23, "Virgem"], [23, "Libra"], [22, "Escorpião"], [21, "Sagitário"], [20, "Capricórnio"],
+];
+
+function zodiacSign(month, day) {
+  return day < ZODIAC_SIGNS[month - 1][0] ? ZODIAC_SIGNS[month - 1][1] : ZODIAC_SIGNS[month][1];
+}
+
+function initSignoCard(card) {
+  if (!card) return;
+  const data = card.querySelector(".signo-data");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".signo-calcular").addEventListener("click", () => {
+    if (!data.value) {
+      output.value = "Selecione uma data de nascimento.";
+      return;
+    }
+    const [, month, day] = data.value.split("-").map(Number);
+    output.value = zodiacSign(month, day);
+  });
+}
+
+/* ---------- Fase da Lua ---------- */
+const SYNODIC_MONTH = 29.530588853;
+const KNOWN_NEW_MOON = Date.UTC(2000, 0, 6, 18, 14);
+
+function moonPhaseAge(date) {
+  const diffDays = (date.getTime() - KNOWN_NEW_MOON) / 86400000;
+  return ((diffDays % SYNODIC_MONTH) + SYNODIC_MONTH) % SYNODIC_MONTH;
+}
+
+function moonPhaseName(age) {
+  const p = age / SYNODIC_MONTH;
+  if (p < 0.03 || p > 0.97) return "Lua Nova";
+  if (p < 0.22) return "Lua Crescente";
+  if (p < 0.28) return "Quarto Crescente";
+  if (p < 0.47) return "Lua Crescente Gibosa";
+  if (p < 0.53) return "Lua Cheia";
+  if (p < 0.72) return "Lua Minguante Gibosa";
+  if (p < 0.78) return "Quarto Minguante";
+  return "Lua Minguante";
+}
+
+function initFaseLuaCard(card) {
+  if (!card) return;
+  const data = card.querySelector(".lua-data");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".lua-calcular").addEventListener("click", () => {
+    const date = data.value ? new Date(`${data.value}T12:00:00Z`) : new Date();
+    const age = moonPhaseAge(date);
+    output.value = `${moonPhaseName(age)} (dia ${age.toFixed(1)} do ciclo de ${SYNODIC_MONTH.toFixed(2)} dias)`;
+  });
+}
+
+/* ---------- Cronômetro e Contagem Regressiva ---------- */
+function formatTimerDisplay(totalSeconds) {
+  const s = Math.max(0, Math.round(totalSeconds));
+  const hh = String(Math.floor(s / 3600)).padStart(2, "0");
+  const mm = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
+  const ss = String(s % 60).padStart(2, "0");
+  return `${hh}:${mm}:${ss}`;
+}
+
+function initCronometroCard(card) {
+  if (!card) return;
+  const display = card.querySelector(".timer-display");
+  const minutosInput = card.querySelector(".timer-minutos");
+  let intervalId = null;
+  let elapsed = 0;
+  let mode = null;
+
+  function tick() {
+    if (mode === "crono") {
+      elapsed += 1;
+      display.textContent = formatTimerDisplay(elapsed);
+    } else if (mode === "regressiva") {
+      elapsed -= 1;
+      display.textContent = formatTimerDisplay(elapsed);
+      if (elapsed <= 0) {
+        clearInterval(intervalId);
+        intervalId = null;
+        showToast("Tempo esgotado!");
+      }
+    }
+  }
+
+  function stop() {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  }
+
+  card.querySelector(".timer-start-crono").addEventListener("click", () => {
+    stop();
+    mode = "crono";
+    elapsed = 0;
+    display.textContent = formatTimerDisplay(elapsed);
+    intervalId = setInterval(tick, 1000);
+  });
+
+  card.querySelector(".timer-start-regressiva").addEventListener("click", () => {
+    stop();
+    const minutos = parseFloat(minutosInput.value);
+    if (Number.isNaN(minutos) || minutos <= 0) {
+      showToast("Digite a quantidade de minutos.");
+      return;
+    }
+    mode = "regressiva";
+    elapsed = Math.round(minutos * 60);
+    display.textContent = formatTimerDisplay(elapsed);
+    intervalId = setInterval(tick, 1000);
+  });
+
+  card.querySelector(".timer-parar").addEventListener("click", stop);
+
+  card.querySelector(".timer-zerar").addEventListener("click", () => {
+    stop();
+    elapsed = 0;
+    mode = null;
+    display.textContent = formatTimerDisplay(0);
+  });
+}
+
+/* ---------- Pomodoro Timer ---------- */
+function initPomodoroCard(card) {
+  if (!card) return;
+  const display = card.querySelector(".pomodoro-display");
+  const status = card.querySelector(".pomodoro-status");
+  const focoInput = card.querySelector(".pomo-foco");
+  const pausaInput = card.querySelector(".pomo-pausa");
+  let intervalId = null;
+  let remaining = 0;
+  let onBreak = false;
+
+  function render() {
+    const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
+    const ss = String(remaining % 60).padStart(2, "0");
+    display.textContent = `${mm}:${ss}`;
+    status.textContent = onBreak ? "Pausa" : "Foco";
+  }
+
+  function tick() {
+    remaining -= 1;
+    if (remaining < 0) {
+      onBreak = !onBreak;
+      const minutos = onBreak ? parseFloat(pausaInput.value) : parseFloat(focoInput.value);
+      remaining = Math.round((minutos || (onBreak ? 5 : 25)) * 60);
+      showToast(onBreak ? "Hora da pausa!" : "De volta ao foco!");
+    }
+    render();
+  }
+
+  card.querySelector(".pomo-iniciar").addEventListener("click", () => {
+    if (intervalId) return;
+    if (remaining <= 0) {
+      onBreak = false;
+      remaining = Math.round((parseFloat(focoInput.value) || 25) * 60);
+      render();
+    }
+    intervalId = setInterval(tick, 1000);
+  });
+
+  card.querySelector(".pomo-pausar").addEventListener("click", () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  });
+
+  card.querySelector(".pomo-reiniciar").addEventListener("click", () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+    onBreak = false;
+    remaining = Math.round((parseFloat(focoInput.value) || 25) * 60);
+    render();
+  });
+
+  remaining = Math.round((parseFloat(focoInput.value) || 25) * 60);
+  render();
+}
+
+/* ---------- Simulador de Poupança ---------- */
+function initPoupancaCard(card) {
+  if (!card) return;
+  const inicial = card.querySelector(".poup-inicial");
+  const aporte = card.querySelector(".poup-aporte");
+  const taxa = card.querySelector(".poup-taxa");
+  const meses = card.querySelector(".poup-meses");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".poup-calcular").addEventListener("click", () => {
+    const p0 = parseFloat(inicial.value) || 0;
+    const aporteMensal = parseFloat(aporte.value) || 0;
+    const taxaMensal = (parseFloat(taxa.value) || 0) / 100;
+    const numMeses = parseInt(meses.value, 10);
+    if (!numMeses || numMeses <= 0) {
+      output.value = "Preencha a quantidade de meses.";
+      return;
+    }
+    let total = p0;
+    let totalAportado = p0;
+    for (let i = 0; i < numMeses; i++) {
+      total = total * (1 + taxaMensal) + aporteMensal;
+      totalAportado += aporteMensal;
+    }
+    const juros = total - totalAportado;
+    output.value = [
+      `Valor final: ${total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`,
+      `Total aportado: ${totalAportado.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`,
+      `Juros acumulados: ${juros.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`,
+    ].join("\n");
+  });
+}
+
+/* ---------- Simulador de Financiamento (Tabela Price) ---------- */
+function initFinanciamentoCard(card) {
+  if (!card) return;
+  const valor = card.querySelector(".fin-valor");
+  const taxa = card.querySelector(".fin-taxa");
+  const parcelas = card.querySelector(".fin-parcelas");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".fin-calcular").addEventListener("click", () => {
+    const principal = parseFloat(valor.value);
+    const taxaMensal = (parseFloat(taxa.value) || 0) / 100;
+    const n = parseInt(parcelas.value, 10);
+    if (!principal || !n || n <= 0) {
+      output.value = "Preencha o valor e a quantidade de parcelas.";
+      return;
+    }
+    const parcela = taxaMensal === 0
+      ? principal / n
+      : (principal * (taxaMensal * Math.pow(1 + taxaMensal, n))) / (Math.pow(1 + taxaMensal, n) - 1);
+    const total = parcela * n;
+    output.value = [
+      `Parcela mensal: ${parcela.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`,
+      `Total pago: ${total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`,
+      `Total de juros: ${(total - principal).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`,
+    ].join("\n");
+  });
+}
+
+/* ---------- Conversor de Moedas ---------- */
+function initMoedaCard(card) {
+  if (!card) return;
+  const valor = card.querySelector(".moeda-valor");
+  const de = card.querySelector(".moeda-de");
+  const para = card.querySelector(".moeda-para");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".moeda-converter").addEventListener("click", async () => {
+    const amount = parseFloat(valor.value);
+    if (Number.isNaN(amount)) {
+      output.value = "Digite um valor válido.";
+      return;
+    }
+    output.value = "Buscando cotação...";
+    try {
+      const res = await fetch(`https://open.er-api.com/v6/latest/${de.value}`);
+      const data = await res.json();
+      const rate = data.rates?.[para.value];
+      if (!rate) throw new Error("Moeda não encontrada");
+      const result = amount * rate;
+      output.value = `${amount} ${de.value} = ${result.toLocaleString("pt-BR", { maximumFractionDigits: 2 })} ${para.value}`;
+    } catch {
+      output.value = "Não foi possível buscar a cotação agora.";
+    }
+  });
+}
+
+/* ---------- Salário Mínimo por Ano ---------- */
+const SALARIO_MINIMO_HISTORICO = {
+  2018: 954, 2019: 998, 2020: 1045, 2021: 1100, 2022: 1212,
+  2023: 1320, 2024: 1412, 2025: 1518, 2026: 1621,
+};
+
+function initSalarioMinimoCard(card) {
+  if (!card) return;
+  const ano = card.querySelector(".sm-ano");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".sm-consultar").addEventListener("click", () => {
+    const year = parseInt(ano.value, 10);
+    const valor = SALARIO_MINIMO_HISTORICO[year];
+    if (!valor) {
+      output.value = `Sem dados para ${year || "esse ano"}. Anos disponíveis: ${Math.min(...Object.keys(SALARIO_MINIMO_HISTORICO).map(Number))}-${Math.max(...Object.keys(SALARIO_MINIMO_HISTORICO).map(Number))}.`;
+      return;
+    }
+    output.value = `Salário mínimo em ${year}: ${valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
   });
 }
 

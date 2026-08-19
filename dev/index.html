@@ -88,6 +88,9 @@
                         Eleitor</button>
                     <button type="button" class="dev-nav__link" data-target="cartao">Gerador de Cartão de
                         Crédito</button>
+                    <button type="button" class="dev-nav__link" data-target="cep">Gerador de CEP</button>
+                    <button type="button" class="dev-nav__link" data-target="conta-bancaria">Gerador de Conta
+                        Bancária</button>
                     <button type="button" class="dev-nav__link" data-target="validador">Validador de
                         Documentos</button>
 
@@ -104,13 +107,23 @@
                         Timestamp</button>
                     <button type="button" class="dev-nav__link" data-target="lorem">Lorem Ipsum</button>
                     <button type="button" class="dev-nav__link" data-target="qrcode">Gerador de QR Code</button>
+                    <button type="button" class="dev-nav__link" data-target="qr-wifi">QR Code de Wi-Fi</button>
+                    <button type="button" class="dev-nav__link" data-target="qr-pix">QR Code Pix</button>
+                    <button type="button" class="dev-nav__link" data-target="codigo-barras">Código de
+                        Barras</button>
+                    <button type="button" class="dev-nav__link" data-target="binario-texto">Texto em
+                        Binário</button>
+                    <button type="button" class="dev-nav__link" data-target="morse">Código Morse</button>
                     <button type="button" class="dev-nav__link" data-target="base-numerica">Conversor de Base
                         Numérica</button>
                     <button type="button" class="dev-nav__link" data-target="extenso">Número por Extenso</button>
+                    <button type="button" class="dev-nav__link" data-target="simbolos">Símbolos e Emojis</button>
 
                     <p class="dev-nav__group">Rede / Internet</p>
                     <button type="button" class="dev-nav__link" data-target="ambiente">Navegador e Sistema</button>
                     <button type="button" class="dev-nav__link" data-target="meuip">Meu IP Público</button>
+                    <button type="button" class="dev-nav__link" data-target="whatsapp-link">Link do
+                        WhatsApp</button>
 
                     <p class="dev-nav__group">Funções de String</p>
                     <button type="button" class="dev-nav__link" data-target="stats-texto">Estatísticas de
@@ -124,6 +137,14 @@
                         Substituir</button>
                     <button type="button" class="dev-nav__link" data-target="char-info">Informações de
                         Caractere</button>
+                    <button type="button" class="dev-nav__link" data-target="texto-invertido">Texto de Cabeça
+                        pra Baixo</button>
+                    <button type="button" class="dev-nav__link" data-target="letras-empilhadas">Letras
+                        Empilhadas</button>
+                    <button type="button" class="dev-nav__link" data-target="prefixo-sufixo">Prefixo e
+                        Sufixo</button>
+                    <button type="button" class="dev-nav__link" data-target="comparar-textos">Comparar
+                        Textos</button>
 
                     <p class="dev-nav__group">Matemática</p>
                     <button type="button" class="dev-nav__link" data-target="romanos">Números Romanos</button>
@@ -133,6 +154,9 @@
                     <button type="button" class="dev-nav__link" data-target="regra-tres">Regra de Três</button>
                     <button type="button" class="dev-nav__link" data-target="resto-divisao">Resto da
                         Divisão</button>
+                    <button type="button" class="dev-nav__link" data-target="unidades">Conversor de
+                        Unidades</button>
+                    <button type="button" class="dev-nav__link" data-target="fracao">Calculadora de Fração</button>
 
                     <p class="dev-nav__group">Cálculo de Área</p>
                     <button type="button" class="dev-nav__link" data-target="area">Calculadora de Área</button>
@@ -142,6 +166,25 @@
                         Datas</button>
                     <button type="button" class="dev-nav__link" data-target="somar-dias">Somar / Subtrair
                         Dias</button>
+                    <button type="button" class="dev-nav__link" data-target="feriados">Feriados
+                        Nacionais</button>
+                    <button type="button" class="dev-nav__link" data-target="dias-uteis">Dias Úteis</button>
+                    <button type="button" class="dev-nav__link" data-target="calcular-idade">Calcular
+                        Idade</button>
+                    <button type="button" class="dev-nav__link" data-target="signo">Signo do Zodíaco</button>
+                    <button type="button" class="dev-nav__link" data-target="fase-lua">Fase da Lua</button>
+                    <button type="button" class="dev-nav__link" data-target="cronometro">Cronômetro /
+                        Contagem</button>
+                    <button type="button" class="dev-nav__link" data-target="pomodoro">Pomodoro Timer</button>
+
+                    <p class="dev-nav__group">Finanças</p>
+                    <button type="button" class="dev-nav__link" data-target="poupanca">Simulador de
+                        Poupança</button>
+                    <button type="button" class="dev-nav__link" data-target="financiamento">Simulador de
+                        Financiamento</button>
+                    <button type="button" class="dev-nav__link" data-target="moeda">Conversor de Moedas</button>
+                    <button type="button" class="dev-nav__link" data-target="salario-minimo">Salário Mínimo por
+                        Ano</button>
 
                     <p class="dev-nav__group">Dados Fake</p>
                     <button type="button" class="dev-nav__link" data-target="perfil">Perfil de Pessoa</button>
@@ -377,6 +420,46 @@
                         <p class="tool-hint">
                             Número passa no algoritmo de Luhn, mas <strong>não existe de fato</strong> —
                             use só para testes, nunca em formulários de pagamento reais.
+                        </p>
+                    </article>
+
+                    <!-- ===== CEP ===== -->
+                    <article class="tool-card" data-tool="cep">
+                        <h2 class="tool-card__title">Gerador de CEP</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Quantidade
+                                <input type="number" class="tool-qty" min="1" max="50" value="1">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary tool-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="CEPs gerados"
+                            placeholder="Clique em Gerar"></textarea>
+                        <p class="tool-hint">
+                            Formato válido, mas o CEP <strong>não existe de fato</strong> — use só para testes.
+                        </p>
+                    </article>
+
+                    <!-- ===== CONTA BANCÁRIA ===== -->
+                    <article class="tool-card" data-tool="conta-bancaria">
+                        <h2 class="tool-card__title">Gerador de Conta Bancária</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Quantidade
+                                <input type="number" class="tool-qty" min="1" max="50" value="1">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary tool-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Contas geradas"
+                            placeholder="Clique em Gerar"></textarea>
+                        <p class="tool-hint">
+                            Banco, agência e conta <strong>fictícios</strong> — use só para testes.
                         </p>
                     </article>
 
@@ -658,6 +741,118 @@
                         </p>
                     </article>
 
+                    <!-- ===== QR WI-FI ===== -->
+                    <article class="tool-card" data-tool="qr-wifi">
+                        <h2 class="tool-card__title">QR Code de Wi-Fi</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Rede (SSID)
+                                <input type="text" class="wifi-ssid">
+                            </label>
+                            <label class="tool-field">
+                                Senha
+                                <input type="text" class="wifi-senha">
+                            </label>
+                            <label class="tool-field">
+                                Segurança
+                                <select class="wifi-seguranca">
+                                    <option value="WPA" selected>WPA/WPA2</option>
+                                    <option value="WEP">WEP</option>
+                                    <option value="nopass">Sem senha</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary wifi-generate">Gerar QR Code</button>
+                            <button type="button" class="btn btn--outline wifi-download">Baixar PNG</button>
+                        </div>
+                        <div class="qr-canvas-wrap">
+                            <canvas class="qr-canvas" aria-label="QR Code da rede Wi-Fi"></canvas>
+                        </div>
+                    </article>
+
+                    <!-- ===== QR PIX ===== -->
+                    <article class="tool-card" data-tool="qr-pix">
+                        <h2 class="tool-card__title">QR Code Pix</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Chave Pix
+                                <input type="text" class="pix-chave" placeholder="CPF, e-mail, telefone ou aleatória">
+                            </label>
+                            <label class="tool-field">
+                                Valor (opcional)
+                                <input type="number" step="0.01" class="pix-valor" placeholder="0.00">
+                            </label>
+                        </div>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Nome do recebedor
+                                <input type="text" class="pix-nome" maxlength="25">
+                            </label>
+                            <label class="tool-field">
+                                Cidade
+                                <input type="text" class="pix-cidade" maxlength="15">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary pix-generate">Gerar QR Code</button>
+                            <button type="button" class="btn btn--outline pix-download">Baixar PNG</button>
+                        </div>
+                        <div class="qr-canvas-wrap">
+                            <canvas class="qr-canvas" aria-label="QR Code Pix"></canvas>
+                        </div>
+                        <p class="tool-hint">
+                            Gera o payload padrão BR Code (Banco Central) client-side. Confirme no seu app
+                            do banco antes de usar de verdade.
+                        </p>
+                    </article>
+
+                    <!-- ===== CÓDIGO DE BARRAS ===== -->
+                    <article class="tool-card" data-tool="codigo-barras">
+                        <h2 class="tool-card__title">Gerador de Código de Barras</h2>
+                        <input type="text" class="barcode-input" aria-label="Texto para o código de barras"
+                            placeholder="Texto (Code 128)">
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary barcode-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline barcode-download">Baixar PNG</button>
+                        </div>
+                        <div class="qr-canvas-wrap">
+                            <canvas class="barcode-canvas" aria-label="Código de barras gerado"></canvas>
+                        </div>
+                        <p class="tool-hint">
+                            Padrão Code 128 (conjunto B) — aceita letras, números e símbolos ASCII
+                            imprimíveis.
+                        </p>
+                    </article>
+
+                    <!-- ===== TEXTO EM BINÁRIO ===== -->
+                    <article class="tool-card" data-tool="binario-texto">
+                        <h2 class="tool-card__title">Texto em Binário</h2>
+                        <textarea class="tool-input" aria-label="Texto ou binário"
+                            placeholder="Cole o texto ou o binário aqui..."></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary bin-encode">Para Binário</button>
+                            <button type="button" class="btn btn--outline bin-decode">Para Texto</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Resultado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== CÓDIGO MORSE ===== -->
+                    <article class="tool-card" data-tool="morse">
+                        <h2 class="tool-card__title">Código Morse</h2>
+                        <textarea class="tool-input" aria-label="Texto ou código morse"
+                            placeholder="Cole o texto ou o código morse aqui..."></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary morse-encode">Para Morse</button>
+                            <button type="button" class="btn btn--outline morse-decode">Para Texto</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Resultado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
                     <!-- ===== BASE NUMÉRICA ===== -->
                     <article class="tool-card" data-tool="base-numerica">
                         <h2 class="tool-card__title">Conversor de Base Numérica</h2>
@@ -696,6 +891,13 @@
                             placeholder="Resultado aparece aqui"></textarea>
                     </article>
 
+                    <!-- ===== SÍMBOLOS E EMOJIS ===== -->
+                    <article class="tool-card" data-tool="simbolos">
+                        <h2 class="tool-card__title">Símbolos e Emojis para Copiar</h2>
+                        <p class="tool-hint">Clique em qualquer item para copiar.</p>
+                        <div class="simbolos-grid"></div>
+                    </article>
+
                     <!-- ===== NAVEGADOR E SISTEMA ===== -->
                     <article class="tool-card" data-tool="ambiente">
                         <h2 class="tool-card__title">Navegador e Sistema</h2>
@@ -721,6 +923,23 @@
                             Única ferramenta desta página que faz uma chamada externa (api.ipify.org) —
                             todas as outras rodam 100% no seu navegador.
                         </p>
+                    </article>
+
+                    <!-- ===== LINK DO WHATSAPP ===== -->
+                    <article class="tool-card" data-tool="whatsapp-link">
+                        <h2 class="tool-card__title">Gerador de Link do WhatsApp</h2>
+                        <label class="tool-field">
+                            Telefone (com DDI e DDD)
+                            <input type="text" class="wa-telefone" placeholder="5541999999999">
+                        </label>
+                        <textarea class="tool-input wa-mensagem" aria-label="Mensagem"
+                            placeholder="Mensagem (opcional)..."></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary wa-generate">Gerar Link</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Link gerado"
+                            placeholder="Resultado aparece aqui"></textarea>
                     </article>
 
                     <!-- ===== ESTATÍSTICAS DE TEXTO ===== -->
@@ -845,6 +1064,66 @@
                         </div>
                         <textarea class="tool-output" readonly aria-label="Informações do caractere"
                             placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== TEXTO DE CABEÇA PRA BAIXO ===== -->
+                    <article class="tool-card" data-tool="texto-invertido">
+                        <h2 class="tool-card__title">Texto de Cabeça pra Baixo</h2>
+                        <input type="text" class="tool-input" aria-label="Texto" placeholder="Digite o texto...">
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary flip-generate">Inverter</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Texto invertido"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== LETRAS EMPILHADAS ===== -->
+                    <article class="tool-card" data-tool="letras-empilhadas">
+                        <h2 class="tool-card__title">Letras Empilhadas</h2>
+                        <input type="text" class="tool-input" aria-label="Texto" placeholder="Digite o texto...">
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary stack-generate">Empilhar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Letras empilhadas"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== PREFIXO E SUFIXO ===== -->
+                    <article class="tool-card" data-tool="prefixo-sufixo">
+                        <h2 class="tool-card__title">Adicionar Prefixo e Sufixo</h2>
+                        <textarea class="tool-input" aria-label="Linhas de entrada"
+                            placeholder="Uma linha por item..."></textarea>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Prefixo
+                                <input type="text" class="ps-prefixo">
+                            </label>
+                            <label class="tool-field">
+                                Sufixo
+                                <input type="text" class="ps-sufixo">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary ps-generate">Aplicar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Resultado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== COMPARAR TEXTOS ===== -->
+                    <article class="tool-card" data-tool="comparar-textos">
+                        <h2 class="tool-card__title">Comparar Textos</h2>
+                        <textarea class="tool-input compare-a" aria-label="Texto A" placeholder="Texto A..."></textarea>
+                        <textarea class="tool-input compare-b" aria-label="Texto B" placeholder="Texto B..."></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary compare-generate">Comparar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Diferenças"
+                            placeholder="Resultado aparece aqui (- só em A, + só em B)"></textarea>
                     </article>
 
                     <!-- ===== NÚMEROS ROMANOS ===== -->
@@ -980,6 +1259,80 @@
                             placeholder="Resultado aparece aqui"></textarea>
                     </article>
 
+                    <!-- ===== CONVERSOR DE UNIDADES ===== -->
+                    <article class="tool-card" data-tool="unidades">
+                        <h2 class="tool-card__title">Conversor de Unidades</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Categoria
+                                <select class="unidade-categoria">
+                                    <option value="comprimento" selected>Comprimento</option>
+                                    <option value="peso">Peso</option>
+                                    <option value="volume">Volume</option>
+                                    <option value="temperatura">Temperatura</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Valor
+                                <input type="number" class="unidade-valor" placeholder="1">
+                            </label>
+                            <label class="tool-field">
+                                De
+                                <select class="unidade-de"></select>
+                            </label>
+                            <label class="tool-field">
+                                Para
+                                <select class="unidade-para"></select>
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary unidade-converter">Converter</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Resultado da conversão"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== CALCULADORA DE FRAÇÃO ===== -->
+                    <article class="tool-card" data-tool="fracao">
+                        <h2 class="tool-card__title">Calculadora de Fração</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Numerador A
+                                <input type="number" class="frac-a-num" placeholder="1">
+                            </label>
+                            <label class="tool-field">
+                                Denominador A
+                                <input type="number" class="frac-a-den" placeholder="2">
+                            </label>
+                            <label class="tool-field">
+                                Operação
+                                <select class="frac-op">
+                                    <option value="+">+</option>
+                                    <option value="-">-</option>
+                                    <option value="*">×</option>
+                                    <option value="/">÷</option>
+                                </select>
+                            </label>
+                            <label class="tool-field">
+                                Numerador B
+                                <input type="number" class="frac-b-num" placeholder="1">
+                            </label>
+                            <label class="tool-field">
+                                Denominador B
+                                <input type="number" class="frac-b-den" placeholder="3">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary frac-calcular">Calcular</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Resultado da fração"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
                     <!-- ===== CALCULADORA DE ÁREA ===== -->
                     <article class="tool-card" data-tool="area">
                         <h2 class="tool-card__title">Calculadora de Área</h2>
@@ -1050,6 +1403,244 @@
                             <button type="button" class="btn btn--outline tool-copy">Copiar</button>
                         </div>
                         <textarea class="tool-output" readonly rows="2" aria-label="Nova data"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== FERIADOS NACIONAIS ===== -->
+                    <article class="tool-card" data-tool="feriados">
+                        <h2 class="tool-card__title">Feriados Nacionais</h2>
+                        <label class="tool-field">
+                            Ano
+                            <input type="number" class="feriados-ano" placeholder="2026">
+                        </label>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary feriados-listar">Listar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Feriados nacionais"
+                            placeholder="Clique em Listar"></textarea>
+                        <p class="tool-hint">Feriados nacionais fixos e móveis (Páscoa, Carnaval, Corpus
+                            Christi) — não inclui feriados estaduais/municipais.</p>
+                    </article>
+
+                    <!-- ===== DIAS ÚTEIS ===== -->
+                    <article class="tool-card" data-tool="dias-uteis">
+                        <h2 class="tool-card__title">Calculadora de Dias Úteis</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Data inicial
+                                <input type="date" class="du-inicio">
+                            </label>
+                            <label class="tool-field">
+                                Data final
+                                <input type="date" class="du-fim">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary du-calcular">Calcular</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Dias úteis"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">Conta só de segunda a sexta — feriados não são descontados.</p>
+                    </article>
+
+                    <!-- ===== CALCULAR IDADE ===== -->
+                    <article class="tool-card" data-tool="calcular-idade">
+                        <h2 class="tool-card__title">Calcular Idade</h2>
+                        <label class="tool-field">
+                            Data de nascimento
+                            <input type="date" class="idade-nascimento">
+                        </label>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary idade-calcular">Calcular</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Idade calculada"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== SIGNO DO ZODÍACO ===== -->
+                    <article class="tool-card" data-tool="signo">
+                        <h2 class="tool-card__title">Signo do Zodíaco</h2>
+                        <label class="tool-field">
+                            Data de nascimento
+                            <input type="date" class="signo-data">
+                        </label>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary signo-calcular">Descobrir</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Signo"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== FASE DA LUA ===== -->
+                    <article class="tool-card" data-tool="fase-lua">
+                        <h2 class="tool-card__title">Fase da Lua</h2>
+                        <label class="tool-field">
+                            Data
+                            <input type="date" class="lua-data">
+                        </label>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary lua-calcular">Ver Fase</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Fase da lua"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">Cálculo aproximado pelo ciclo sinódico (~29,53 dias) — pode
+                            variar ±1 dia da referência oficial.</p>
+                    </article>
+
+                    <!-- ===== CRONÔMETRO / CONTAGEM ===== -->
+                    <article class="tool-card" data-tool="cronometro">
+                        <h2 class="tool-card__title">Cronômetro e Contagem Regressiva</h2>
+                        <div class="timer-display">00:00:00</div>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Contagem regressiva (minutos)
+                                <input type="number" class="timer-minutos" placeholder="5">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary timer-start-crono">Iniciar
+                                Cronômetro</button>
+                            <button type="button" class="btn btn--primary timer-start-regressiva">Iniciar
+                                Contagem</button>
+                            <button type="button" class="btn btn--outline timer-parar">Parar</button>
+                            <button type="button" class="btn btn--outline timer-zerar">Zerar</button>
+                        </div>
+                    </article>
+
+                    <!-- ===== POMODORO ===== -->
+                    <article class="tool-card" data-tool="pomodoro">
+                        <h2 class="tool-card__title">Pomodoro Timer</h2>
+                        <div class="timer-display pomodoro-display">25:00</div>
+                        <p class="tool-hint pomodoro-status">Foco</p>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Foco (min)
+                                <input type="number" class="pomo-foco" value="25" min="1">
+                            </label>
+                            <label class="tool-field">
+                                Pausa (min)
+                                <input type="number" class="pomo-pausa" value="5" min="1">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary pomo-iniciar">Iniciar</button>
+                            <button type="button" class="btn btn--outline pomo-pausar">Pausar</button>
+                            <button type="button" class="btn btn--outline pomo-reiniciar">Reiniciar</button>
+                        </div>
+                    </article>
+
+                    <!-- ===== SIMULADOR DE POUPANÇA ===== -->
+                    <article class="tool-card" data-tool="poupanca">
+                        <h2 class="tool-card__title">Simulador de Poupança</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Valor inicial
+                                <input type="number" class="poup-inicial" placeholder="1000">
+                            </label>
+                            <label class="tool-field">
+                                Aporte mensal
+                                <input type="number" class="poup-aporte" placeholder="100">
+                            </label>
+                            <label class="tool-field">
+                                Taxa mensal (%)
+                                <input type="number" step="0.01" class="poup-taxa" placeholder="0.6">
+                            </label>
+                            <label class="tool-field">
+                                Meses
+                                <input type="number" class="poup-meses" placeholder="12">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary poup-calcular">Calcular</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Resultado da simulação"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== SIMULADOR DE FINANCIAMENTO ===== -->
+                    <article class="tool-card" data-tool="financiamento">
+                        <h2 class="tool-card__title">Simulador de Financiamento</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Valor financiado
+                                <input type="number" class="fin-valor" placeholder="10000">
+                            </label>
+                            <label class="tool-field">
+                                Taxa mensal (%)
+                                <input type="number" step="0.01" class="fin-taxa" placeholder="1.5">
+                            </label>
+                            <label class="tool-field">
+                                Parcelas
+                                <input type="number" class="fin-parcelas" placeholder="12">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary fin-calcular">Calcular</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Resultado da simulação"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">Tabela Price (parcelas fixas) — cálculo educativo, não é uma
+                            proposta de crédito real.</p>
+                    </article>
+
+                    <!-- ===== CONVERSOR DE MOEDAS ===== -->
+                    <article class="tool-card" data-tool="moeda">
+                        <h2 class="tool-card__title">Conversor de Moedas</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Valor
+                                <input type="number" class="moeda-valor" placeholder="100">
+                            </label>
+                            <label class="tool-field">
+                                De
+                                <select class="moeda-de">
+                                    <option value="BRL" selected>BRL</option>
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="GBP">GBP</option>
+                                </select>
+                            </label>
+                            <label class="tool-field">
+                                Para
+                                <select class="moeda-para">
+                                    <option value="USD" selected>USD</option>
+                                    <option value="BRL">BRL</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="GBP">GBP</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary moeda-converter">Converter</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Resultado da conversão"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">
+                            Chama uma API externa de câmbio (open.er-api.com) para taxas atualizadas —
+                            assim como o "Meu IP", esta ferramenta não é 100% local.
+                        </p>
+                    </article>
+
+                    <!-- ===== SALÁRIO MÍNIMO ===== -->
+                    <article class="tool-card" data-tool="salario-minimo">
+                        <h2 class="tool-card__title">Salário Mínimo por Ano</h2>
+                        <label class="tool-field">
+                            Ano
+                            <input type="number" class="sm-ano" placeholder="2026">
+                        </label>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary sm-consultar">Consultar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Valor do salário mínimo"
                             placeholder="Resultado aparece aqui"></textarea>
                     </article>
 
