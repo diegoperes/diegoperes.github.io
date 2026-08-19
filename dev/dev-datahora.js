@@ -459,6 +459,19 @@ function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, ext
     if (!overlaps) selected.push(c);
     if (selected.length >= topN) break;
   }
+
+  // Marca a melhor (maior folga, menos dias usados em caso de empate) antes
+  // de reordenar por data — senão, com o range de 12 meses, as 5-10 melhores
+  // podem cair todas num trecho só do ano (ex: set-jan, época com vários
+  // feriados próximos) e parecer que não calculou o resto do período.
+  if (selected.length) {
+    const best = selected.reduce((a, b) => (
+      b.totalDaysOff > a.totalDaysOff || (b.totalDaysOff === a.totalDaysOff && b.workUsed < a.workUsed) ? b : a
+    ));
+    selected.forEach((opt) => { opt.isBest = opt === best; });
+  }
+  selected.sort((a, b) => a.start - b.start);
+
   return selected;
 }
 
@@ -609,12 +622,15 @@ function initFeriasPlanejadorCard(card) {
     opcoesEl.innerHTML = "";
     const holidaysMap = holidaysMapForRange(start, end, uf, extrasByYear, false);
 
-    options.forEach((opt, idx) => {
+    const defaultOpt = options.find((o) => o.isBest) || options[0];
+
+    options.forEach((opt) => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "btn btn--outline";
-      if (idx === 0) btn.classList.add("is-active");
-      btn.textContent = `${opt.start.toLocaleDateString("pt-BR")} a ${opt.end.toLocaleDateString("pt-BR")} — ${opt.totalDaysOff} dias (usa ${opt.workUsed})`;
+      if (opt === defaultOpt) btn.classList.add("is-active");
+      const marca = opt.isBest ? " ★" : "";
+      btn.textContent = `${opt.start.toLocaleDateString("pt-BR")} a ${opt.end.toLocaleDateString("pt-BR")} — ${opt.totalDaysOff} dias (usa ${opt.workUsed})${marca}`;
       btn.addEventListener("click", () => {
         opcoesEl.querySelectorAll(".btn").forEach((b) => b.classList.remove("is-active"));
         btn.classList.add("is-active");
@@ -623,7 +639,7 @@ function initFeriasPlanejadorCard(card) {
       opcoesEl.appendChild(btn);
     });
 
-    renderCalendarRange(calendarioEl, start, end, holidaysMap, options[0]);
+    renderCalendarRange(calendarioEl, start, end, holidaysMap, defaultOpt);
   }
 
   card.querySelector(".ferias-calcular").addEventListener("click", () => {
@@ -638,7 +654,7 @@ function initFeriasPlanejadorCard(card) {
       return;
     }
     const uf = ufInput.value;
-    const options = findBestVacationWindows(period.start, period.end, dias, 5, uf, extrasByYear);
+    const options = findBestVacationWindows(period.start, period.end, dias, 10, uf, extrasByYear);
     if (!options.length) {
       opcoesEl.innerHTML = "";
       calendarioEl.innerHTML = "";
