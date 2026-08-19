@@ -186,6 +186,66 @@
                     <button type="button" class="dev-nav__link" data-target="salario-minimo">Salário Mínimo por
                         Ano</button>
 
+                    <p class="dev-nav__group">Cores e CSS</p>
+                    <button type="button" class="dev-nav__link" data-target="cor-conversor">Conversor de
+                        Cores</button>
+                    <button type="button" class="dev-nav__link" data-target="gradiente-css">Gerador de
+                        Gradiente</button>
+                    <button type="button" class="dev-nav__link" data-target="box-shadow-css">Gerador de
+                        Box-Shadow</button>
+                    <button type="button" class="dev-nav__link" data-target="border-radius-css">Gerador de
+                        Border-Radius</button>
+
+                    <p class="dev-nav__group">Dev Avançado</p>
+                    <button type="button" class="dev-nav__link" data-target="regex-tester">Testador de
+                        Regex</button>
+                    <button type="button" class="dev-nav__link" data-target="cron-explicador">Explicador de
+                        Cron</button>
+                    <button type="button" class="dev-nav__link" data-target="fuso-horario">Conversor de Fuso
+                        Horário</button>
+                    <button type="button" class="dev-nav__link" data-target="subnet-calculadora">Calculadora de
+                        Sub-rede</button>
+                    <button type="button" class="dev-nav__link" data-target="user-agent-parser">Parser de
+                        User-Agent</button>
+                    <button type="button" class="dev-nav__link" data-target="semver-comparador">Comparador de
+                        SemVer</button>
+
+                    <p class="dev-nav__group">Código e Formatos</p>
+                    <button type="button" class="dev-nav__link" data-target="sql-formatter">Formatador de
+                        SQL</button>
+                    <button type="button" class="dev-nav__link" data-target="case-identificador">Case de
+                        Identificador</button>
+                    <button type="button" class="dev-nav__link" data-target="gitignore-gerador">Gerador de
+                        .gitignore</button>
+                    <button type="button" class="dev-nav__link" data-target="jwt-encoder">JWT Encoder</button>
+                    <button type="button" class="dev-nav__link" data-target="json-diff">Comparador de
+                        JSON</button>
+                    <button type="button" class="dev-nav__link" data-target="json-mock">Gerador de JSON
+                        Mock</button>
+                    <button type="button" class="dev-nav__link" data-target="ascii-art">ASCII Art /
+                        Banner</button>
+
+                    <p class="dev-nav__group">Web e Metadados</p>
+                    <button type="button" class="dev-nav__link" data-target="meta-tags-gerador">Meta Tags /
+                        Open Graph</button>
+                    <button type="button" class="dev-nav__link" data-target="robots-gerador">Gerador de
+                        robots.txt</button>
+                    <button type="button" class="dev-nav__link" data-target="favicon-gerador">Gerador de
+                        Favicon</button>
+
+                    <p class="dev-nav__group">Multimídia</p>
+                    <button type="button" class="dev-nav__link" data-target="comprimir-imagem">Comprimir
+                        Imagem</button>
+                    <button type="button" class="dev-nav__link" data-target="redimensionar-imagem">Redimensionar
+                        Imagem</button>
+                    <button type="button" class="dev-nav__link" data-target="recortar-imagem">Recortar
+                        Imagem</button>
+                    <button type="button" class="dev-nav__link" data-target="preto-e-branco">Foto em Preto e
+                        Branco</button>
+                    <button type="button" class="dev-nav__link" data-target="jpg-para-pdf">Converter JPG em
+                        PDF</button>
+                    <button type="button" class="dev-nav__link" data-target="juntar-pdf">Juntar PDFs</button>
+
                     <p class="dev-nav__group">Dados Fake</p>
                     <button type="button" class="dev-nav__link" data-target="perfil">Perfil de Pessoa</button>
                     <button type="button" class="dev-nav__link" data-target="empresa">Dados de Empresa</button>
@@ -882,7 +942,7 @@
                     <!-- ===== NÚMERO POR EXTENSO ===== -->
                     <article class="tool-card" data-tool="extenso">
                         <h2 class="tool-card__title">Número por Extenso</h2>
-                        <input type="number" class="extenso-input" aria-label="Número" placeholder="Ex: 1994">
+                        <input type="number" class="extenso-input" aria-label="Número" placeholder="Ex: 1988">
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary extenso-gerar">Converter</button>
                             <button type="button" class="btn btn--outline tool-copy">Copiar</button>
@@ -1132,7 +1192,7 @@
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Decimal (1-3999)
-                                <input type="number" class="romano-decimal" min="1" max="3999" placeholder="1994">
+                                <input type="number" class="romano-decimal" min="1" max="3999" placeholder="1988">
                             </label>
                             <button type="button" class="btn btn--outline romano-para-romano">Converter
                                 &rarr;</button>
@@ -1370,11 +1430,11 @@
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Data inicial
-                                <input type="date" class="dias-inicio">
+                                <input type="date" class="dias-inicio" min="1900-01-01" max="2100-12-31">
                             </label>
                             <label class="tool-field">
                                 Data final
-                                <input type="date" class="dias-fim">
+                                <input type="date" class="dias-fim" min="1900-01-01" max="2100-12-31">
                             </label>
                         </div>
                         <div class="tool-card__actions">
@@ -1391,7 +1451,7 @@
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Data base
-                                <input type="date" class="somar-data">
+                                <input type="date" class="somar-data" min="1900-01-01" max="2100-12-31">
                             </label>
                             <label class="tool-field">
                                 Dias (negativo para subtrair)
@@ -1411,7 +1471,7 @@
                         <h2 class="tool-card__title">Feriados Nacionais</h2>
                         <label class="tool-field">
                             Ano
-                            <input type="number" class="feriados-ano" placeholder="2026">
+                            <input type="number" class="feriados-ano" placeholder="2026" min="1900" max="2100">
                         </label>
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary feriados-listar">Listar</button>
@@ -1429,11 +1489,11 @@
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Data inicial
-                                <input type="date" class="du-inicio">
+                                <input type="date" class="du-inicio" min="1900-01-01" max="2100-12-31">
                             </label>
                             <label class="tool-field">
                                 Data final
-                                <input type="date" class="du-fim">
+                                <input type="date" class="du-fim" min="1900-01-01" max="2100-12-31">
                             </label>
                         </div>
                         <div class="tool-card__actions">
@@ -1450,7 +1510,7 @@
                         <h2 class="tool-card__title">Calcular Idade</h2>
                         <label class="tool-field">
                             Data de nascimento
-                            <input type="date" class="idade-nascimento">
+                            <input type="date" class="idade-nascimento" min="1900-01-01" max="2100-12-31">
                         </label>
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary idade-calcular">Calcular</button>
@@ -1465,7 +1525,7 @@
                         <h2 class="tool-card__title">Signo do Zodíaco</h2>
                         <label class="tool-field">
                             Data de nascimento
-                            <input type="date" class="signo-data">
+                            <input type="date" class="signo-data" min="1900-01-01" max="2100-12-31">
                         </label>
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary signo-calcular">Descobrir</button>
@@ -1480,7 +1540,7 @@
                         <h2 class="tool-card__title">Fase da Lua</h2>
                         <label class="tool-field">
                             Data
-                            <input type="date" class="lua-data">
+                            <input type="date" class="lua-data" min="1900-01-01" max="2100-12-31">
                         </label>
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary lua-calcular">Ver Fase</button>
@@ -1634,7 +1694,7 @@
                         <h2 class="tool-card__title">Salário Mínimo por Ano</h2>
                         <label class="tool-field">
                             Ano
-                            <input type="number" class="sm-ano" placeholder="2026">
+                            <input type="number" class="sm-ano" placeholder="2026" min="1900" max="2100">
                         </label>
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary sm-consultar">Consultar</button>
@@ -1642,6 +1702,590 @@
                         </div>
                         <textarea class="tool-output" readonly rows="2" aria-label="Valor do salário mínimo"
                             placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== CONVERSOR DE CORES ===== -->
+                    <article class="tool-card" data-tool="cor-conversor">
+                        <h2 class="tool-card__title">Conversor de Cores</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Cor
+                                <input type="color" class="cor-picker" value="#5eead4">
+                            </label>
+                            <label class="tool-field">
+                                HEX
+                                <input type="text" class="cor-hex" placeholder="#5eead4">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary cor-converter">Converter</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="4" aria-label="Cor convertida"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Comparar contraste (WCAG) com
+                                <input type="color" class="cor-picker-2" value="#ffffff">
+                            </label>
+                            <button type="button" class="btn btn--outline cor-contraste">Calcular Contraste</button>
+                        </div>
+                    </article>
+
+                    <!-- ===== GRADIENTE CSS ===== -->
+                    <article class="tool-card" data-tool="gradiente-css">
+                        <h2 class="tool-card__title">Gerador de Gradiente CSS</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Cor 1
+                                <input type="color" class="grad-cor1" value="#5eead4">
+                            </label>
+                            <label class="tool-field">
+                                Cor 2
+                                <input type="color" class="grad-cor2" value="#0f9e8b">
+                            </label>
+                            <label class="tool-field">
+                                Ângulo
+                                <input type="number" class="grad-angulo" value="135">
+                            </label>
+                            <label class="tool-field">
+                                Tipo
+                                <select class="grad-tipo">
+                                    <option value="linear" selected>Linear</option>
+                                    <option value="radial">Radial</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="css-preview grad-preview"></div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary grad-gerar">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar CSS</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="CSS do gradiente"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== BOX-SHADOW CSS ===== -->
+                    <article class="tool-card" data-tool="box-shadow-css">
+                        <h2 class="tool-card__title">Gerador de Box-Shadow</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                X
+                                <input type="number" class="shadow-x" value="0">
+                            </label>
+                            <label class="tool-field">
+                                Y
+                                <input type="number" class="shadow-y" value="4">
+                            </label>
+                            <label class="tool-field">
+                                Blur
+                                <input type="number" class="shadow-blur" value="12" min="0">
+                            </label>
+                            <label class="tool-field">
+                                Spread
+                                <input type="number" class="shadow-spread" value="0">
+                            </label>
+                            <label class="tool-field">
+                                Cor
+                                <input type="color" class="shadow-cor" value="#000000">
+                            </label>
+                            <label class="tool-field">
+                                Opacidade (%)
+                                <input type="number" class="shadow-opacidade" value="25" min="0" max="100">
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="shadow-inset">
+                                Inset
+                            </label>
+                        </div>
+                        <div class="css-preview">
+                            <div class="shadow-preview-box"></div>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary shadow-gerar">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar CSS</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="CSS do box-shadow"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== BORDER-RADIUS CSS ===== -->
+                    <article class="tool-card" data-tool="border-radius-css">
+                        <h2 class="tool-card__title">Gerador de Border-Radius</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Superior esquerdo
+                                <input type="number" class="radius-tl" value="16" min="0">
+                            </label>
+                            <label class="tool-field">
+                                Superior direito
+                                <input type="number" class="radius-tr" value="16" min="0">
+                            </label>
+                            <label class="tool-field">
+                                Inferior direito
+                                <input type="number" class="radius-br" value="16" min="0">
+                            </label>
+                            <label class="tool-field">
+                                Inferior esquerdo
+                                <input type="number" class="radius-bl" value="16" min="0">
+                            </label>
+                        </div>
+                        <div class="css-preview">
+                            <div class="radius-preview-box"></div>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary radius-gerar">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar CSS</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="CSS do border-radius"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== TESTADOR DE REGEX ===== -->
+                    <article class="tool-card" data-tool="regex-tester">
+                        <h2 class="tool-card__title">Testador de Regex</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Padrão
+                                <input type="text" class="regex-pattern" placeholder="\d+">
+                            </label>
+                            <label class="tool-field">
+                                Flags
+                                <input type="text" class="regex-flags" value="g">
+                            </label>
+                        </div>
+                        <textarea class="tool-input regex-texto" aria-label="Texto de teste"
+                            placeholder="Texto de teste..."></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary regex-testar">Testar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Resultado do teste"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== EXPLICADOR DE CRON ===== -->
+                    <article class="tool-card" data-tool="cron-explicador">
+                        <h2 class="tool-card__title">Explicador de Cron</h2>
+                        <input type="text" class="cron-input" aria-label="Expressão cron" placeholder="*/15 * * * *">
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary cron-explicar">Explicar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Explicação e próximas execuções"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">Formato padrão de 5 campos: minuto hora dia mês dia-da-semana.</p>
+                    </article>
+
+                    <!-- ===== FUSO HORÁRIO ===== -->
+                    <article class="tool-card" data-tool="fuso-horario">
+                        <h2 class="tool-card__title">Conversor de Fuso Horário</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Data e hora
+                                <input type="datetime-local" class="tz-data" min="1900-01-01T00:00"
+                                    max="2100-12-31T23:59">
+                            </label>
+                            <button type="button" class="btn btn--outline tz-agora">Agora</button>
+                        </div>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                De
+                                <select class="tz-de"></select>
+                            </label>
+                            <label class="tool-field">
+                                Para
+                                <select class="tz-para"></select>
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary tz-converter">Converter</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Data convertida"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== CALCULADORA DE SUB-REDE ===== -->
+                    <article class="tool-card" data-tool="subnet-calculadora">
+                        <h2 class="tool-card__title">Calculadora de Sub-rede (CIDR)</h2>
+                        <input type="text" class="subnet-input" aria-label="Endereço IP com CIDR"
+                            placeholder="192.168.1.10/24">
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary subnet-calcular">Calcular</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Informações da sub-rede"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== PARSER DE USER-AGENT ===== -->
+                    <article class="tool-card" data-tool="user-agent-parser">
+                        <h2 class="tool-card__title">Parser de User-Agent</h2>
+                        <textarea class="tool-input ua-input" aria-label="User-Agent"
+                            placeholder="Cole o User-Agent aqui, ou deixe em branco pra usar o seu"></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary ua-analisar">Analisar</button>
+                            <button type="button" class="btn btn--outline ua-usar-meu">Usar o Meu</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Resultado da análise"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">
+                            Reconhece os padrões mais comuns (Chrome, Firefox, Safari, Edge, Windows, macOS,
+                            Android, iOS) — não é um parser exaustivo.
+                        </p>
+                    </article>
+
+                    <!-- ===== COMPARADOR DE SEMVER ===== -->
+                    <article class="tool-card" data-tool="semver-comparador">
+                        <h2 class="tool-card__title">Comparador de SemVer</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Versão A
+                                <input type="text" class="semver-a" placeholder="1.2.3">
+                            </label>
+                            <label class="tool-field">
+                                Versão B
+                                <input type="text" class="semver-b" placeholder="1.3.0-beta.1">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary semver-comparar">Comparar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Resultado da comparação"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== FORMATADOR DE SQL ===== -->
+                    <article class="tool-card" data-tool="sql-formatter">
+                        <h2 class="tool-card__title">Formatador de SQL</h2>
+                        <textarea class="tool-input" aria-label="SQL de entrada"
+                            placeholder="SELECT * FROM tabela WHERE id = 1..."></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary sql-formatar">Formatar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="SQL formatado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">
+                            Formatador simples baseado em palavras-chave — não substitui um parser SQL
+                            completo.
+                        </p>
+                    </article>
+
+                    <!-- ===== CASE DE IDENTIFICADOR ===== -->
+                    <article class="tool-card" data-tool="case-identificador">
+                        <h2 class="tool-card__title">Conversor de Case de Identificador</h2>
+                        <input type="text" class="case-input" aria-label="Identificador"
+                            placeholder="minhaVariavelExemplo">
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary case-converter">Converter</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="6" aria-label="Variações de case"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== GERADOR DE .GITIGNORE ===== -->
+                    <article class="tool-card" data-tool="gitignore-gerador">
+                        <h2 class="tool-card__title">Gerador de .gitignore</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Linguagem / Stack
+                                <select class="gitignore-stack">
+                                    <option value="node" selected>Node.js</option>
+                                    <option value="python">Python</option>
+                                    <option value="java">Java</option>
+                                    <option value="dotnet">.NET</option>
+                                    <option value="go">Go</option>
+                                    <option value="rust">Rust</option>
+                                </select>
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="gitignore-macos" checked>
+                                Incluir macOS
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="gitignore-vscode" checked>
+                                Incluir VS Code
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary gitignore-gerar">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label=".gitignore gerado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== JWT ENCODER ===== -->
+                    <article class="tool-card" data-tool="jwt-encoder">
+                        <h2 class="tool-card__title">JWT Encoder (assinar)</h2>
+                        <textarea class="tool-input jwt-payload" aria-label="Payload JSON"
+                            placeholder='{"sub": "1234", "name": "Diego"}'></textarea>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Segredo (HS256)
+                                <input type="text" class="jwt-secret" placeholder="minha-chave-secreta">
+                            </label>
+                            <label class="tool-field">
+                                Expira em (min, opcional)
+                                <input type="number" class="jwt-expira">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary jwt-assinar">Assinar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="JWT assinado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">
+                            Gera um JWT assinado com HMAC-SHA256 localmente, só para testes — nunca use
+                            segredos reais aqui.
+                        </p>
+                    </article>
+
+                    <!-- ===== COMPARADOR DE JSON ===== -->
+                    <article class="tool-card" data-tool="json-diff">
+                        <h2 class="tool-card__title">Comparador de JSON</h2>
+                        <textarea class="tool-input compare-a" aria-label="JSON A" placeholder="JSON A..."></textarea>
+                        <textarea class="tool-input compare-b" aria-label="JSON B" placeholder="JSON B..."></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary json-diff-comparar">Comparar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Diferenças entre os JSONs"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== GERADOR DE JSON MOCK ===== -->
+                    <article class="tool-card" data-tool="json-mock">
+                        <h2 class="tool-card__title">Gerador de JSON Mock</h2>
+                        <textarea class="tool-input mock-schema" aria-label="Schema"
+                            placeholder='{"nome": "nome", "email": "email", "idade": "numero", "id": "uuid", "ativo": "booleano", "criadoEm": "data"}'></textarea>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Quantidade
+                                <input type="number" class="mock-qtd" value="3" min="1" max="50">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary mock-gerar">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="JSON gerado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">
+                            Tipos aceitos: nome, email, numero, booleano, uuid, data, frase, palavra.
+                        </p>
+                    </article>
+
+                    <!-- ===== ASCII ART / BANNER ===== -->
+                    <article class="tool-card" data-tool="ascii-art">
+                        <h2 class="tool-card__title">ASCII Art / Banner</h2>
+                        <input type="text" class="ascii-input" maxlength="20" aria-label="Texto para o banner"
+                            placeholder="OI">
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary ascii-gerar">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output tool-output--ascii" readonly rows="7" aria-label="Banner ASCII"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">Suporta A-Z, 0-9 e espaço.</p>
+                    </article>
+
+                    <!-- ===== META TAGS / OPEN GRAPH ===== -->
+                    <article class="tool-card" data-tool="meta-tags-gerador">
+                        <h2 class="tool-card__title">Gerador de Meta Tags / Open Graph</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Título
+                                <input type="text" class="meta-titulo">
+                            </label>
+                            <label class="tool-field">
+                                Descrição
+                                <input type="text" class="meta-descricao">
+                            </label>
+                        </div>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                URL
+                                <input type="text" class="meta-url" placeholder="https://...">
+                            </label>
+                            <label class="tool-field">
+                                Imagem
+                                <input type="text" class="meta-imagem" placeholder="https://.../imagem.png">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary meta-gerar">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Meta tags geradas"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== GERADOR DE ROBOTS.TXT ===== -->
+                    <article class="tool-card" data-tool="robots-gerador">
+                        <h2 class="tool-card__title">Gerador de robots.txt</h2>
+                        <label class="tool-check">
+                            <input type="checkbox" class="robots-bloquear-tudo">
+                            Bloquear tudo (Disallow: /)
+                        </label>
+                        <label class="tool-field">
+                            Caminhos bloqueados (um por linha)
+                            <textarea class="tool-input robots-disallow" aria-label="Caminhos bloqueados"
+                                placeholder="/admin/&#10;/private/"></textarea>
+                        </label>
+                        <label class="tool-field">
+                            URL do Sitemap (opcional)
+                            <input type="text" class="robots-sitemap" placeholder="https://seusite.com/sitemap.xml">
+                        </label>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary robots-gerar-btn">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="robots.txt gerado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== GERADOR DE FAVICON ===== -->
+                    <article class="tool-card" data-tool="favicon-gerador">
+                        <h2 class="tool-card__title">Gerador de Favicon</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Emoji ou texto (1-2 caracteres)
+                                <input type="text" class="favicon-texto" maxlength="2" placeholder="🚀">
+                            </label>
+                            <label class="tool-field">
+                                Cor de fundo
+                                <input type="color" class="favicon-cor" value="#0b0f14">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary favicon-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline favicon-download">Baixar PNG</button>
+                        </div>
+                        <div class="qr-canvas-wrap">
+                            <canvas class="favicon-canvas" aria-label="Favicon gerado"></canvas>
+                        </div>
+                    </article>
+
+                    <!-- ===== COMPRIMIR IMAGEM ===== -->
+                    <article class="tool-card" data-tool="comprimir-imagem">
+                        <h2 class="tool-card__title">Comprimir Imagem</h2>
+                        <input type="file" class="img-input" accept="image/*" aria-label="Selecionar imagem">
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Qualidade (%)
+                                <input type="number" class="compress-qualidade" value="70" min="1" max="100">
+                            </label>
+                            <label class="tool-field">
+                                Formato de saída
+                                <select class="compress-formato">
+                                    <option value="image/jpeg" selected>JPEG</option>
+                                    <option value="image/webp">WebP</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="img-preview-wrap">
+                            <canvas class="img-canvas" aria-label="Pré-visualização da imagem"></canvas>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary compress-processar">Comprimir</button>
+                            <button type="button" class="btn btn--outline compress-download">Baixar</button>
+                        </div>
+                        <p class="tool-hint img-info"></p>
+                    </article>
+
+                    <!-- ===== REDIMENSIONAR IMAGEM ===== -->
+                    <article class="tool-card" data-tool="redimensionar-imagem">
+                        <h2 class="tool-card__title">Redimensionar Imagem</h2>
+                        <input type="file" class="img-input" accept="image/*" aria-label="Selecionar imagem">
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Largura (px)
+                                <input type="number" class="resize-largura" min="1">
+                            </label>
+                            <label class="tool-field">
+                                Altura (px)
+                                <input type="number" class="resize-altura" min="1">
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="resize-proporcao" checked>
+                                Manter proporção
+                            </label>
+                        </div>
+                        <div class="img-preview-wrap">
+                            <canvas class="img-canvas" aria-label="Pré-visualização da imagem"></canvas>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary resize-processar">Redimensionar</button>
+                            <button type="button" class="btn btn--outline resize-download">Baixar</button>
+                        </div>
+                        <p class="tool-hint img-info"></p>
+                    </article>
+
+                    <!-- ===== RECORTAR IMAGEM ===== -->
+                    <article class="tool-card" data-tool="recortar-imagem">
+                        <h2 class="tool-card__title">Recortar Imagem</h2>
+                        <input type="file" class="img-input" accept="image/*" aria-label="Selecionar imagem">
+                        <p class="tool-hint">Clique e arraste sobre a imagem pra selecionar a área de recorte.</p>
+                        <div class="img-preview-wrap">
+                            <canvas class="img-canvas crop-canvas" aria-label="Selecionar recorte"></canvas>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary crop-processar">Recortar</button>
+                            <button type="button" class="btn btn--outline crop-download">Baixar</button>
+                        </div>
+                        <p class="tool-hint img-info"></p>
+                    </article>
+
+                    <!-- ===== FOTO EM PRETO E BRANCO ===== -->
+                    <article class="tool-card" data-tool="preto-e-branco">
+                        <h2 class="tool-card__title">Foto em Preto e Branco</h2>
+                        <input type="file" class="img-input" accept="image/*" aria-label="Selecionar imagem">
+                        <div class="img-preview-wrap">
+                            <canvas class="img-canvas" aria-label="Pré-visualização da imagem"></canvas>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary bw-processar">Aplicar</button>
+                            <button type="button" class="btn btn--outline bw-download">Baixar</button>
+                        </div>
+                    </article>
+
+                    <!-- ===== JPG EM PDF ===== -->
+                    <article class="tool-card" data-tool="jpg-para-pdf">
+                        <h2 class="tool-card__title">Converter JPG em PDF</h2>
+                        <input type="file" class="jpg2pdf-input" accept="image/jpeg" multiple
+                            aria-label="Selecionar imagens JPEG">
+                        <p class="tool-hint">Pode selecionar várias imagens — cada uma vira uma página.</p>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary jpg2pdf-gerar">Gerar PDF</button>
+                            <button type="button" class="btn btn--outline jpg2pdf-download">Baixar PDF</button>
+                        </div>
+                        <p class="tool-hint img-info"></p>
+                    </article>
+
+                    <!-- ===== JUNTAR PDFs ===== -->
+                    <article class="tool-card" data-tool="juntar-pdf">
+                        <h2 class="tool-card__title">Juntar PDFs</h2>
+                        <input type="file" class="pdf-merge-input" accept="application/pdf" multiple
+                            aria-label="Selecionar arquivos PDF">
+                        <p class="tool-hint">
+                            Selecione 2 ou mais PDFs, na ordem em que devem aparecer no arquivo final.
+                            Funciona só com PDFs simples (sem streams de referência cruzada comprimidos
+                            nem criptografia) — PDFs gerados por ferramentas mais recentes (Word, "Salvar
+                            como PDF" do Chrome) podem não ser suportados; nesse caso a ferramenta avisa em
+                            vez de gerar um arquivo corrompido.
+                        </p>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary pdf-merge-gerar">Juntar</button>
+                            <button type="button" class="btn btn--outline pdf-merge-download">Baixar PDF</button>
+                        </div>
+                        <p class="tool-hint img-info"></p>
                     </article>
 
                     <!-- ===== PERFIL DE PESSOA ===== -->
@@ -1721,6 +2365,16 @@
         </div>
     </footer>
 
+    <script src="dev-documentos.js"></script>
+    <script src="dev-gerais.js"></script>
+    <script src="dev-codificacao.js"></script>
+    <script src="dev-texto.js"></script>
+    <script src="dev-matematica.js"></script>
+    <script src="dev-datahora.js"></script>
+    <script src="dev-web.js"></script>
+    <script src="dev-devtools.js"></script>
+    <script src="dev-diversos.js"></script>
+    <script src="dev-imagem.js"></script>
     <script src="dev.js"></script>
 </body>
 

@@ -292,6 +292,70 @@ input.tool-input {
   transform: translateY(-2px);
 }
 
+.tool-field input[type="color"] {
+  padding: 2px;
+  height: 40px;
+  min-width: 60px;
+  cursor: pointer;
+}
+
+.css-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  padding: 20px;
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+}
+
+.grad-preview {
+  width: 100%;
+  height: 140px;
+}
+
+.shadow-preview-box,
+.radius-preview-box {
+  width: 120px;
+  height: 80px;
+  background: var(--accent);
+}
+
+.tool-output--ascii {
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.img-input {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.img-preview-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.img-canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.crop-canvas {
+  cursor: crosshair;
+}
+
+.img-info {
+  margin-top: -6px;
+}
+
 @media (max-width: 860px) {
   .dev-layout {
     grid-template-columns: 1fr;
