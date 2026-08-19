@@ -462,6 +462,41 @@ input.tool-input {
   outline: 1px solid var(--accent);
 }
 
+.cal-cell--facultativo {
+  background: transparent;
+  color: var(--accent);
+  font-weight: 600;
+  border: 1px dashed var(--accent);
+}
+
+.cal-cell--estadual {
+  background: #8b5cf6;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.cal-cell--municipal {
+  background: #f59e0b;
+  color: #1a1300;
+  font-weight: 600;
+}
+
+.legenda-facultativo {
+  background: transparent;
+  color: var(--accent);
+  border: 1px dashed var(--accent);
+}
+
+.legenda-estadual {
+  background: #8b5cf6;
+  color: #ffffff;
+}
+
+.legenda-municipal {
+  background: #f59e0b;
+  color: #1a1300;
+}
+
 @media (max-width: 860px) {
   .dev-layout {
     grid-template-columns: 1fr;

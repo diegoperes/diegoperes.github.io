@@ -1472,19 +1472,59 @@
 
                     <!-- ===== FERIADOS NACIONAIS ===== -->
                     <article class="tool-card" data-tool="feriados">
-                        <h2 class="tool-card__title">Feriados Nacionais</h2>
-                        <label class="tool-field">
-                            Ano
-                            <input type="number" class="feriados-ano" placeholder="2026" min="1900" max="2100">
-                        </label>
+                        <h2 class="tool-card__title">Feriados Nacionais e Estaduais</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Ano
+                                <input type="number" class="feriados-ano" placeholder="2026" min="1900" max="2100">
+                            </label>
+                            <label class="tool-field">
+                                Estado (opcional)
+                                <select class="feriados-uf">
+                                    <option value="">Nenhum (só nacional)</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </label>
+                        </div>
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary feriados-listar">Listar</button>
                             <button type="button" class="btn btn--outline tool-copy">Copiar</button>
                         </div>
-                        <textarea class="tool-output" readonly aria-label="Feriados nacionais"
+                        <textarea class="tool-output" readonly aria-label="Feriados nacionais e estaduais"
                             placeholder="Clique em Listar"></textarea>
-                        <p class="tool-hint">Feriados nacionais fixos e móveis (Páscoa, Carnaval, Corpus
-                            Christi) — não inclui feriados estaduais/municipais.</p>
+                        <p class="tool-hint">
+                            Mostra separadamente feriado obrigatório, ponto facultativo (Carnaval,
+                            Sexta-feira Santa, Corpus Christi — não é garantido, depende da empresa) e
+                            estadual. Não inclui feriados municipais (dá pra adicionar manualmente no
+                            Planejador de Férias). Leis estaduais mudam — confirme na fonte oficial do seu
+                            estado antes de decidir algo importante.
+                        </p>
                     </article>
 
                     <!-- ===== DIAS ÚTEIS ===== -->
@@ -1588,17 +1628,60 @@
                                 Dias de férias disponíveis
                                 <input type="number" class="ferias-dias" placeholder="10" min="1" max="30">
                             </label>
+                            <label class="tool-field">
+                                Estado (opcional)
+                                <select class="ferias-uf">
+                                    <option value="">Nenhum (só nacional)</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </label>
                         </div>
+                        <label class="tool-field">
+                            Feriados municipais (opcional — um por linha, formato DD/MM Nome)
+                            <textarea class="tool-input ferias-municipais" aria-label="Feriados municipais"
+                                placeholder="20/01 Aniversário da cidade&#10;15/08 Padroeiro"></textarea>
+                        </label>
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary ferias-calcular">Calcular</button>
                         </div>
                         <p class="tool-hint">
                             Só mostra combinações permitidas pela CLT (Art. 134): cada período entre 5 e
                             30 dias corridos, e nenhum começando nos 2 dias antes de feriado ou domingo.
+                            Como não dá pra manter os feriados de mais de 5.500 cidades, digite os da sua
+                            cidade acima se quiser que entrem na conta.
                         </p>
                         <div class="ferias-opcoes"></div>
                         <p class="tool-hint">
                             <span class="legenda-item legenda-feriado">feriado</span>
+                            <span class="legenda-item legenda-facultativo">ponto facultativo</span>
+                            <span class="legenda-item legenda-estadual">estadual</span>
+                            <span class="legenda-item legenda-municipal">municipal</span>
                             <span class="legenda-item legenda-fds">fim de semana</span>
                             <span class="legenda-item legenda-ferias">dia de férias sugerido</span>
                         </p>

@@ -63,9 +63,12 @@ function addDaysToDate(date, days) {
   return d;
 }
 
+// Só os 8 abaixo são feriados nacionais obrigatórios por lei (Lei 6.802/80).
+// Carnaval, Sexta-feira Santa e Corpus Christi são ponto facultativo — o
+// empregador não é obrigado a dispensar o funcionário nesses dias.
 function nationalHolidays(year) {
   const easter = easterDate(year);
-  const fixos = [
+  const obrigatorios = [
     [0, 1, "Confraternização Universal"],
     [3, 21, "Tiradentes"],
     [4, 1, "Dia do Trabalho"],
@@ -74,27 +77,108 @@ function nationalHolidays(year) {
     [10, 2, "Finados"],
     [10, 15, "Proclamação da República"],
     [11, 25, "Natal"],
-  ].map(([month, day, nome]) => ({ date: new Date(year, month, day), nome }));
+  ].map(([month, day, nome]) => ({ date: new Date(year, month, day), nome, tipo: "feriado" }));
 
-  const moveis = [
-    { date: addDaysToDate(easter, -47), nome: "Carnaval" },
+  const facultativos = [
+    { date: addDaysToDate(easter, -48), nome: "Carnaval (segunda-feira)" },
+    { date: addDaysToDate(easter, -47), nome: "Carnaval (terça-feira)" },
     { date: addDaysToDate(easter, -2), nome: "Sexta-feira Santa" },
-    { date: easter, nome: "Páscoa" },
     { date: addDaysToDate(easter, 60), nome: "Corpus Christi" },
-  ];
+  ].map((h) => ({ ...h, tipo: "facultativo" }));
 
-  return [...fixos, ...moveis].sort((x, y) => x.date - y.date);
+  return [...obrigatorios, ...facultativos].sort((x, y) => x.date - y.date);
 }
+
+// Feriados estaduais mais conhecidos (Data Magna, padroeiro etc.) por UF.
+// Leis estaduais mudam com o tempo — confira a fonte oficial do seu estado
+// antes de usar isso pra algo importante. Datas que coincidem com um
+// feriado nacional (ex: MG e DF em 21/abr, já é Tiradentes) são omitidas
+// pra não duplicar.
+const STATE_HOLIDAYS = {
+  AC: [{ m: 1, d: 23, n: "Dia do Evangélico" }, { m: 3, d: 8, n: "Dia da Mulher" }, { m: 6, d: 15, n: "Aniversário do Acre" }, { m: 9, d: 5, n: "Dia da Amazônia" }, { m: 11, d: 17, n: "Tratado de Petrópolis" }],
+  AL: [{ m: 6, d: 24, n: "São João" }, { m: 6, d: 29, n: "São Pedro" }, { m: 9, d: 16, n: "Emancipação Política de Alagoas" }],
+  AP: [{ m: 3, d: 19, n: "São José (padroeiro)" }, { m: 9, d: 13, n: "Criação do Território Federal" }],
+  AM: [{ m: 9, d: 5, n: "Elevação à categoria de Província" }, { m: 12, d: 8, n: "Nossa Senhora da Conceição" }],
+  BA: [{ m: 7, d: 2, n: "Independência da Bahia" }],
+  CE: [{ m: 3, d: 19, n: "São José (padroeiro)" }, { m: 3, d: 25, n: "Abolição da escravidão no Ceará" }],
+  DF: [{ m: 11, d: 30, n: "Dia do Evangélico" }],
+  ES: [{ easterOffset: 8, n: "Nossa Senhora da Penha" }, { m: 11, d: 30, n: "Dia do Evangélico" }],
+  GO: [{ m: 5, d: 24, n: "Nossa Senhora Auxiliadora" }, { m: 7, d: 26, n: "Fundação de Goiás" }, { m: 10, d: 24, n: "Pedra fundamental de Goiânia" }],
+  MA: [{ m: 7, d: 28, n: "Adesão à Independência do Brasil" }],
+  MT: [],
+  MS: [{ m: 10, d: 11, n: "Criação do Estado" }],
+  MG: [],
+  PA: [{ m: 8, d: 15, n: "Adesão do Grão-Pará à Independência" }],
+  PB: [{ m: 8, d: 5, n: "Fundação do Estado" }],
+  PR: [],
+  PE: [{ m: 3, d: 6, n: "Revolução Pernambucana de 1817" }, { m: 6, d: 24, n: "São João" }],
+  PI: [{ m: 10, d: 19, n: "Dia do Piauí" }],
+  RJ: [{ m: 4, d: 23, n: "São Jorge" }],
+  RN: [{ m: 8, d: 7, n: "Dia do Rio Grande do Norte" }, { m: 10, d: 3, n: "Mártires de Cunhaú e Uruaçu" }],
+  RS: [{ m: 9, d: 20, n: "Dia do Gaúcho / Revolução Farroupilha" }],
+  RO: [{ m: 1, d: 4, n: "Criação do Estado" }, { m: 6, d: 18, n: "Dia do Evangélico" }],
+  RR: [{ m: 10, d: 5, n: "Criação do Estado" }],
+  SC: [{ m: 8, d: 11, n: "Dia de Santa Catarina" }, { m: 11, d: 25, n: "Santa Catarina de Alexandria" }],
+  SP: [{ m: 7, d: 9, n: "Revolução Constitucionalista de 1932" }],
+  SE: [{ m: 7, d: 8, n: "Emancipação Política de Sergipe" }],
+  TO: [{ m: 3, d: 18, n: "Autonomia do Estado" }, { m: 9, d: 8, n: "Nossa Senhora da Natividade (padroeira)" }, { m: 10, d: 5, n: "Criação do Estado" }],
+};
+
+const STATE_NAMES = {
+  AC: "Acre", AL: "Alagoas", AP: "Amapá", AM: "Amazonas", BA: "Bahia", CE: "Ceará",
+  DF: "Distrito Federal", ES: "Espírito Santo", GO: "Goiás", MA: "Maranhão", MT: "Mato Grosso",
+  MS: "Mato Grosso do Sul", MG: "Minas Gerais", PA: "Pará", PB: "Paraíba", PR: "Paraná",
+  PE: "Pernambuco", PI: "Piauí", RJ: "Rio de Janeiro", RN: "Rio Grande do Norte",
+  RS: "Rio Grande do Sul", RO: "Rondônia", RR: "Roraima", SC: "Santa Catarina",
+  SP: "São Paulo", SE: "Sergipe", TO: "Tocantins",
+};
+
+function stateHolidays(year, uf) {
+  const list = STATE_HOLIDAYS[uf];
+  if (!list) return [];
+  const easter = easterDate(year);
+  const nationalDates = new Set(nationalHolidays(year).filter((h) => h.tipo === "feriado").map((h) => h.date.toDateString()));
+  const result = [];
+  for (const item of list) {
+    const date = item.easterOffset !== undefined ? addDaysToDate(easter, item.easterOffset) : new Date(year, item.m - 1, item.d);
+    if (nationalDates.has(date.toDateString())) continue;
+    result.push({ date, nome: item.n, tipo: "estadual" });
+  }
+  return result.sort((a, b) => a.date - b.date);
+}
+
+// extras: array de { date: Date, nome: string } de feriados municipais
+// digitados manualmente pelo usuário (não dá pra manter uma base confiável
+// pras 5.500+ cidades do Brasil).
+function allHolidays(year, uf, extras) {
+  const nacional = nationalHolidays(year);
+  const estadual = uf ? stateHolidays(year, uf) : [];
+  const municipal = (extras || []).map((e) => ({ ...e, tipo: "municipal" }));
+  const seen = new Set();
+  const merged = [];
+  for (const h of [...nacional, ...estadual, ...municipal]) {
+    const key = h.date.toDateString();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    merged.push(h);
+  }
+  return merged.sort((a, b) => a.date - b.date);
+}
+
+const HOLIDAY_TYPE_LABEL = { feriado: "feriado", facultativo: "ponto facultativo", estadual: "estadual", municipal: "municipal" };
 
 function initFeriadosCard(card) {
   if (!card) return;
   const ano = card.querySelector(".feriados-ano");
+  const uf = card.querySelector(".feriados-uf");
   const output = card.querySelector(".tool-output");
 
   card.querySelector(".feriados-listar").addEventListener("click", () => {
     const year = parseInt(ano.value, 10) || new Date().getFullYear();
-    const holidays = nationalHolidays(year);
-    output.value = holidays.map((h) => `${h.date.toLocaleDateString("pt-BR")} — ${h.nome}`).join("\n");
+    const holidays = allHolidays(year, uf.value, []);
+    output.value = holidays
+      .map((h) => `${h.date.toLocaleDateString("pt-BR")} — ${h.nome} (${HOLIDAY_TYPE_LABEL[h.tipo]})`)
+      .join("\n");
   });
 }
 
@@ -254,6 +338,7 @@ function feriadaoOpportunities(year) {
     const totalDaysOff = Math.round((blockEnd - blockStart) / 86400000) + 1;
     opportunities.push({
       nome: h.nome,
+      tipo: h.tipo,
       data: h.date,
       diaSemana: WEEKDAY_NAMES[weekday],
       bridgeDays,
@@ -268,11 +353,12 @@ function feriadaoOpportunities(year) {
 
 function describeFeriadao(opp) {
   const periodo = `${opp.blockStart.toLocaleDateString("pt-BR")} a ${opp.blockEnd.toLocaleDateString("pt-BR")}`;
+  const marcaFacultativo = opp.tipo === "facultativo" ? " [PONTO FACULTATIVO — não é garantido, depende da empresa]" : "";
   if (opp.bridgeDays.length === 0) {
-    return `${opp.nome} (${opp.diaSemana}, ${opp.data.toLocaleDateString("pt-BR")}): já forma um feriadão automático de ${opp.totalDaysOff} dias (${periodo}).`;
+    return `${opp.nome}${marcaFacultativo} (${opp.diaSemana}, ${opp.data.toLocaleDateString("pt-BR")}): já forma um feriadão automático de ${opp.totalDaysOff} dias (${periodo}).`;
   }
   const dias = opp.bridgeDays.map((d) => d.toLocaleDateString("pt-BR")).join(" e ");
-  return `${opp.nome} (${opp.diaSemana}, ${opp.data.toLocaleDateString("pt-BR")}): tire ${dias} de férias → ${opp.totalDaysOff} dias seguidos de folga (${periodo}).`;
+  return `${opp.nome}${marcaFacultativo} (${opp.diaSemana}, ${opp.data.toLocaleDateString("pt-BR")}): tire ${dias} de férias → ${opp.totalDaysOff} dias seguidos de folga (${periodo}).`;
 }
 
 function initFeriadaoCard(card) {
@@ -292,8 +378,15 @@ function initFeriadaoCard(card) {
 }
 
 /* ---------- Planejador de Férias (calendário visual) ---------- */
-function buildYearDayTypes(year) {
-  const holidays = new Map(nationalHolidays(year).map((h) => [h.date.toDateString(), h.nome]));
+// Só feriado nacional obrigatório + estadual + municipal contam como dia já
+// garantido (é isso que a CLT considera "feriado"). Ponto facultativo NÃO
+// entra aqui — não é garantido, fica marcado à parte pro calendário.
+function buildYearDayTypes(year, uf, extras) {
+  const holidays = new Map(
+    allHolidays(year, uf, extras)
+      .filter((h) => h.tipo !== "facultativo")
+      .map((h) => [h.date.toDateString(), h])
+  );
   const days = [];
   const cursor = new Date(year, 0, 1);
   while (cursor.getFullYear() === year) {
@@ -302,7 +395,8 @@ function buildYearDayTypes(year) {
     let type = "work";
     if (weekday === 0 || weekday === 6) type = "weekend";
     else if (holidays.has(date.toDateString())) type = "holiday";
-    days.push({ date, type, holidayName: holidays.get(date.toDateString()) });
+    const holidayInfo = holidays.get(date.toDateString());
+    days.push({ date, type, holidayName: holidayInfo?.nome });
     cursor.setDate(cursor.getDate() + 1);
   }
   return days;
@@ -320,8 +414,8 @@ function isValidVacationStart(date, holidaySet) {
   return true;
 }
 
-function findBestVacationWindows(year, vacationDays, topN) {
-  const days = buildYearDayTypes(year);
+function findBestVacationWindows(year, vacationDays, topN, uf, extras) {
+  const days = buildYearDayTypes(year, uf, extras);
   const holidaySet = new Set(days.filter((d) => d.type === "holiday").map((d) => d.date.toDateString()));
   const n = days.length;
   const candidates = [];
@@ -397,12 +491,12 @@ function renderYearCalendar(container, year, holidaysMap, highlightOption) {
 
       const weekday = date.getDay();
       const isWeekend = weekday === 0 || weekday === 6;
-      const holidayName = holidaysMap.get(date.toDateString());
-      const isVacation = highlightOption && date >= highlightOption.start && date <= highlightOption.end && !holidayName && !isWeekend;
+      const holiday = holidaysMap.get(date.toDateString());
+      const isVacation = highlightOption && date >= highlightOption.start && date <= highlightOption.end && !holiday && !isWeekend;
 
-      if (holidayName) {
-        cell.classList.add("cal-cell--holiday");
-        cell.title = holidayName;
+      if (holiday) {
+        cell.classList.add(holiday.tipo === "facultativo" ? "cal-cell--facultativo" : holiday.tipo === "municipal" ? "cal-cell--municipal" : holiday.tipo === "estadual" ? "cal-cell--estadual" : "cal-cell--holiday");
+        cell.title = `${holiday.nome} (${HOLIDAY_TYPE_LABEL[holiday.tipo]})`;
       } else if (isWeekend) {
         cell.classList.add("cal-cell--weekend");
       } else if (isVacation) {
@@ -417,17 +511,44 @@ function renderYearCalendar(container, year, holidaysMap, highlightOption) {
   }
 }
 
+function parseMunicipalHolidaysInput(text) {
+  const currentYear = new Date().getFullYear();
+  return text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const match = line.match(/^(\d{1,2})\/(\d{1,2})\s*[-–—]?\s*(.*)$/);
+      if (!match) return null;
+      const day = parseInt(match[1], 10);
+      const month = parseInt(match[2], 10);
+      const nome = match[3].trim() || "Feriado municipal";
+      if (month < 1 || month > 12 || day < 1 || day > 31) return null;
+      return { day, month, nome };
+    })
+    .filter(Boolean);
+}
+
 function initFeriasPlanejadorCard(card) {
   if (!card) return;
   const anoInput = card.querySelector(".ferias-ano");
   const diasInput = card.querySelector(".ferias-dias");
+  const ufInput = card.querySelector(".ferias-uf");
+  const municipaisInput = card.querySelector(".ferias-municipais");
   const opcoesEl = card.querySelector(".ferias-opcoes");
   const calendarioEl = card.querySelector(".ferias-calendario");
   let currentYear = new Date().getFullYear();
 
-  function renderOptions(options) {
+  function extrasFor(year) {
+    return parseMunicipalHolidaysInput(municipaisInput.value).map((e) => ({
+      date: new Date(year, e.month - 1, e.day),
+      nome: e.nome,
+    }));
+  }
+
+  function renderOptions(options, uf, extras) {
     opcoesEl.innerHTML = "";
-    const holidaysMap = new Map(nationalHolidays(currentYear).map((h) => [h.date.toDateString(), h.nome]));
+    const holidaysMap = new Map(allHolidays(currentYear, uf, extras).map((h) => [h.date.toDateString(), h]));
 
     options.forEach((opt, idx) => {
       const btn = document.createElement("button");
@@ -453,14 +574,16 @@ function initFeriasPlanejadorCard(card) {
       showToast("Digite quantos dias de férias você tem.");
       return;
     }
-    const options = findBestVacationWindows(currentYear, dias, 5);
+    const uf = ufInput.value;
+    const extras = extrasFor(currentYear);
+    const options = findBestVacationWindows(currentYear, dias, 5, uf, extras);
     if (!options.length) {
       opcoesEl.innerHTML = "";
       calendarioEl.innerHTML = "";
       showToast("Nenhuma opção encontrada.");
       return;
     }
-    renderOptions(options);
+    renderOptions(options, uf, extras);
   });
 }
 
