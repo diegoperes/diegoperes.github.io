@@ -173,6 +173,8 @@
                         Idade</button>
                     <button type="button" class="dev-nav__link" data-target="signo">Signo do Zodíaco</button>
                     <button type="button" class="dev-nav__link" data-target="fase-lua">Fase da Lua</button>
+                    <button type="button" class="dev-nav__link" data-target="feriadao">Emenda de
+                        Feriados</button>
                     <button type="button" class="dev-nav__link" data-target="cronometro">Cronômetro /
                         Contagem</button>
                     <button type="button" class="dev-nav__link" data-target="pomodoro">Pomodoro Timer</button>
@@ -1550,6 +1552,26 @@
                             placeholder="Resultado aparece aqui"></textarea>
                         <p class="tool-hint">Cálculo aproximado pelo ciclo sinódico (~29,53 dias) — pode
                             variar ±1 dia da referência oficial.</p>
+                    </article>
+
+                    <!-- ===== EMENDA DE FERIADOS ===== -->
+                    <article class="tool-card" data-tool="feriadao">
+                        <h2 class="tool-card__title">Emenda de Feriados (Feriadão)</h2>
+                        <label class="tool-field">
+                            Ano
+                            <input type="number" class="feriadao-ano" placeholder="2026">
+                        </label>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary feriadao-calcular">Calcular</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Oportunidades de feriadão"
+                            placeholder="Clique em Calcular"></textarea>
+                        <p class="tool-hint">
+                            Mostra quais feriados nacionais dá pra emendar com o fim de semana tirando 1-2
+                            dias de férias, e quantos dias seguidos de folga isso gera. Não considera
+                            feriados estaduais/municipais.
+                        </p>
                     </article>
 
                     <!-- ===== CRONÔMETRO / CONTAGEM ===== -->

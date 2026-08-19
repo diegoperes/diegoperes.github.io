@@ -216,6 +216,81 @@ function initFaseLuaCard(card) {
   });
 }
 
+/* ---------- Emenda de Feriados (Feriadão) ---------- */
+const WEEKDAY_NAMES = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+
+function feriadaoOpportunities(year) {
+  const holidays = nationalHolidays(year);
+  const opportunities = [];
+
+  for (const h of holidays) {
+    const weekday = h.date.getDay();
+    if (weekday === 0 || weekday === 6) continue;
+
+    let bridgeDays = [];
+    let blockStart;
+    let blockEnd;
+
+    if (weekday === 1) {
+      blockStart = addDaysToDate(h.date, -2);
+      blockEnd = h.date;
+    } else if (weekday === 5) {
+      blockStart = h.date;
+      blockEnd = addDaysToDate(h.date, 2);
+    } else if (weekday === 2) {
+      bridgeDays = [addDaysToDate(h.date, -1)];
+      blockStart = addDaysToDate(h.date, -3);
+      blockEnd = h.date;
+    } else if (weekday === 4) {
+      bridgeDays = [addDaysToDate(h.date, 1)];
+      blockStart = h.date;
+      blockEnd = addDaysToDate(h.date, 3);
+    } else {
+      bridgeDays = [addDaysToDate(h.date, -2), addDaysToDate(h.date, -1)];
+      blockStart = addDaysToDate(h.date, -4);
+      blockEnd = h.date;
+    }
+
+    const totalDaysOff = Math.round((blockEnd - blockStart) / 86400000) + 1;
+    opportunities.push({
+      nome: h.nome,
+      data: h.date,
+      diaSemana: WEEKDAY_NAMES[weekday],
+      bridgeDays,
+      totalDaysOff,
+      blockStart,
+      blockEnd,
+    });
+  }
+
+  return opportunities;
+}
+
+function describeFeriadao(opp) {
+  const periodo = `${opp.blockStart.toLocaleDateString("pt-BR")} a ${opp.blockEnd.toLocaleDateString("pt-BR")}`;
+  if (opp.bridgeDays.length === 0) {
+    return `${opp.nome} (${opp.diaSemana}, ${opp.data.toLocaleDateString("pt-BR")}): já forma um feriadão automático de ${opp.totalDaysOff} dias (${periodo}).`;
+  }
+  const dias = opp.bridgeDays.map((d) => d.toLocaleDateString("pt-BR")).join(" e ");
+  return `${opp.nome} (${opp.diaSemana}, ${opp.data.toLocaleDateString("pt-BR")}): tire ${dias} de férias → ${opp.totalDaysOff} dias seguidos de folga (${periodo}).`;
+}
+
+function initFeriadaoCard(card) {
+  if (!card) return;
+  const ano = card.querySelector(".feriadao-ano");
+  const output = card.querySelector(".tool-output");
+
+  card.querySelector(".feriadao-calcular").addEventListener("click", () => {
+    const year = parseInt(ano.value, 10) || new Date().getFullYear();
+    const opportunities = feriadaoOpportunities(year);
+    if (!opportunities.length) {
+      output.value = "Nenhuma oportunidade de feriadão encontrada.";
+      return;
+    }
+    output.value = opportunities.map(describeFeriadao).join("\n\n");
+  });
+}
+
 /* ---------- Cronômetro e Contagem Regressiva ---------- */
 function formatTimerDisplay(totalSeconds) {
   const s = Math.max(0, Math.round(totalSeconds));
