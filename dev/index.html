@@ -69,10 +69,29 @@
             </div>
         </section>
 
-        <section class="section section--alt">
-            <div class="container">
-                <h2 class="section__title"><span class="section__num">01.</span> Documentos (BR)</h2>
-                <div class="tool-grid">
+        <section class="section section--alt dev-main">
+            <div class="container dev-layout">
+
+                <nav class="dev-sidebar" aria-label="Ferramentas disponíveis">
+                    <p class="dev-nav__group">Documentos (BR)</p>
+                    <button type="button" class="dev-nav__link" data-target="cpf">Gerador de CPF</button>
+                    <button type="button" class="dev-nav__link" data-target="cnpj">Gerador de CNPJ</button>
+                    <button type="button" class="dev-nav__link" data-target="placa">Gerador de Placa</button>
+                    <button type="button" class="dev-nav__link" data-target="guid">Gerador de GUID / UUID</button>
+
+                    <p class="dev-nav__group">Ferramentas gerais</p>
+                    <button type="button" class="dev-nav__link" data-target="senha">Gerador de Senha</button>
+                    <button type="button" class="dev-nav__link" data-target="slug">Gerador de Slug</button>
+                    <button type="button" class="dev-nav__link" data-target="base64">Base64 Encode / Decode</button>
+                    <button type="button" class="dev-nav__link" data-target="jwt">Decodificador de JWT</button>
+                    <button type="button" class="dev-nav__link" data-target="json">Formatador de JSON</button>
+                    <button type="button" class="dev-nav__link" data-target="hash">Hash de Texto</button>
+                    <button type="button" class="dev-nav__link" data-target="timestamp">Conversor de
+                        Timestamp</button>
+                    <button type="button" class="dev-nav__link" data-target="lorem">Lorem Ipsum</button>
+                </nav>
+
+                <div class="dev-content">
 
                     <!-- ===== CPF ===== -->
                     <article class="tool-card" data-tool="cpf">
@@ -93,6 +112,10 @@
                         </div>
                         <textarea class="tool-output" readonly aria-label="CPFs gerados"
                             placeholder="Clique em Gerar"></textarea>
+                        <p class="tool-hint">
+                            Segue o algoritmo de validação oficial, mas o número <strong>não existe de
+                                fato</strong> — use só para testes.
+                        </p>
                     </article>
 
                     <!-- ===== CNPJ ===== -->
@@ -114,6 +137,10 @@
                         </div>
                         <textarea class="tool-output" readonly aria-label="CNPJs gerados"
                             placeholder="Clique em Gerar"></textarea>
+                        <p class="tool-hint">
+                            Segue o algoritmo de validação oficial, mas o número <strong>não existe de
+                                fato</strong> — use só para testes.
+                        </p>
                     </article>
 
                     <!-- ===== PLACA ===== -->
@@ -138,10 +165,13 @@
                         </div>
                         <textarea class="tool-output" readonly aria-label="Placas geradas"
                             placeholder="Clique em Gerar"></textarea>
+                        <p class="tool-hint">
+                            A placa <strong>não existe de fato</strong> — use só para testes.
+                        </p>
                     </article>
 
                     <!-- ===== GUID ===== -->
-                    <article class="tool-card tool-card--wide" data-tool="guid">
+                    <article class="tool-card" data-tool="guid">
                         <h2 class="tool-card__title">Gerador de GUID / UUID</h2>
                         <div class="tool-card__row">
                             <label class="tool-field">
@@ -185,21 +215,6 @@
                         <textarea class="tool-output" readonly aria-label="GUIDs gerados"
                             placeholder="Clique em Gerar"></textarea>
                     </article>
-
-                </div>
-
-                <p class="dev-note">
-                    Os documentos gerados aqui seguem o algoritmo de validação oficial, mas os
-                    números <strong>não existem de fato</strong> — use apenas para testes, massa de
-                    dados e desenvolvimento.
-                </p>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="container">
-                <h2 class="section__title"><span class="section__num">02.</span> Ferramentas gerais</h2>
-                <div class="tool-grid">
 
                     <!-- ===== SENHA ===== -->
                     <article class="tool-card" data-tool="senha">
@@ -254,7 +269,7 @@
                     </article>
 
                     <!-- ===== BASE64 ===== -->
-                    <article class="tool-card tool-card--wide" data-tool="base64">
+                    <article class="tool-card" data-tool="base64">
                         <h2 class="tool-card__title">Base64 Encode / Decode</h2>
                         <textarea class="tool-input" aria-label="Texto de entrada"
                             placeholder="Cole aqui o texto (para codificar) ou o Base64 (para decodificar)..."></textarea>
@@ -268,7 +283,7 @@
                     </article>
 
                     <!-- ===== JWT ===== -->
-                    <article class="tool-card tool-card--wide" data-tool="jwt">
+                    <article class="tool-card" data-tool="jwt">
                         <h2 class="tool-card__title">Decodificador de JWT</h2>
                         <textarea class="tool-input" aria-label="Token JWT"
                             placeholder="Cole o token JWT aqui (header.payload.assinatura)..."></textarea>
@@ -285,7 +300,7 @@
                     </article>
 
                     <!-- ===== JSON ===== -->
-                    <article class="tool-card tool-card--wide" data-tool="json">
+                    <article class="tool-card" data-tool="json">
                         <h2 class="tool-card__title">Formatador / Validador de JSON</h2>
                         <textarea class="tool-input" aria-label="JSON de entrada"
                             placeholder='Cole o JSON aqui: {"exemplo": true}'></textarea>
@@ -299,7 +314,7 @@
                     </article>
 
                     <!-- ===== HASH ===== -->
-                    <article class="tool-card tool-card--wide" data-tool="hash">
+                    <article class="tool-card" data-tool="hash">
                         <h2 class="tool-card__title">Hash de Texto</h2>
                         <textarea class="tool-input" aria-label="Texto para gerar hash"
                             placeholder="Digite ou cole o texto..."></textarea>
@@ -321,7 +336,7 @@
                     </article>
 
                     <!-- ===== TIMESTAMP ===== -->
-                    <article class="tool-card tool-card--wide" data-tool="timestamp">
+                    <article class="tool-card" data-tool="timestamp">
                         <h2 class="tool-card__title">Conversor de Timestamp Unix</h2>
                         <div class="tool-card__row">
                             <label class="tool-field">
@@ -354,7 +369,7 @@
                     </article>
 
                     <!-- ===== LOREM IPSUM ===== -->
-                    <article class="tool-card tool-card--wide" data-tool="lorem">
+                    <article class="tool-card" data-tool="lorem">
                         <h2 class="tool-card__title">Gerador de Lorem Ipsum</h2>
                         <div class="tool-card__row">
                             <label class="tool-field">

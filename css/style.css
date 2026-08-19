@@ -618,6 +618,10 @@ body {
   transition: color var(--transition);
 }
 
+.footer__dev-link {
+  font-family: var(--font-mono);
+}
+
 .footer__links a:hover {
   color: var(--accent);
 }

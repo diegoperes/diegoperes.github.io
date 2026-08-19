@@ -26,10 +26,62 @@
   font-size: 1.05rem;
 }
 
-.tool-grid {
+.dev-layout {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: 240px 1fr;
+  align-items: start;
+  gap: 32px;
+}
+
+.dev-sidebar {
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.dev-nav__group {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin: 18px 0 6px;
+}
+
+.dev-nav__group:first-child {
+  margin-top: 0;
+}
+
+.dev-nav__link {
+  text-align: left;
+  padding: 9px 10px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.dev-nav__link:hover {
+  color: var(--text);
+  background: var(--accent-soft);
+}
+
+.dev-nav__link.is-active {
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 600;
+}
+
+.dev-content {
+  min-width: 0;
 }
 
 .tool-card {
@@ -37,18 +89,18 @@
   border: 1px solid var(--surface-border);
   border-radius: var(--radius);
   padding: 24px;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 16px;
   transition: border-color var(--transition);
 }
 
-.tool-card:hover {
-  border-color: var(--accent);
+.tool-card.is-active {
+  display: flex;
 }
 
-.tool-card--wide {
-  grid-column: 1 / -1;
+.tool-card:hover {
+  border-color: var(--accent);
 }
 
 .tool-card__title {
@@ -153,11 +205,29 @@ input.tool-input {
   margin-top: -6px;
 }
 
-.dev-note {
-  margin-top: 32px;
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  max-width: 720px;
+@media (max-width: 860px) {
+  .dev-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dev-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-height: none;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .dev-nav__group {
+    display: none;
+  }
+
+  .dev-nav__link {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 }
 
 @media (max-width: 600px) {

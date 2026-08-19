@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".tool-card").forEach(initToolCard);
   wireCopyButtons();
+  initDevNav();
 
   initSlugCard(document.querySelector('[data-tool="slug"]'));
   initBase64Card(document.querySelector('[data-tool="base64"]'));
@@ -18,6 +19,39 @@ document.addEventListener("DOMContentLoaded", () => {
   initTimestampCard(document.querySelector('[data-tool="timestamp"]'));
   initLoremCard(document.querySelector('[data-tool="lorem"]'));
 });
+
+/* ---------- Menu lateral: mostra só a ferramenta selecionada ---------- */
+function initDevNav() {
+  const links = document.querySelectorAll(".dev-nav__link");
+  const panels = document.querySelectorAll(".dev-content .tool-card");
+  if (!links.length || !panels.length) return;
+
+  function activate(tool) {
+    const target = Array.from(panels).find((panel) => panel.dataset.tool === tool);
+    if (!target) return false;
+
+    panels.forEach((panel) => panel.classList.toggle("is-active", panel === target));
+    links.forEach((link) => link.classList.toggle("is-active", link.dataset.target === tool));
+    return true;
+  }
+
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
+      const tool = link.dataset.target;
+      if (!activate(tool)) return;
+      history.replaceState(null, "", `#${tool}`);
+    });
+  });
+
+  window.addEventListener("hashchange", () => {
+    activate(window.location.hash.slice(1));
+  });
+
+  const initialTool = window.location.hash.slice(1);
+  if (!initialTool || !activate(initialTool)) {
+    activate(links[0].dataset.target);
+  }
+}
 
 /* ---------- Copiar saída (comum a todos os cards) ---------- */
 function wireCopyButtons() {
