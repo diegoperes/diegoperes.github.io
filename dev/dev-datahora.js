@@ -377,19 +377,31 @@ function initFeriadaoCard(card) {
   });
 }
 
-/* ---------- Planejador de Férias (calendário visual) ---------- */
-// Só feriado nacional obrigatório + estadual + municipal contam como dia já
-// garantido (é isso que a CLT considera "feriado"). Ponto facultativo NÃO
-// entra aqui — não é garantido, fica marcado à parte pro calendário.
-function buildYearDayTypes(year, uf, extras) {
-  const holidays = new Map(
-    allHolidays(year, uf, extras)
-      .filter((h) => h.tipo !== "facultativo")
-      .map((h) => [h.date.toDateString(), h])
-  );
+/* ---------- Planejador de Férias (calendário visual, período rolante ou personalizado) ---------- */
+// Reúne feriados de todos os anos que o período cobre (pode cruzar virada de
+// ano). Só feriado nacional obrigatório + estadual + municipal contam como
+// dia já garantido (é isso que a CLT considera "feriado") quando
+// excludeFacultativo=true; o calendário visual usa excludeFacultativo=false
+// pra também mostrar ponto facultativo.
+function holidaysMapForRange(startDate, endDate, uf, extrasByYear, excludeFacultativo) {
+  const map = new Map();
+  for (let y = startDate.getFullYear(); y <= endDate.getFullYear(); y++) {
+    const extras = extrasByYear ? extrasByYear(y) : [];
+    let hs = allHolidays(y, uf, extras);
+    if (excludeFacultativo) hs = hs.filter((h) => h.tipo !== "facultativo");
+    for (const h of hs) {
+      const key = h.date.toDateString();
+      if (!map.has(key)) map.set(key, h);
+    }
+  }
+  return map;
+}
+
+function buildDayTypesForRange(startDate, endDate, uf, extrasByYear) {
+  const holidays = holidaysMapForRange(startDate, endDate, uf, extrasByYear, true);
   const days = [];
-  const cursor = new Date(year, 0, 1);
-  while (cursor.getFullYear() === year) {
+  const cursor = new Date(startDate);
+  while (cursor <= endDate) {
     const date = new Date(cursor);
     const weekday = date.getDay();
     let type = "work";
@@ -414,8 +426,8 @@ function isValidVacationStart(date, holidaySet) {
   return true;
 }
 
-function findBestVacationWindows(year, vacationDays, topN, uf, extras) {
-  const days = buildYearDayTypes(year, uf, extras);
+function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, extrasByYear) {
+  const days = buildDayTypesForRange(startDate, endDate, uf, extrasByYear);
   const holidaySet = new Set(days.filter((d) => d.type === "holiday").map((d) => d.date.toDateString()));
   const n = days.length;
   const candidates = [];
@@ -453,16 +465,25 @@ function findBestVacationWindows(year, vacationDays, topN, uf, extras) {
 const CAL_MESES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 const CAL_DIAS_SEMANA = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-function renderYearCalendar(container, year, holidaysMap, highlightOption) {
+// Desenha só os meses entre startDate e endDate (inclusive) — nunca o ano
+// inteiro, pra não mostrar mês passado. startDate/endDate sempre alinhados
+// ao 1º e último dia de um mês (vem do seletor de período).
+function renderCalendarRange(container, startDate, endDate, holidaysMap, highlightOption) {
   container.innerHTML = "";
 
-  for (let month = 0; month < 12; month++) {
+  const cursor = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+  const lastMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
+
+  while (cursor <= lastMonth) {
+    const year = cursor.getFullYear();
+    const month = cursor.getMonth();
+
     const monthEl = document.createElement("div");
     monthEl.className = "cal-month";
 
     const title = document.createElement("h3");
     title.className = "cal-month__title";
-    title.textContent = CAL_MESES[month];
+    title.textContent = `${CAL_MESES[month]} ${year}`;
     monthEl.appendChild(title);
 
     const grid = document.createElement("div");
@@ -508,11 +529,11 @@ function renderYearCalendar(container, year, holidaysMap, highlightOption) {
 
     monthEl.appendChild(grid);
     container.appendChild(monthEl);
+    cursor.setMonth(cursor.getMonth() + 1);
   }
 }
 
 function parseMunicipalHolidaysInput(text) {
-  const currentYear = new Date().getFullYear();
   return text
     .split("\n")
     .map((line) => line.trim())
@@ -529,26 +550,64 @@ function parseMunicipalHolidaysInput(text) {
     .filter(Boolean);
 }
 
+function firstDayOfMonth(date) {
+  return new Date(date.getFullYear(), date.getMonth(), 1);
+}
+
+function lastDayOfMonthPlus(date, monthsAhead) {
+  return new Date(date.getFullYear(), date.getMonth() + monthsAhead + 1, 0);
+}
+
+function parseMonthInput(value) {
+  // value no formato "YYYY-MM" do <input type="month">
+  if (!value) return null;
+  const [y, m] = value.split("-").map(Number);
+  return { year: y, month: m };
+}
+
 function initFeriasPlanejadorCard(card) {
   if (!card) return;
-  const anoInput = card.querySelector(".ferias-ano");
+  const periodoInput = card.querySelector(".ferias-periodo");
+  const deInput = card.querySelector(".ferias-de");
+  const ateInput = card.querySelector(".ferias-ate");
+  const customFields = card.querySelectorAll(".ferias-periodo-custom");
   const diasInput = card.querySelector(".ferias-dias");
   const ufInput = card.querySelector(".ferias-uf");
   const municipaisInput = card.querySelector(".ferias-municipais");
   const opcoesEl = card.querySelector(".ferias-opcoes");
   const calendarioEl = card.querySelector(".ferias-calendario");
-  let currentYear = new Date().getFullYear();
 
-  function extrasFor(year) {
+  function togglePeriodoCustom() {
+    const isCustom = periodoInput.value === "custom";
+    customFields.forEach((el) => { el.hidden = !isCustom; });
+  }
+  periodoInput.addEventListener("change", togglePeriodoCustom);
+  togglePeriodoCustom();
+
+  function resolvePeriod() {
+    if (periodoInput.value === "custom") {
+      const de = parseMonthInput(deInput.value);
+      const ate = parseMonthInput(ateInput.value);
+      if (!de || !ate) return null;
+      const start = new Date(de.year, de.month - 1, 1);
+      const end = new Date(ate.year, ate.month, 0);
+      if (end < start) return null;
+      return { start, end };
+    }
+    const hoje = new Date();
+    return { start: firstDayOfMonth(hoje), end: lastDayOfMonthPlus(hoje, 11) };
+  }
+
+  function extrasByYear(year) {
     return parseMunicipalHolidaysInput(municipaisInput.value).map((e) => ({
       date: new Date(year, e.month - 1, e.day),
       nome: e.nome,
     }));
   }
 
-  function renderOptions(options, uf, extras) {
+  function renderOptions(options, start, end, uf) {
     opcoesEl.innerHTML = "";
-    const holidaysMap = new Map(allHolidays(currentYear, uf, extras).map((h) => [h.date.toDateString(), h]));
+    const holidaysMap = holidaysMapForRange(start, end, uf, extrasByYear, false);
 
     options.forEach((opt, idx) => {
       const btn = document.createElement("button");
@@ -559,31 +618,34 @@ function initFeriasPlanejadorCard(card) {
       btn.addEventListener("click", () => {
         opcoesEl.querySelectorAll(".btn").forEach((b) => b.classList.remove("is-active"));
         btn.classList.add("is-active");
-        renderYearCalendar(calendarioEl, currentYear, holidaysMap, opt);
+        renderCalendarRange(calendarioEl, start, end, holidaysMap, opt);
       });
       opcoesEl.appendChild(btn);
     });
 
-    renderYearCalendar(calendarioEl, currentYear, holidaysMap, options[0]);
+    renderCalendarRange(calendarioEl, start, end, holidaysMap, options[0]);
   }
 
   card.querySelector(".ferias-calcular").addEventListener("click", () => {
-    currentYear = parseInt(anoInput.value, 10) || new Date().getFullYear();
+    const period = resolvePeriod();
+    if (!period) {
+      showToast("Selecione um período personalizado válido (De até Até).");
+      return;
+    }
     const dias = parseInt(diasInput.value, 10);
     if (!dias || dias < 1) {
       showToast("Digite quantos dias de férias você tem.");
       return;
     }
     const uf = ufInput.value;
-    const extras = extrasFor(currentYear);
-    const options = findBestVacationWindows(currentYear, dias, 5, uf, extras);
+    const options = findBestVacationWindows(period.start, period.end, dias, 5, uf, extrasByYear);
     if (!options.length) {
       opcoesEl.innerHTML = "";
       calendarioEl.innerHTML = "";
-      showToast("Nenhuma opção encontrada.");
+      showToast("Nenhuma opção encontrada nesse período.");
       return;
     }
-    renderOptions(options, uf, extras);
+    renderOptions(options, period.start, period.end, uf);
   });
 }
 

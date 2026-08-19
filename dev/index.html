@@ -1621,8 +1621,19 @@
                         <h2 class="tool-card__title">Planejador de Férias</h2>
                         <div class="tool-card__row">
                             <label class="tool-field">
-                                Ano
-                                <input type="number" class="ferias-ano" placeholder="2026">
+                                Período
+                                <select class="ferias-periodo">
+                                    <option value="rolling" selected>Próximos 12 meses</option>
+                                    <option value="custom">Personalizado</option>
+                                </select>
+                            </label>
+                            <label class="tool-field ferias-periodo-custom" hidden>
+                                De
+                                <input type="month" class="ferias-de">
+                            </label>
+                            <label class="tool-field ferias-periodo-custom" hidden>
+                                Até
+                                <input type="month" class="ferias-ate">
                             </label>
                             <label class="tool-field">
                                 Dias de férias disponíveis
