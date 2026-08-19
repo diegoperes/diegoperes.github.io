@@ -175,6 +175,8 @@
                     <button type="button" class="dev-nav__link" data-target="fase-lua">Fase da Lua</button>
                     <button type="button" class="dev-nav__link" data-target="feriadao">Emenda de
                         Feriados</button>
+                    <button type="button" class="dev-nav__link" data-target="planejador-ferias">Planejador de
+                        Férias</button>
                     <button type="button" class="dev-nav__link" data-target="cronometro">Cronômetro /
                         Contagem</button>
                     <button type="button" class="dev-nav__link" data-target="pomodoro">Pomodoro Timer</button>
@@ -1572,6 +1574,35 @@
                             dias de férias, e quantos dias seguidos de folga isso gera. Não considera
                             feriados estaduais/municipais.
                         </p>
+                    </article>
+
+                    <!-- ===== PLANEJADOR DE FÉRIAS ===== -->
+                    <article class="tool-card" data-tool="planejador-ferias">
+                        <h2 class="tool-card__title">Planejador de Férias</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Ano
+                                <input type="number" class="ferias-ano" placeholder="2026">
+                            </label>
+                            <label class="tool-field">
+                                Dias de férias disponíveis
+                                <input type="number" class="ferias-dias" placeholder="10" min="1" max="30">
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary ferias-calcular">Calcular</button>
+                        </div>
+                        <p class="tool-hint">
+                            Só mostra combinações permitidas pela CLT (Art. 134): cada período entre 5 e
+                            30 dias corridos, e nenhum começando nos 2 dias antes de feriado ou domingo.
+                        </p>
+                        <div class="ferias-opcoes"></div>
+                        <p class="tool-hint">
+                            <span class="legenda-item legenda-feriado">feriado</span>
+                            <span class="legenda-item legenda-fds">fim de semana</span>
+                            <span class="legenda-item legenda-ferias">dia de férias sugerido</span>
+                        </p>
+                        <div class="ferias-calendario"></div>
                     </article>
 
                     <!-- ===== CRONÔMETRO / CONTAGEM ===== -->

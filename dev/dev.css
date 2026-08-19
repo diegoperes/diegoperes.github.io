@@ -356,6 +356,112 @@ input.tool-input {
   margin-top: -6px;
 }
 
+.ferias-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ferias-opcoes .btn {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+}
+
+.ferias-opcoes .btn.is-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.legenda-item {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 6px;
+  font-size: 0.78rem;
+}
+
+.legenda-feriado {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.legenda-fds {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+}
+
+.legenda-ferias {
+  background: var(--accent-soft);
+  color: var(--accent);
+  outline: 1px solid var(--accent);
+}
+
+.ferias-calendario {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.cal-month {
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.cal-month__title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  border-radius: 4px;
+  color: var(--text-muted);
+}
+
+.cal-cell--head {
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+}
+
+.cal-cell--empty {
+  visibility: hidden;
+}
+
+.cal-cell--weekend {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.cal-cell--holiday {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+}
+
+.cal-cell--vacation {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+  outline: 1px solid var(--accent);
+}
+
 @media (max-width: 860px) {
   .dev-layout {
     grid-template-columns: 1fr;

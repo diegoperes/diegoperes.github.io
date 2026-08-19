@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSignoCard(document.querySelector('[data-tool="signo"]'));
   initFaseLuaCard(document.querySelector('[data-tool="fase-lua"]'));
   initFeriadaoCard(document.querySelector('[data-tool="feriadao"]'));
+  initFeriasPlanejadorCard(document.querySelector('[data-tool="planejador-ferias"]'));
   initCronometroCard(document.querySelector('[data-tool="cronometro"]'));
   initPomodoroCard(document.querySelector('[data-tool="pomodoro"]'));
   initPoupancaCard(document.querySelector('[data-tool="poupanca"]'));

@@ -291,6 +291,179 @@ function initFeriadaoCard(card) {
   });
 }
 
+/* ---------- Planejador de Férias (calendário visual) ---------- */
+function buildYearDayTypes(year) {
+  const holidays = new Map(nationalHolidays(year).map((h) => [h.date.toDateString(), h.nome]));
+  const days = [];
+  const cursor = new Date(year, 0, 1);
+  while (cursor.getFullYear() === year) {
+    const date = new Date(cursor);
+    const weekday = date.getDay();
+    let type = "work";
+    if (weekday === 0 || weekday === 6) type = "weekend";
+    else if (holidays.has(date.toDateString())) type = "holiday";
+    days.push({ date, type, holidayName: holidays.get(date.toDateString()) });
+    cursor.setDate(cursor.getDate() + 1);
+  }
+  return days;
+}
+
+// Art. 134 da CLT: cada período de férias precisa ter entre 5 e 30 dias
+// corridos, e não pode começar nos 2 dias que antecedem um feriado ou o
+// domingo (dia de descanso semanal remunerado).
+function isValidVacationStart(date, holidaySet) {
+  for (const offset of [1, 2]) {
+    const check = addDaysToDate(date, offset);
+    if (check.getDay() === 0) return false;
+    if (holidaySet.has(check.toDateString())) return false;
+  }
+  return true;
+}
+
+function findBestVacationWindows(year, vacationDays, topN) {
+  const days = buildYearDayTypes(year);
+  const holidaySet = new Set(days.filter((d) => d.type === "holiday").map((d) => d.date.toDateString()));
+  const n = days.length;
+  const candidates = [];
+
+  for (let i = 0; i < n; i++) {
+    if (days[i].type !== "work") continue;
+    if (!isValidVacationStart(days[i].date, holidaySet)) continue;
+    let workCount = 0;
+    let j = i;
+    while (j < n) {
+      if (days[j].type === "work") workCount++;
+      if (workCount > vacationDays) break;
+      j++;
+    }
+    j--;
+    if (j >= i) {
+      const totalDaysOff = j - i + 1;
+      if (totalDaysOff < 5 || totalDaysOff > 30) continue;
+      const workUsed = days.slice(i, j + 1).filter((d) => d.type === "work").length;
+      candidates.push({ start: days[i].date, end: days[j].date, totalDaysOff, workUsed });
+    }
+  }
+
+  candidates.sort((a, b) => (b.totalDaysOff - a.totalDaysOff) || (a.workUsed - b.workUsed));
+
+  const selected = [];
+  for (const c of candidates) {
+    const overlaps = selected.some((s) => !(c.end < s.start || c.start > s.end));
+    if (!overlaps) selected.push(c);
+    if (selected.length >= topN) break;
+  }
+  return selected;
+}
+
+const CAL_MESES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+const CAL_DIAS_SEMANA = ["D", "S", "T", "Q", "Q", "S", "S"];
+
+function renderYearCalendar(container, year, holidaysMap, highlightOption) {
+  container.innerHTML = "";
+
+  for (let month = 0; month < 12; month++) {
+    const monthEl = document.createElement("div");
+    monthEl.className = "cal-month";
+
+    const title = document.createElement("h3");
+    title.className = "cal-month__title";
+    title.textContent = CAL_MESES[month];
+    monthEl.appendChild(title);
+
+    const grid = document.createElement("div");
+    grid.className = "cal-grid";
+
+    CAL_DIAS_SEMANA.forEach((d) => {
+      const head = document.createElement("span");
+      head.className = "cal-cell cal-cell--head";
+      head.textContent = d;
+      grid.appendChild(head);
+    });
+
+    const firstDay = new Date(year, month, 1);
+    for (let i = 0; i < firstDay.getDay(); i++) {
+      const empty = document.createElement("span");
+      empty.className = "cal-cell cal-cell--empty";
+      grid.appendChild(empty);
+    }
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+      const cell = document.createElement("span");
+      cell.className = "cal-cell";
+      cell.textContent = String(day);
+
+      const weekday = date.getDay();
+      const isWeekend = weekday === 0 || weekday === 6;
+      const holidayName = holidaysMap.get(date.toDateString());
+      const isVacation = highlightOption && date >= highlightOption.start && date <= highlightOption.end && !holidayName && !isWeekend;
+
+      if (holidayName) {
+        cell.classList.add("cal-cell--holiday");
+        cell.title = holidayName;
+      } else if (isWeekend) {
+        cell.classList.add("cal-cell--weekend");
+      } else if (isVacation) {
+        cell.classList.add("cal-cell--vacation");
+      }
+
+      grid.appendChild(cell);
+    }
+
+    monthEl.appendChild(grid);
+    container.appendChild(monthEl);
+  }
+}
+
+function initFeriasPlanejadorCard(card) {
+  if (!card) return;
+  const anoInput = card.querySelector(".ferias-ano");
+  const diasInput = card.querySelector(".ferias-dias");
+  const opcoesEl = card.querySelector(".ferias-opcoes");
+  const calendarioEl = card.querySelector(".ferias-calendario");
+  let currentYear = new Date().getFullYear();
+
+  function renderOptions(options) {
+    opcoesEl.innerHTML = "";
+    const holidaysMap = new Map(nationalHolidays(currentYear).map((h) => [h.date.toDateString(), h.nome]));
+
+    options.forEach((opt, idx) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "btn btn--outline";
+      if (idx === 0) btn.classList.add("is-active");
+      btn.textContent = `${opt.start.toLocaleDateString("pt-BR")} a ${opt.end.toLocaleDateString("pt-BR")} — ${opt.totalDaysOff} dias (usa ${opt.workUsed})`;
+      btn.addEventListener("click", () => {
+        opcoesEl.querySelectorAll(".btn").forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        renderYearCalendar(calendarioEl, currentYear, holidaysMap, opt);
+      });
+      opcoesEl.appendChild(btn);
+    });
+
+    renderYearCalendar(calendarioEl, currentYear, holidaysMap, options[0]);
+  }
+
+  card.querySelector(".ferias-calcular").addEventListener("click", () => {
+    currentYear = parseInt(anoInput.value, 10) || new Date().getFullYear();
+    const dias = parseInt(diasInput.value, 10);
+    if (!dias || dias < 1) {
+      showToast("Digite quantos dias de férias você tem.");
+      return;
+    }
+    const options = findBestVacationWindows(currentYear, dias, 5);
+    if (!options.length) {
+      opcoesEl.innerHTML = "";
+      calendarioEl.innerHTML = "";
+      showToast("Nenhuma opção encontrada.");
+      return;
+    }
+    renderOptions(options);
+  });
+}
+
 /* ---------- Cronômetro e Contagem Regressiva ---------- */
 function formatTimerDisplay(totalSeconds) {
   const s = Math.max(0, Math.round(totalSeconds));
