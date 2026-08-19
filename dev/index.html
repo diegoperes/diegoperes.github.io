@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dev Tools | Diego Peres</title>
+    <meta name="description"
+        content="Ferramentas de desenvolvedor: gerador de CPF, CNPJ, placa de carro (Mercosul e antiga) e GUID/UUID, tudo rodando no navegador.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0b0f14">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dev Tools | Diego Peres">
+    <meta property="og:description"
+        content="Gerador de CPF, CNPJ, placa de carro e GUID/UUID, tudo rodando no navegador.">
+    <meta property="og:url" content="https://www.diegoperes.com.br/dev/">
+    <meta property="og:site_name" content="Diego Peres">
+    <meta property="og:locale" content="pt_BR">
+
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="canonical" href="https://www.diegoperes.com.br/dev/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="dev.css">
+</head>
+
+<body>
+
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="header header--scrolled" id="header">
+        <nav class="nav" aria-label="Navegação">
+            <a href="../" class="nav__brand">Diego Peres<span class="dot">.</span></a>
+
+            <div class="nav__actions">
+                <a href="../" class="btn btn--ghost dev-back">&larr; Voltar ao portfólio</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro"
+                    title="Alternar tema">
+                    <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4" />
+                        <path
+                            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                    </svg>
+                    <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="conteudo">
+        <section class="section dev-hero">
+            <div class="container">
+                <p class="hero__eyebrow">/dev</p>
+                <h1 class="dev-hero__title">Dev Tools</h1>
+                <p class="dev-hero__text">
+                    Geradores rápidos para o dia a dia de dev/teste. Tudo roda localmente no seu
+                    navegador — nenhum dado sai daqui.
+                </p>
+            </div>
+        </section>
+
+        <section class="section section--alt">
+            <div class="container">
+                <h2 class="section__title"><span class="section__num">01.</span> Documentos (BR)</h2>
+                <div class="tool-grid">
+
+                    <!-- ===== CPF ===== -->
+                    <article class="tool-card" data-tool="cpf">
+                        <h2 class="tool-card__title">Gerador de CPF</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Quantidade
+                                <input type="number" class="tool-qty" min="1" max="50" value="1">
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-formatted" checked>
+                                Formatado
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary tool-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="CPFs gerados"
+                            placeholder="Clique em Gerar"></textarea>
+                    </article>
+
+                    <!-- ===== CNPJ ===== -->
+                    <article class="tool-card" data-tool="cnpj">
+                        <h2 class="tool-card__title">Gerador de CNPJ</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Quantidade
+                                <input type="number" class="tool-qty" min="1" max="50" value="1">
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-formatted" checked>
+                                Formatado
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary tool-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="CNPJs gerados"
+                            placeholder="Clique em Gerar"></textarea>
+                    </article>
+
+                    <!-- ===== PLACA ===== -->
+                    <article class="tool-card" data-tool="placa">
+                        <h2 class="tool-card__title">Gerador de Placa</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Quantidade
+                                <input type="number" class="tool-qty" min="1" max="50" value="1">
+                            </label>
+                            <label class="tool-field">
+                                Formato
+                                <select class="tool-format">
+                                    <option value="mercosul" selected>Mercosul (ABC1D23)</option>
+                                    <option value="antiga">Antiga (ABC-1234)</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary tool-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Placas geradas"
+                            placeholder="Clique em Gerar"></textarea>
+                    </article>
+
+                    <!-- ===== GUID ===== -->
+                    <article class="tool-card tool-card--wide" data-tool="guid">
+                        <h2 class="tool-card__title">Gerador de GUID / UUID</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Quantidade
+                                <input type="number" class="tool-qty" min="1" max="1000" value="1">
+                            </label>
+                            <label class="tool-field">
+                                Versão
+                                <select class="tool-guid-version">
+                                    <option value="v4" selected>v4 (aleatório)</option>
+                                    <option value="v7">v7 (ordenável no tempo)</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-card__row">
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-guid-hyphens" checked>
+                                Com hífens
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-guid-upper">
+                                Maiúsculas
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-guid-braces">
+                                Chaves {}
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-guid-quotes">
+                                Aspas
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-guid-commas">
+                                Vírgula no final
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary tool-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="GUIDs gerados"
+                            placeholder="Clique em Gerar"></textarea>
+                    </article>
+
+                </div>
+
+                <p class="dev-note">
+                    Os documentos gerados aqui seguem o algoritmo de validação oficial, mas os
+                    números <strong>não existem de fato</strong> — use apenas para testes, massa de
+                    dados e desenvolvimento.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section__title"><span class="section__num">02.</span> Ferramentas gerais</h2>
+                <div class="tool-grid">
+
+                    <!-- ===== SENHA ===== -->
+                    <article class="tool-card" data-tool="senha">
+                        <h2 class="tool-card__title">Gerador de Senha</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Comprimento
+                                <input type="number" class="tool-pw-length" min="4" max="128" value="16">
+                            </label>
+                            <label class="tool-field">
+                                Quantidade
+                                <input type="number" class="tool-qty" min="1" max="50" value="1">
+                            </label>
+                        </div>
+                        <div class="tool-card__row">
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-pw-upper" checked>
+                                Maiúsculas
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-pw-lower" checked>
+                                Minúsculas
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-pw-numbers" checked>
+                                Números
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-pw-symbols" checked>
+                                Símbolos
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary tool-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Senhas geradas"
+                            placeholder="Clique em Gerar"></textarea>
+                    </article>
+
+                    <!-- ===== SLUG ===== -->
+                    <article class="tool-card" data-tool="slug">
+                        <h2 class="tool-card__title">Gerador de Slug</h2>
+                        <input type="text" class="tool-input" aria-label="Texto para gerar slug"
+                            placeholder="Ex: Meu Título com Acentuação!">
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary slug-generate">Gerar Slug</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly rows="2" aria-label="Slug gerado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== BASE64 ===== -->
+                    <article class="tool-card tool-card--wide" data-tool="base64">
+                        <h2 class="tool-card__title">Base64 Encode / Decode</h2>
+                        <textarea class="tool-input" aria-label="Texto de entrada"
+                            placeholder="Cole aqui o texto (para codificar) ou o Base64 (para decodificar)..."></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary base64-encode">Codificar</button>
+                            <button type="button" class="btn btn--outline base64-decode">Decodificar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar saída</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Resultado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== JWT ===== -->
+                    <article class="tool-card tool-card--wide" data-tool="jwt">
+                        <h2 class="tool-card__title">Decodificador de JWT</h2>
+                        <textarea class="tool-input" aria-label="Token JWT"
+                            placeholder="Cole o token JWT aqui (header.payload.assinatura)..."></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary jwt-decode">Decodificar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar saída</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Header e payload decodificados"
+                            placeholder="Resultado aparece aqui"></textarea>
+                        <p class="tool-hint">
+                            A assinatura não é validada aqui — só quem tem a chave secreta (o servidor
+                            que emitiu o token) consegue validar de verdade.
+                        </p>
+                    </article>
+
+                    <!-- ===== JSON ===== -->
+                    <article class="tool-card tool-card--wide" data-tool="json">
+                        <h2 class="tool-card__title">Formatador / Validador de JSON</h2>
+                        <textarea class="tool-input" aria-label="JSON de entrada"
+                            placeholder='Cole o JSON aqui: {"exemplo": true}'></textarea>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary json-format">Formatar</button>
+                            <button type="button" class="btn btn--outline json-minify">Minificar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar saída</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Resultado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== HASH ===== -->
+                    <article class="tool-card tool-card--wide" data-tool="hash">
+                        <h2 class="tool-card__title">Hash de Texto</h2>
+                        <textarea class="tool-input" aria-label="Texto para gerar hash"
+                            placeholder="Digite ou cole o texto..."></textarea>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Algoritmo
+                                <select class="hash-algo">
+                                    <option value="MD5" selected>MD5</option>
+                                    <option value="SHA-256">SHA-256</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary hash-generate">Gerar Hash</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Hash gerado"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== TIMESTAMP ===== -->
+                    <article class="tool-card tool-card--wide" data-tool="timestamp">
+                        <h2 class="tool-card__title">Conversor de Timestamp Unix</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Timestamp
+                                <input type="number" class="ts-input" placeholder="1700000000">
+                            </label>
+                            <label class="tool-field">
+                                Unidade
+                                <select class="ts-unit">
+                                    <option value="s" selected>Segundos</option>
+                                    <option value="ms">Milissegundos</option>
+                                </select>
+                            </label>
+                            <button type="button" class="btn btn--outline ts-now">Agora</button>
+                            <button type="button" class="btn btn--primary ts-to-date">Timestamp &rarr; Data</button>
+                        </div>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Data e hora (local)
+                                <input type="datetime-local" class="ts-date-input">
+                            </label>
+                            <button type="button" class="btn btn--primary ts-to-timestamp">Data &rarr;
+                                Timestamp</button>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--outline tool-copy">Copiar saída</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Resultado da conversão"
+                            placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== LOREM IPSUM ===== -->
+                    <article class="tool-card tool-card--wide" data-tool="lorem">
+                        <h2 class="tool-card__title">Gerador de Lorem Ipsum</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Quantidade
+                                <input type="number" class="lorem-qty" min="1" max="50" value="1">
+                            </label>
+                            <label class="tool-field">
+                                Unidade
+                                <select class="lorem-unit">
+                                    <option value="paragrafos" selected>Parágrafos</option>
+                                    <option value="frases">Frases</option>
+                                    <option value="palavras">Palavras</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary lorem-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="Texto gerado"
+                            placeholder="Clique em Gerar"></textarea>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__content">
+            <p>&copy; <span id="year"></span> Diego Peres — Senior Backend Developer</p>
+            <div class="footer__links">
+                <a href="../">Portfólio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="dev.js"></script>
+</body>
+
+</html>
