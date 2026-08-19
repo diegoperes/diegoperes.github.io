@@ -88,11 +88,11 @@
                         Eleitor</button>
                     <button type="button" class="dev-nav__link" data-target="cartao">Gerador de Cartão de
                         Crédito</button>
-                    <button type="button" class="dev-nav__link" data-target="guid">Gerador de GUID / UUID</button>
                     <button type="button" class="dev-nav__link" data-target="validador">Validador de
                         Documentos</button>
 
                     <p class="dev-nav__group">Ferramentas gerais</p>
+                    <button type="button" class="dev-nav__link" data-target="guid">Gerador de GUID / UUID</button>
                     <button type="button" class="dev-nav__link" data-target="senha">Gerador de Senha</button>
                     <button type="button" class="dev-nav__link" data-target="slug">Gerador de Slug</button>
                     <button type="button" class="dev-nav__link" data-target="base64">Codificador /
@@ -226,52 +226,6 @@
                         <p class="tool-hint">
                             A placa <strong>não existe de fato</strong> — use só para testes.
                         </p>
-                    </article>
-
-                    <!-- ===== GUID ===== -->
-                    <article class="tool-card" data-tool="guid">
-                        <h2 class="tool-card__title">Gerador de GUID / UUID</h2>
-                        <div class="tool-card__row">
-                            <label class="tool-field">
-                                Quantidade
-                                <input type="number" class="tool-qty" min="1" max="1000" value="1">
-                            </label>
-                            <label class="tool-field">
-                                Versão
-                                <select class="tool-guid-version">
-                                    <option value="v4" selected>v4 (aleatório)</option>
-                                    <option value="v7">v7 (ordenável no tempo)</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div class="tool-card__row">
-                            <label class="tool-check">
-                                <input type="checkbox" class="tool-guid-hyphens" checked>
-                                Com hífens
-                            </label>
-                            <label class="tool-check">
-                                <input type="checkbox" class="tool-guid-upper">
-                                Maiúsculas
-                            </label>
-                            <label class="tool-check">
-                                <input type="checkbox" class="tool-guid-braces">
-                                Chaves {}
-                            </label>
-                            <label class="tool-check">
-                                <input type="checkbox" class="tool-guid-quotes">
-                                Aspas
-                            </label>
-                            <label class="tool-check">
-                                <input type="checkbox" class="tool-guid-commas">
-                                Vírgula no final
-                            </label>
-                        </div>
-                        <div class="tool-card__actions">
-                            <button type="button" class="btn btn--primary tool-generate">Gerar</button>
-                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
-                        </div>
-                        <textarea class="tool-output" readonly aria-label="GUIDs gerados"
-                            placeholder="Clique em Gerar"></textarea>
                     </article>
 
                     <!-- ===== RG ===== -->
@@ -450,6 +404,52 @@
                         </div>
                         <textarea class="tool-output" readonly rows="2" aria-label="Resultado da validação"
                             placeholder="Resultado aparece aqui"></textarea>
+                    </article>
+
+                    <!-- ===== GUID ===== -->
+                    <article class="tool-card" data-tool="guid">
+                        <h2 class="tool-card__title">Gerador de GUID / UUID</h2>
+                        <div class="tool-card__row">
+                            <label class="tool-field">
+                                Quantidade
+                                <input type="number" class="tool-qty" min="1" max="1000" value="1">
+                            </label>
+                            <label class="tool-field">
+                                Versão
+                                <select class="tool-guid-version">
+                                    <option value="v4" selected>v4 (aleatório)</option>
+                                    <option value="v7">v7 (ordenável no tempo)</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-card__row">
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-guid-hyphens" checked>
+                                Com hífens
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-guid-upper">
+                                Maiúsculas
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-guid-braces">
+                                Chaves {}
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-guid-quotes">
+                                Aspas
+                            </label>
+                            <label class="tool-check">
+                                <input type="checkbox" class="tool-guid-commas">
+                                Vírgula no final
+                            </label>
+                        </div>
+                        <div class="tool-card__actions">
+                            <button type="button" class="btn btn--primary tool-generate">Gerar</button>
+                            <button type="button" class="btn btn--outline tool-copy">Copiar</button>
+                        </div>
+                        <textarea class="tool-output" readonly aria-label="GUIDs gerados"
+                            placeholder="Clique em Gerar"></textarea>
                     </article>
 
                     <!-- ===== SENHA ===== -->
