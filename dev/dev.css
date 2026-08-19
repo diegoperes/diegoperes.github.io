@@ -470,15 +470,17 @@ input.tool-input {
 }
 
 .cal-cell--estadual {
-  background: #8b5cf6;
-  color: #ffffff;
+  background: color-mix(in srgb, var(--accent) 35%, var(--surface));
+  color: var(--text);
   font-weight: 600;
+  border: 2px solid var(--accent);
 }
 
 .cal-cell--municipal {
-  background: #f59e0b;
-  color: #1a1300;
+  background: color-mix(in srgb, var(--accent) 15%, var(--surface));
+  color: var(--text);
   font-weight: 600;
+  border: 1px dotted var(--accent);
 }
 
 .legenda-facultativo {
@@ -488,13 +490,15 @@ input.tool-input {
 }
 
 .legenda-estadual {
-  background: #8b5cf6;
-  color: #ffffff;
+  background: color-mix(in srgb, var(--accent) 35%, var(--surface));
+  color: var(--text);
+  border: 2px solid var(--accent);
 }
 
 .legenda-municipal {
-  background: #f59e0b;
-  color: #1a1300;
+  background: color-mix(in srgb, var(--accent) 15%, var(--surface));
+  color: var(--text);
+  border: 1px dotted var(--accent);
 }
 
 @media (max-width: 860px) {
