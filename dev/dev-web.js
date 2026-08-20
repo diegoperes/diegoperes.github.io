@@ -200,6 +200,19 @@ function initRobotsCard(card) {
 }
 
 /* ---------- Gerador de Favicon ---------- */
+// Emoji renderiza com as próprias cores (o navegador ignora fillStyle pra
+// glifos coloridos), mas texto normal usa fillStyle — por isso precisa de
+// uma cor de texto com contraste, calculada a partir da luminância do fundo.
+function faviconTextColor(hex) {
+  const clean = hex.replace("#", "");
+  const r = parseInt(clean.substring(0, 2), 16) / 255;
+  const g = parseInt(clean.substring(2, 4), 16) / 255;
+  const b = parseInt(clean.substring(4, 6), 16) / 255;
+  const toLinear = (c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+  const luminance = 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+  return luminance > 0.5 ? "#000000" : "#ffffff";
+}
+
 function initFaviconCard(card) {
   if (!card) return;
   const texto = card.querySelector(".favicon-texto");
@@ -218,6 +231,7 @@ function initFaviconCard(card) {
     canvas.height = size;
     ctx.fillStyle = cor.value;
     ctx.fillRect(0, 0, size, size);
+    ctx.fillStyle = faviconTextColor(cor.value);
     ctx.font = `${size * 0.6}px sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
