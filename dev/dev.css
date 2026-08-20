@@ -384,6 +384,26 @@ input.tool-input {
   margin-top: -6px;
 }
 
+.ferias-dias-trabalho-field {
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  padding: 12px 14px 14px;
+  margin: 0;
+}
+
+.ferias-dias-trabalho-field legend {
+  padding: 0 6px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.ferias-dias-trabalho {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
 .ferias-opcoes {
   display: flex;
   flex-wrap: wrap;

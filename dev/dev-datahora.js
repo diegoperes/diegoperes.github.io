@@ -397,7 +397,10 @@ function holidaysMapForRange(startDate, endDate, uf, extrasByYear, excludeFacult
   return map;
 }
 
-function buildDayTypesForRange(startDate, endDate, uf, extrasByYear) {
+const DEFAULT_WORKDAYS = new Set([1, 2, 3, 4, 5]);
+
+function buildDayTypesForRange(startDate, endDate, uf, extrasByYear, workdays) {
+  const workdaySet = workdays || DEFAULT_WORKDAYS;
   const holidays = holidaysMapForRange(startDate, endDate, uf, extrasByYear, true);
   const days = [];
   const cursor = new Date(startDate);
@@ -405,7 +408,7 @@ function buildDayTypesForRange(startDate, endDate, uf, extrasByYear) {
     const date = new Date(cursor);
     const weekday = date.getDay();
     let type = "work";
-    if (weekday === 0 || weekday === 6) type = "weekend";
+    if (!workdaySet.has(weekday)) type = "weekend";
     else if (holidays.has(date.toDateString())) type = "holiday";
     const holidayInfo = holidays.get(date.toDateString());
     days.push({ date, type, holidayName: holidayInfo?.nome });
@@ -416,47 +419,49 @@ function buildDayTypesForRange(startDate, endDate, uf, extrasByYear) {
 
 // Art. 134 da CLT: cada período de férias precisa ter entre 5 e 30 dias
 // corridos, e não pode começar nos 2 dias que antecedem um feriado ou o
-// domingo (dia de descanso semanal remunerado).
-function isValidVacationStart(date, holidaySet) {
+// dia de descanso semanal remunerado (aqui generalizado pros dias em que
+// a pessoa não trabalha, já que nem todo mundo folga domingo).
+function isValidVacationStart(date, holidaySet, workdays) {
+  const workdaySet = workdays || DEFAULT_WORKDAYS;
   for (const offset of [1, 2]) {
     const check = addDaysToDate(date, offset);
-    if (check.getDay() === 0) return false;
+    if (!workdaySet.has(check.getDay())) return false;
     if (holidaySet.has(check.toDateString())) return false;
   }
   return true;
 }
 
-// Descreve o que forma o "bônus" adjacente (feriado nomeado e/ou "fim de
-// semana"), pra explicar por que aquela borda rende dias extras.
+// Descreve o que forma o "bônus" adjacente (feriado nomeado e/ou dia de
+// folga da semana), pra explicar por que aquela borda rende dias extras.
 function describeAdjacentFreeSpan(days, fromIdx, toIdx) {
   if (fromIdx > toIdx) return null;
-  let hasWeekend = false;
+  let hasFolga = false;
   const holidayNames = [];
   for (let idx = fromIdx; idx <= toIdx; idx++) {
     if (days[idx].type === "holiday") holidayNames.push(days[idx].holidayName);
-    else hasWeekend = true;
+    else hasFolga = true;
   }
   const parts = [...holidayNames];
-  if (hasWeekend) parts.push("fim de semana");
+  if (hasFolga) parts.push("dia de folga");
   return parts.join(" + ");
 }
 
 // Férias são um bloco FIXO de "vacationDays" dias corridos (é assim que a
 // CLT e a prática trabalhista contam — um feriado que cai DENTRO do bloco
 // não estende nada, só é "engolido"). O ganho de verdade vem de feriado ou
-// fim de semana já livre colado imediatamente antes do início ou depois do
+// dia de folga já livre colado imediatamente antes do início ou depois do
 // fim do bloco — isso é o "bônus".
-function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, extrasByYear) {
+function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, extrasByYear, workdays) {
   if (vacationDays < 5 || vacationDays > 30) return [];
 
-  const days = buildDayTypesForRange(startDate, endDate, uf, extrasByYear);
+  const days = buildDayTypesForRange(startDate, endDate, uf, extrasByYear, workdays);
   const holidaySet = new Set(days.filter((d) => d.type === "holiday").map((d) => d.date.toDateString()));
   const n = days.length;
   const candidates = [];
 
   for (let i = 0; i < n; i++) {
     if (days[i].type !== "work") continue;
-    if (!isValidVacationStart(days[i].date, holidaySet)) continue;
+    if (!isValidVacationStart(days[i].date, holidaySet, workdays)) continue;
     const j = i + vacationDays - 1;
     if (j >= n) continue;
 
@@ -509,7 +514,8 @@ const CAL_DIAS_SEMANA = ["D", "S", "T", "Q", "Q", "S", "S"];
 // Desenha só os meses entre startDate e endDate (inclusive) — nunca o ano
 // inteiro, pra não mostrar mês passado. startDate/endDate sempre alinhados
 // ao 1º e último dia de um mês (vem do seletor de período).
-function renderCalendarRange(container, startDate, endDate, holidaysMap, highlightOption) {
+function renderCalendarRange(container, startDate, endDate, holidaysMap, highlightOption, workdays) {
+  const workdaySet = workdays || DEFAULT_WORKDAYS;
   container.innerHTML = "";
 
   const cursor = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
@@ -552,7 +558,7 @@ function renderCalendarRange(container, startDate, endDate, holidaysMap, highlig
       cell.textContent = String(day);
 
       const weekday = date.getDay();
-      const isWeekend = weekday === 0 || weekday === 6;
+      const isWeekend = !workdaySet.has(weekday);
       const holiday = holidaysMap.get(date.toDateString());
       const inBlock = !!highlightOption && date >= highlightOption.start && date <= highlightOption.end;
       const isBonus = !!highlightOption && (
@@ -628,8 +634,14 @@ function initFeriasPlanejadorCard(card) {
   const diasInput = card.querySelector(".ferias-dias");
   const ufInput = card.querySelector(".ferias-uf");
   const municipaisInput = card.querySelector(".ferias-municipais");
+  const trabalhoInputs = card.querySelectorAll(".ferias-dia-trabalho");
   const opcoesEl = card.querySelector(".ferias-opcoes");
   const calendarioEl = card.querySelector(".ferias-calendario");
+
+  function resolveWorkdays() {
+    const checked = Array.from(trabalhoInputs).filter((el) => el.checked).map((el) => Number(el.value));
+    return checked.length ? new Set(checked) : null;
+  }
 
   function togglePeriodoCustom() {
     const isCustom = periodoInput.value === "custom";
@@ -659,7 +671,7 @@ function initFeriasPlanejadorCard(card) {
     }));
   }
 
-  function renderOptions(options, start, end, uf) {
+  function renderOptions(options, start, end, uf, workdays) {
     opcoesEl.innerHTML = "";
     const holidaysMap = holidaysMapForRange(start, end, uf, extrasByYear, false);
 
@@ -681,12 +693,12 @@ function initFeriasPlanejadorCard(card) {
       btn.addEventListener("click", () => {
         opcoesEl.querySelectorAll(".btn").forEach((b) => b.classList.remove("is-active"));
         btn.classList.add("is-active");
-        renderCalendarRange(calendarioEl, start, end, holidaysMap, opt);
+        renderCalendarRange(calendarioEl, start, end, holidaysMap, opt, workdays);
       });
       opcoesEl.appendChild(btn);
     });
 
-    renderCalendarRange(calendarioEl, start, end, holidaysMap, defaultOpt);
+    renderCalendarRange(calendarioEl, start, end, holidaysMap, defaultOpt, workdays);
   }
 
   card.querySelector(".ferias-calcular").addEventListener("click", () => {
@@ -700,15 +712,20 @@ function initFeriasPlanejadorCard(card) {
       showToast("Digite quantos dias de férias você tem.");
       return;
     }
+    const workdays = resolveWorkdays();
+    if (!workdays) {
+      showToast("Selecione pelo menos um dia da semana que você trabalha.");
+      return;
+    }
     const uf = ufInput.value;
-    const options = findBestVacationWindows(period.start, period.end, dias, 10, uf, extrasByYear);
+    const options = findBestVacationWindows(period.start, period.end, dias, 10, uf, extrasByYear, workdays);
     if (!options.length) {
       opcoesEl.innerHTML = "";
       calendarioEl.innerHTML = "";
       showToast("Nenhuma opção encontrada nesse período.");
       return;
     }
-    renderOptions(options, period.start, period.end, uf);
+    renderOptions(options, period.start, period.end, uf, workdays);
   });
 }
 
