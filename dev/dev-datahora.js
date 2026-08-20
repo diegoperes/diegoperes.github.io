@@ -426,7 +426,29 @@ function isValidVacationStart(date, holidaySet) {
   return true;
 }
 
+// Descreve o que forma o "bônus" adjacente (feriado nomeado e/ou "fim de
+// semana"), pra explicar por que aquela borda rende dias extras.
+function describeAdjacentFreeSpan(days, fromIdx, toIdx) {
+  if (fromIdx > toIdx) return null;
+  let hasWeekend = false;
+  const holidayNames = [];
+  for (let idx = fromIdx; idx <= toIdx; idx++) {
+    if (days[idx].type === "holiday") holidayNames.push(days[idx].holidayName);
+    else hasWeekend = true;
+  }
+  const parts = [...holidayNames];
+  if (hasWeekend) parts.push("fim de semana");
+  return parts.join(" + ");
+}
+
+// Férias são um bloco FIXO de "vacationDays" dias corridos (é assim que a
+// CLT e a prática trabalhista contam — um feriado que cai DENTRO do bloco
+// não estende nada, só é "engolido"). O ganho de verdade vem de feriado ou
+// fim de semana já livre colado imediatamente antes do início ou depois do
+// fim do bloco — isso é o "bônus".
 function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, extrasByYear) {
+  if (vacationDays < 5 || vacationDays > 30) return [];
+
   const days = buildDayTypesForRange(startDate, endDate, uf, extrasByYear);
   const holidaySet = new Set(days.filter((d) => d.type === "holiday").map((d) => d.date.toDateString()));
   const n = days.length;
@@ -435,23 +457,32 @@ function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, ext
   for (let i = 0; i < n; i++) {
     if (days[i].type !== "work") continue;
     if (!isValidVacationStart(days[i].date, holidaySet)) continue;
-    let workCount = 0;
-    let j = i;
-    while (j < n) {
-      if (days[j].type === "work") workCount++;
-      if (workCount > vacationDays) break;
-      j++;
-    }
-    j--;
-    if (j >= i) {
-      const totalDaysOff = j - i + 1;
-      if (totalDaysOff < 5 || totalDaysOff > 30) continue;
-      const workUsed = days.slice(i, j + 1).filter((d) => d.type === "work").length;
-      candidates.push({ start: days[i].date, end: days[j].date, totalDaysOff, workUsed });
-    }
+    const j = i + vacationDays - 1;
+    if (j >= n) continue;
+
+    let k = i - 1;
+    while (k >= 0 && days[k].type !== "work") k--;
+    const bonusBefore = i - 1 - k;
+
+    let m = j + 1;
+    while (m < n && days[m].type !== "work") m++;
+    const bonusAfter = m - 1 - j;
+
+    candidates.push({
+      start: days[i].date,
+      end: days[j].date,
+      vacationDays,
+      bonusBefore,
+      bonusAfter,
+      bonusBeforeStart: bonusBefore > 0 ? days[k + 1].date : null,
+      bonusAfterEnd: bonusAfter > 0 ? days[m - 1].date : null,
+      bonusBeforeDesc: bonusBefore > 0 ? describeAdjacentFreeSpan(days, k + 1, i - 1) : null,
+      bonusAfterDesc: bonusAfter > 0 ? describeAdjacentFreeSpan(days, j + 1, m - 1) : null,
+      totalDaysOff: vacationDays + bonusBefore + bonusAfter,
+    });
   }
 
-  candidates.sort((a, b) => (b.totalDaysOff - a.totalDaysOff) || (a.workUsed - b.workUsed));
+  candidates.sort((a, b) => b.totalDaysOff - a.totalDaysOff);
 
   const selected = [];
   for (const c of candidates) {
@@ -460,14 +491,11 @@ function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, ext
     if (selected.length >= topN) break;
   }
 
-  // Marca a melhor (maior folga, menos dias usados em caso de empate) antes
-  // de reordenar por data — senão, com o range de 12 meses, as 5-10 melhores
-  // podem cair todas num trecho só do ano (ex: set-jan, época com vários
-  // feriados próximos) e parecer que não calculou o resto do período.
+  // Marca a melhor antes de reordenar por data — senão, com o range de 12
+  // meses, as melhores podem cair todas num trecho só do ano e parecer que
+  // não calculou o resto do período.
   if (selected.length) {
-    const best = selected.reduce((a, b) => (
-      b.totalDaysOff > a.totalDaysOff || (b.totalDaysOff === a.totalDaysOff && b.workUsed < a.workUsed) ? b : a
-    ));
+    const best = selected.reduce((a, b) => (b.totalDaysOff > a.totalDaysOff ? b : a));
     selected.forEach((opt) => { opt.isBest = opt === best; });
   }
   selected.sort((a, b) => a.start - b.start);
@@ -527,6 +555,10 @@ function renderCalendarRange(container, startDate, endDate, holidaysMap, highlig
       const isWeekend = weekday === 0 || weekday === 6;
       const holiday = holidaysMap.get(date.toDateString());
       const isVacation = highlightOption && date >= highlightOption.start && date <= highlightOption.end && !holiday && !isWeekend;
+      const isBonus = !!highlightOption && (
+        (highlightOption.bonusBeforeStart && date >= highlightOption.bonusBeforeStart && date < highlightOption.start)
+        || (highlightOption.bonusAfterEnd && date > highlightOption.end && date <= highlightOption.bonusAfterEnd)
+      );
 
       if (holiday) {
         cell.classList.add(holiday.tipo === "facultativo" ? "cal-cell--facultativo" : holiday.tipo === "municipal" ? "cal-cell--municipal" : holiday.tipo === "estadual" ? "cal-cell--estadual" : "cal-cell--holiday");
@@ -535,6 +567,10 @@ function renderCalendarRange(container, startDate, endDate, holidaysMap, highlig
         cell.classList.add("cal-cell--weekend");
       } else if (isVacation) {
         cell.classList.add("cal-cell--vacation");
+      }
+      if (isBonus) {
+        cell.classList.add("cal-cell--bonus");
+        cell.title = cell.title ? `${cell.title} — bônus (fora do período de férias)` : "Bônus (fora do período de férias)";
       }
 
       grid.appendChild(cell);
@@ -630,7 +666,13 @@ function initFeriasPlanejadorCard(card) {
       btn.className = "btn btn--outline";
       if (opt === defaultOpt) btn.classList.add("is-active");
       const marca = opt.isBest ? " ★" : "";
-      btn.textContent = `${opt.start.toLocaleDateString("pt-BR")} a ${opt.end.toLocaleDateString("pt-BR")} — ${opt.totalDaysOff} dias (usa ${opt.workUsed})${marca}`;
+
+      const bonusParts = [];
+      if (opt.bonusBefore > 0) bonusParts.push(`${opt.bonusBefore} antes (${opt.bonusBeforeDesc})`);
+      if (opt.bonusAfter > 0) bonusParts.push(`${opt.bonusAfter} depois (${opt.bonusAfterDesc})`);
+      const bonusText = bonusParts.length ? ` + bônus: ${bonusParts.join(", ")}` : "";
+
+      btn.textContent = `${opt.start.toLocaleDateString("pt-BR")} a ${opt.end.toLocaleDateString("pt-BR")} — ${opt.vacationDays} dias de férias${bonusText} = ${opt.totalDaysOff} dias de folga${marca}`;
       btn.addEventListener("click", () => {
         opcoesEl.querySelectorAll(".btn").forEach((b) => b.classList.remove("is-active"));
         btn.classList.add("is-active");
