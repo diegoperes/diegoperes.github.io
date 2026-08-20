@@ -134,6 +134,34 @@
   color: var(--accent);
 }
 
+.tool-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tool-fav-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--text-muted);
+  padding: 2px 4px;
+  transition: color var(--transition), transform var(--transition);
+}
+
+.tool-fav-btn:hover {
+  color: var(--accent);
+  transform: scale(1.15);
+}
+
+.tool-fav-btn.is-fav {
+  color: var(--accent);
+}
+
 .tool-card__row {
   display: flex;
   flex-wrap: wrap;

@@ -76,6 +76,8 @@
                     <input type="search" class="dev-nav__filter" placeholder="Filtrar ferramentas..."
                         aria-label="Filtrar ferramentas">
 
+                    <p class="dev-nav__group dev-nav__group--favoritos is-hidden">⭐ Favoritos</p>
+
                     <p class="dev-nav__group">📄 Documentos (BR)</p>
                     <button type="button" class="dev-nav__link" data-target="cpf">🪪 Gerador de CPF</button>
                     <button type="button" class="dev-nav__link" data-target="cnpj">🏢 Gerador de CNPJ</button>
@@ -260,7 +262,7 @@
 
                     <!-- ===== CPF ===== -->
                     <article class="tool-card" data-tool="cpf">
-                        <h2 class="tool-card__title">🪪 Gerador de CPF</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🪪 Gerador de CPF</h2><button type="button" class="tool-fav-btn" data-tool="cpf" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -285,7 +287,7 @@
 
                     <!-- ===== CNPJ ===== -->
                     <article class="tool-card" data-tool="cnpj">
-                        <h2 class="tool-card__title">🏢 Gerador de CNPJ</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🏢 Gerador de CNPJ</h2><button type="button" class="tool-fav-btn" data-tool="cnpj" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -310,7 +312,7 @@
 
                     <!-- ===== PLACA ===== -->
                     <article class="tool-card" data-tool="placa">
-                        <h2 class="tool-card__title">🚗 Gerador de Placa</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🚗 Gerador de Placa</h2><button type="button" class="tool-fav-btn" data-tool="placa" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -337,7 +339,7 @@
 
                     <!-- ===== RG ===== -->
                     <article class="tool-card" data-tool="rg">
-                        <h2 class="tool-card__title">🆔 Gerador de RG</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🆔 Gerador de RG</h2><button type="button" class="tool-fav-btn" data-tool="rg" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -359,7 +361,7 @@
 
                     <!-- ===== CNH ===== -->
                     <article class="tool-card" data-tool="cnh">
-                        <h2 class="tool-card__title">🚦 Gerador de CNH</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🚦 Gerador de CNH</h2><button type="button" class="tool-fav-btn" data-tool="cnh" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -379,7 +381,7 @@
 
                     <!-- ===== PIS/PASEP ===== -->
                     <article class="tool-card" data-tool="pis">
-                        <h2 class="tool-card__title">📋 Gerador de PIS/PASEP</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📋 Gerador de PIS/PASEP</h2><button type="button" class="tool-fav-btn" data-tool="pis" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -403,7 +405,7 @@
 
                     <!-- ===== RENAVAM ===== -->
                     <article class="tool-card" data-tool="renavam">
-                        <h2 class="tool-card__title">🚙 Gerador de RENAVAM</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🚙 Gerador de RENAVAM</h2><button type="button" class="tool-fav-btn" data-tool="renavam" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -423,7 +425,7 @@
 
                     <!-- ===== TÍTULO DE ELEITOR ===== -->
                     <article class="tool-card" data-tool="titulo">
-                        <h2 class="tool-card__title">🗳️ Gerador de Título de Eleitor</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🗳️ Gerador de Título de Eleitor</h2><button type="button" class="tool-fav-btn" data-tool="titulo" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -459,7 +461,7 @@
 
                     <!-- ===== CARTÃO DE CRÉDITO ===== -->
                     <article class="tool-card" data-tool="cartao">
-                        <h2 class="tool-card__title">💳 Gerador de Cartão de Crédito</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">💳 Gerador de Cartão de Crédito</h2><button type="button" class="tool-fav-btn" data-tool="cartao" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -489,7 +491,7 @@
 
                     <!-- ===== CEP ===== -->
                     <article class="tool-card" data-tool="cep">
-                        <h2 class="tool-card__title">📮 Gerador de CEP</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📮 Gerador de CEP</h2><button type="button" class="tool-fav-btn" data-tool="cep" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -509,7 +511,7 @@
 
                     <!-- ===== CONTA BANCÁRIA ===== -->
                     <article class="tool-card" data-tool="conta-bancaria">
-                        <h2 class="tool-card__title">🏦 Gerador de Conta Bancária</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🏦 Gerador de Conta Bancária</h2><button type="button" class="tool-fav-btn" data-tool="conta-bancaria" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -529,7 +531,7 @@
 
                     <!-- ===== VALIDADOR DE DOCUMENTOS ===== -->
                     <article class="tool-card" data-tool="validador">
-                        <h2 class="tool-card__title">✅ Validador de Documentos</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">✅ Validador de Documentos</h2><button type="button" class="tool-fav-btn" data-tool="validador" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Tipo
@@ -555,7 +557,7 @@
 
                     <!-- ===== GUID ===== -->
                     <article class="tool-card" data-tool="guid">
-                        <h2 class="tool-card__title">🔑 Gerador de GUID / UUID</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔑 Gerador de GUID / UUID</h2><button type="button" class="tool-fav-btn" data-tool="guid" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -601,7 +603,7 @@
 
                     <!-- ===== SENHA ===== -->
                     <article class="tool-card" data-tool="senha">
-                        <h2 class="tool-card__title">🔒 Gerador de Senha</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔒 Gerador de Senha</h2><button type="button" class="tool-fav-btn" data-tool="senha" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Comprimento
@@ -640,7 +642,7 @@
 
                     <!-- ===== SLUG ===== -->
                     <article class="tool-card" data-tool="slug">
-                        <h2 class="tool-card__title">🔗 Gerador de Slug</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔗 Gerador de Slug</h2><button type="button" class="tool-fav-btn" data-tool="slug" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="text" class="tool-input" aria-label="Texto para gerar slug"
                             placeholder="Ex: Meu Título com Acentuação!">
                         <div class="tool-card__actions">
@@ -653,7 +655,7 @@
 
                     <!-- ===== CODIFICADOR / DECODIFICADOR ===== -->
                     <article class="tool-card" data-tool="base64">
-                        <h2 class="tool-card__title">🔐 Codificador / Decodificador</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔐 Codificador / Decodificador</h2><button type="button" class="tool-fav-btn" data-tool="base64" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Tipo
@@ -677,7 +679,7 @@
 
                     <!-- ===== JWT ===== -->
                     <article class="tool-card" data-tool="jwt">
-                        <h2 class="tool-card__title">🎫 Decodificador de JWT</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🎫 Decodificador de JWT</h2><button type="button" class="tool-fav-btn" data-tool="jwt" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="Token JWT"
                             placeholder="Cole o token JWT aqui (header.payload.assinatura)..."></textarea>
                         <div class="tool-card__actions">
@@ -694,7 +696,7 @@
 
                     <!-- ===== JSON ===== -->
                     <article class="tool-card" data-tool="json">
-                        <h2 class="tool-card__title">🗂️ Formatador / Validador de JSON</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🗂️ Formatador / Validador de JSON</h2><button type="button" class="tool-fav-btn" data-tool="json" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="JSON de entrada"
                             placeholder='Cole o JSON aqui: {"exemplo": true}'></textarea>
                         <div class="tool-card__actions">
@@ -708,7 +710,7 @@
 
                     <!-- ===== HASH ===== -->
                     <article class="tool-card" data-tool="hash">
-                        <h2 class="tool-card__title">#️⃣ Hash de Texto</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">#️⃣ Hash de Texto</h2><button type="button" class="tool-fav-btn" data-tool="hash" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="Texto para gerar hash"
                             placeholder="Digite ou cole o texto..."></textarea>
                         <div class="tool-card__row">
@@ -732,7 +734,7 @@
 
                     <!-- ===== TIMESTAMP ===== -->
                     <article class="tool-card" data-tool="timestamp">
-                        <h2 class="tool-card__title">⏱️ Conversor de Timestamp Unix</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">⏱️ Conversor de Timestamp Unix</h2><button type="button" class="tool-fav-btn" data-tool="timestamp" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Timestamp
@@ -765,7 +767,7 @@
 
                     <!-- ===== LOREM IPSUM ===== -->
                     <article class="tool-card" data-tool="lorem">
-                        <h2 class="tool-card__title">📝 Gerador de Lorem Ipsum</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📝 Gerador de Lorem Ipsum</h2><button type="button" class="tool-fav-btn" data-tool="lorem" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quantidade
@@ -790,7 +792,7 @@
 
                     <!-- ===== QR CODE ===== -->
                     <article class="tool-card" data-tool="qrcode">
-                        <h2 class="tool-card__title">🔳 Gerador de QR Code</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔳 Gerador de QR Code</h2><button type="button" class="tool-fav-btn" data-tool="qrcode" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="text" class="tool-input qr-input" maxlength="213"
                             aria-label="Texto ou URL para o QR Code" placeholder="Texto ou URL (máx. 213 caracteres)">
                         <div class="tool-card__actions">
@@ -807,7 +809,7 @@
 
                     <!-- ===== QR WI-FI ===== -->
                     <article class="tool-card" data-tool="qr-wifi">
-                        <h2 class="tool-card__title">📶 QR Code de Wi-Fi</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📶 QR Code de Wi-Fi</h2><button type="button" class="tool-fav-btn" data-tool="qr-wifi" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Rede (SSID)
@@ -837,7 +839,7 @@
 
                     <!-- ===== QR PIX ===== -->
                     <article class="tool-card" data-tool="qr-pix">
-                        <h2 class="tool-card__title">💸 QR Code Pix</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">💸 QR Code Pix</h2><button type="button" class="tool-fav-btn" data-tool="qr-pix" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Chave Pix
@@ -873,7 +875,7 @@
 
                     <!-- ===== CÓDIGO DE BARRAS ===== -->
                     <article class="tool-card" data-tool="codigo-barras">
-                        <h2 class="tool-card__title">🏷️ Gerador de Código de Barras</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🏷️ Gerador de Código de Barras</h2><button type="button" class="tool-fav-btn" data-tool="codigo-barras" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="text" class="barcode-input" aria-label="Texto para o código de barras"
                             placeholder="Texto (Code 128)">
                         <div class="tool-card__actions">
@@ -891,7 +893,7 @@
 
                     <!-- ===== TEXTO EM BINÁRIO ===== -->
                     <article class="tool-card" data-tool="binario-texto">
-                        <h2 class="tool-card__title">💾 Texto em Binário</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">💾 Texto em Binário</h2><button type="button" class="tool-fav-btn" data-tool="binario-texto" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="Texto ou binário"
                             placeholder="Cole o texto ou o binário aqui..."></textarea>
                         <div class="tool-card__actions">
@@ -905,7 +907,7 @@
 
                     <!-- ===== CÓDIGO MORSE ===== -->
                     <article class="tool-card" data-tool="morse">
-                        <h2 class="tool-card__title">📡 Código Morse</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📡 Código Morse</h2><button type="button" class="tool-fav-btn" data-tool="morse" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="Texto ou código morse"
                             placeholder="Cole o texto ou o código morse aqui..."></textarea>
                         <div class="tool-card__actions">
@@ -919,7 +921,7 @@
 
                     <!-- ===== BASE NUMÉRICA ===== -->
                     <article class="tool-card" data-tool="base-numerica">
-                        <h2 class="tool-card__title">🔢 Conversor de Base Numérica</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔢 Conversor de Base Numérica</h2><button type="button" class="tool-fav-btn" data-tool="base-numerica" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Valor
@@ -945,7 +947,7 @@
 
                     <!-- ===== NÚMERO POR EXTENSO ===== -->
                     <article class="tool-card" data-tool="extenso">
-                        <h2 class="tool-card__title">🔡 Número por Extenso</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔡 Número por Extenso</h2><button type="button" class="tool-fav-btn" data-tool="extenso" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="number" class="extenso-input" aria-label="Número" placeholder="Ex: 1988">
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary extenso-gerar">Converter</button>
@@ -957,14 +959,14 @@
 
                     <!-- ===== SÍMBOLOS E EMOJIS ===== -->
                     <article class="tool-card" data-tool="simbolos">
-                        <h2 class="tool-card__title">😀 Símbolos e Emojis para Copiar</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">😀 Símbolos e Emojis para Copiar</h2><button type="button" class="tool-fav-btn" data-tool="simbolos" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <p class="tool-hint">Clique em qualquer item para copiar.</p>
                         <div class="simbolos-grid"></div>
                     </article>
 
                     <!-- ===== NAVEGADOR E SISTEMA ===== -->
                     <article class="tool-card" data-tool="ambiente">
-                        <h2 class="tool-card__title">🖥️ Navegador e Sistema</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🖥️ Navegador e Sistema</h2><button type="button" class="tool-fav-btn" data-tool="ambiente" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary ambiente-detectar">Detectar</button>
                             <button type="button" class="btn btn--outline tool-copy">Copiar</button>
@@ -976,7 +978,7 @@
 
                     <!-- ===== MEU IP ===== -->
                     <article class="tool-card" data-tool="meuip">
-                        <h2 class="tool-card__title">🌍 Meu IP Público</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🌍 Meu IP Público</h2><button type="button" class="tool-fav-btn" data-tool="meuip" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary ip-buscar">Buscar meu IP</button>
                             <button type="button" class="btn btn--outline tool-copy">Copiar</button>
@@ -991,7 +993,7 @@
 
                     <!-- ===== LINK DO WHATSAPP ===== -->
                     <article class="tool-card" data-tool="whatsapp-link">
-                        <h2 class="tool-card__title">💬 Gerador de Link do WhatsApp</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">💬 Gerador de Link do WhatsApp</h2><button type="button" class="tool-fav-btn" data-tool="whatsapp-link" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <label class="tool-field">
                             Telefone (com DDI e DDD)
                             <input type="text" class="wa-telefone" placeholder="5541999999999">
@@ -1008,7 +1010,7 @@
 
                     <!-- ===== ESTATÍSTICAS DE TEXTO ===== -->
                     <article class="tool-card" data-tool="stats-texto">
-                        <h2 class="tool-card__title">📊 Estatísticas de Texto</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📊 Estatísticas de Texto</h2><button type="button" class="tool-fav-btn" data-tool="stats-texto" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="Texto para analisar"
                             placeholder="Cole o texto aqui..."></textarea>
                         <div class="tool-card__row">
@@ -1027,7 +1029,7 @@
 
                     <!-- ===== TRANSFORMADOR DE TEXTO ===== -->
                     <article class="tool-card" data-tool="transformar-texto">
-                        <h2 class="tool-card__title">🔄 Transformador de Texto</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔄 Transformador de Texto</h2><button type="button" class="tool-fav-btn" data-tool="transformar-texto" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="Texto de entrada"
                             placeholder="Cole o texto aqui..."></textarea>
                         <div class="tool-card__row">
@@ -1054,7 +1056,7 @@
 
                     <!-- ===== ORDENADOR DE LINHAS ===== -->
                     <article class="tool-card" data-tool="ordenar-linhas">
-                        <h2 class="tool-card__title">🔀 Ordenador de Linhas</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔀 Ordenador de Linhas</h2><button type="button" class="tool-fav-btn" data-tool="ordenar-linhas" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="Linhas para ordenar"
                             placeholder="Uma linha por item..."></textarea>
                         <div class="tool-card__row">
@@ -1077,7 +1079,7 @@
 
                     <!-- ===== DIVISOR DE TEXTO ===== -->
                     <article class="tool-card" data-tool="dividir-texto">
-                        <h2 class="tool-card__title">✂️ Divisor de Texto</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">✂️ Divisor de Texto</h2><button type="button" class="tool-fav-btn" data-tool="dividir-texto" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="Texto para dividir"
                             placeholder="Cole o texto aqui..."></textarea>
                         <div class="tool-card__row">
@@ -1096,7 +1098,7 @@
 
                     <!-- ===== BUSCAR E SUBSTITUIR ===== -->
                     <article class="tool-card" data-tool="buscar-substituir">
-                        <h2 class="tool-card__title">🔍 Buscar e Substituir</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔍 Buscar e Substituir</h2><button type="button" class="tool-fav-btn" data-tool="buscar-substituir" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="Texto de entrada"
                             placeholder="Cole o texto aqui..."></textarea>
                         <div class="tool-card__row">
@@ -1119,7 +1121,7 @@
 
                     <!-- ===== INFORMAÇÕES DE CARACTERE ===== -->
                     <article class="tool-card" data-tool="char-info">
-                        <h2 class="tool-card__title">🔎 Informações de Caractere</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔎 Informações de Caractere</h2><button type="button" class="tool-fav-btn" data-tool="char-info" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="text" class="char-input" maxlength="2" aria-label="Caractere"
                             placeholder="Digite um caractere">
                         <div class="tool-card__actions">
@@ -1132,7 +1134,7 @@
 
                     <!-- ===== TEXTO DE CABEÇA PRA BAIXO ===== -->
                     <article class="tool-card" data-tool="texto-invertido">
-                        <h2 class="tool-card__title">🙃 Texto de Cabeça pra Baixo</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🙃 Texto de Cabeça pra Baixo</h2><button type="button" class="tool-fav-btn" data-tool="texto-invertido" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="text" class="tool-input" aria-label="Texto" placeholder="Digite o texto...">
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary flip-generate">Inverter</button>
@@ -1144,7 +1146,7 @@
 
                     <!-- ===== LETRAS EMPILHADAS ===== -->
                     <article class="tool-card" data-tool="letras-empilhadas">
-                        <h2 class="tool-card__title">🔠 Letras Empilhadas</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔠 Letras Empilhadas</h2><button type="button" class="tool-fav-btn" data-tool="letras-empilhadas" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="text" class="tool-input" aria-label="Texto" placeholder="Digite o texto...">
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary stack-generate">Empilhar</button>
@@ -1156,7 +1158,7 @@
 
                     <!-- ===== PREFIXO E SUFIXO ===== -->
                     <article class="tool-card" data-tool="prefixo-sufixo">
-                        <h2 class="tool-card__title">🧩 Adicionar Prefixo e Sufixo</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🧩 Adicionar Prefixo e Sufixo</h2><button type="button" class="tool-fav-btn" data-tool="prefixo-sufixo" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="Linhas de entrada"
                             placeholder="Uma linha por item..."></textarea>
                         <div class="tool-card__row">
@@ -1179,7 +1181,7 @@
 
                     <!-- ===== COMPARAR TEXTOS ===== -->
                     <article class="tool-card" data-tool="comparar-textos">
-                        <h2 class="tool-card__title">🆚 Comparar Textos</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🆚 Comparar Textos</h2><button type="button" class="tool-fav-btn" data-tool="comparar-textos" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input compare-a" aria-label="Texto A" placeholder="Texto A..."></textarea>
                         <textarea class="tool-input compare-b" aria-label="Texto B" placeholder="Texto B..."></textarea>
                         <div class="tool-card__actions">
@@ -1192,7 +1194,7 @@
 
                     <!-- ===== NÚMEROS ROMANOS ===== -->
                     <article class="tool-card" data-tool="romanos">
-                        <h2 class="tool-card__title">🏛️ Números Romanos</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🏛️ Números Romanos</h2><button type="button" class="tool-fav-btn" data-tool="romanos" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Decimal (1-3999)
@@ -1218,7 +1220,7 @@
 
                     <!-- ===== FATORAÇÃO ===== -->
                     <article class="tool-card" data-tool="fatoracao">
-                        <h2 class="tool-card__title">🧮 Fatoração em Primos</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🧮 Fatoração em Primos</h2><button type="button" class="tool-fav-btn" data-tool="fatoracao" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="number" class="fatoracao-input" min="2" aria-label="Número para fatorar"
                             placeholder="Ex: 360">
                         <div class="tool-card__actions">
@@ -1231,7 +1233,7 @@
 
                     <!-- ===== MDC / MMC ===== -->
                     <article class="tool-card" data-tool="mdc-mmc">
-                        <h2 class="tool-card__title">➗ MDC / MMC</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">➗ MDC / MMC</h2><button type="button" class="tool-fav-btn" data-tool="mdc-mmc" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <label class="tool-field">
                             Números (separados por vírgula)
                             <input type="text" class="mdc-numeros" placeholder="Ex: 12, 18, 30">
@@ -1246,7 +1248,7 @@
 
                     <!-- ===== PORCENTAGEM ===== -->
                     <article class="tool-card" data-tool="porcentagem">
-                        <h2 class="tool-card__title">💯 Calculadora de Porcentagem</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">💯 Calculadora de Porcentagem</h2><button type="button" class="tool-fav-btn" data-tool="porcentagem" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Quanto é
@@ -1278,7 +1280,7 @@
 
                     <!-- ===== REGRA DE TRÊS ===== -->
                     <article class="tool-card" data-tool="regra-tres">
-                        <h2 class="tool-card__title">📏 Regra de Três Simples</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📏 Regra de Três Simples</h2><button type="button" class="tool-fav-btn" data-tool="regra-tres" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 A
@@ -1304,7 +1306,7 @@
 
                     <!-- ===== RESTO DA DIVISÃO ===== -->
                     <article class="tool-card" data-tool="resto-divisao">
-                        <h2 class="tool-card__title">✖️ Resto da Divisão</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">✖️ Resto da Divisão</h2><button type="button" class="tool-fav-btn" data-tool="resto-divisao" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Dividendo
@@ -1325,7 +1327,7 @@
 
                     <!-- ===== CONVERSOR DE UNIDADES ===== -->
                     <article class="tool-card" data-tool="unidades">
-                        <h2 class="tool-card__title">⚖️ Conversor de Unidades</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">⚖️ Conversor de Unidades</h2><button type="button" class="tool-fav-btn" data-tool="unidades" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Categoria
@@ -1361,7 +1363,7 @@
 
                     <!-- ===== CALCULADORA DE FRAÇÃO ===== -->
                     <article class="tool-card" data-tool="fracao">
-                        <h2 class="tool-card__title">🍕 Calculadora de Fração</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🍕 Calculadora de Fração</h2><button type="button" class="tool-fav-btn" data-tool="fracao" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Numerador A
@@ -1399,7 +1401,7 @@
 
                     <!-- ===== CALCULADORA DE ÁREA ===== -->
                     <article class="tool-card" data-tool="area">
-                        <h2 class="tool-card__title">📐 Calculadora de Área</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📐 Calculadora de Área</h2><button type="button" class="tool-fav-btn" data-tool="area" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Forma
@@ -1430,7 +1432,7 @@
 
                     <!-- ===== DIAS ENTRE DATAS ===== -->
                     <article class="tool-card" data-tool="dias-entre-datas">
-                        <h2 class="tool-card__title">📆 Dias entre Datas</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📆 Dias entre Datas</h2><button type="button" class="tool-fav-btn" data-tool="dias-entre-datas" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Data inicial
@@ -1451,7 +1453,7 @@
 
                     <!-- ===== SOMAR / SUBTRAIR DIAS ===== -->
                     <article class="tool-card" data-tool="somar-dias">
-                        <h2 class="tool-card__title">➕ Somar / Subtrair Dias</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">➕ Somar / Subtrair Dias</h2><button type="button" class="tool-fav-btn" data-tool="somar-dias" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Data base
@@ -1472,7 +1474,7 @@
 
                     <!-- ===== FERIADOS NACIONAIS ===== -->
                     <article class="tool-card" data-tool="feriados">
-                        <h2 class="tool-card__title">🎉 Feriados Nacionais e Estaduais</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🎉 Feriados Nacionais e Estaduais</h2><button type="button" class="tool-fav-btn" data-tool="feriados" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Ano
@@ -1529,7 +1531,7 @@
 
                     <!-- ===== DIAS ÚTEIS ===== -->
                     <article class="tool-card" data-tool="dias-uteis">
-                        <h2 class="tool-card__title">💼 Calculadora de Dias Úteis</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">💼 Calculadora de Dias Úteis</h2><button type="button" class="tool-fav-btn" data-tool="dias-uteis" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Data inicial
@@ -1551,7 +1553,7 @@
 
                     <!-- ===== CALCULAR IDADE ===== -->
                     <article class="tool-card" data-tool="calcular-idade">
-                        <h2 class="tool-card__title">🎂 Calcular Idade</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🎂 Calcular Idade</h2><button type="button" class="tool-fav-btn" data-tool="calcular-idade" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <label class="tool-field">
                             Data de nascimento
                             <input type="date" class="idade-nascimento" min="1900-01-01" max="2100-12-31">
@@ -1566,7 +1568,7 @@
 
                     <!-- ===== SIGNO DO ZODÍACO ===== -->
                     <article class="tool-card" data-tool="signo">
-                        <h2 class="tool-card__title">♈ Signo do Zodíaco</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">♈ Signo do Zodíaco</h2><button type="button" class="tool-fav-btn" data-tool="signo" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <label class="tool-field">
                             Data de nascimento
                             <input type="date" class="signo-data" min="1900-01-01" max="2100-12-31">
@@ -1581,7 +1583,7 @@
 
                     <!-- ===== FASE DA LUA ===== -->
                     <article class="tool-card" data-tool="fase-lua">
-                        <h2 class="tool-card__title">🌙 Fase da Lua</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🌙 Fase da Lua</h2><button type="button" class="tool-fav-btn" data-tool="fase-lua" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <label class="tool-field">
                             Data
                             <input type="date" class="lua-data" min="1900-01-01" max="2100-12-31">
@@ -1598,7 +1600,7 @@
 
                     <!-- ===== EMENDA DE FERIADOS ===== -->
                     <article class="tool-card" data-tool="feriadao">
-                        <h2 class="tool-card__title">🏖️ Emenda de Feriados (Feriadão)</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🏖️ Emenda de Feriados (Feriadão)</h2><button type="button" class="tool-fav-btn" data-tool="feriadao" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <label class="tool-field">
                             Ano
                             <input type="number" class="feriadao-ano" placeholder="2026">
@@ -1618,7 +1620,7 @@
 
                     <!-- ===== PLANEJADOR DE FÉRIAS ===== -->
                     <article class="tool-card" data-tool="planejador-ferias">
-                        <h2 class="tool-card__title">🗓️ Planejador de Férias</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🗓️ Planejador de Férias</h2><button type="button" class="tool-fav-btn" data-tool="planejador-ferias" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Período
@@ -1702,7 +1704,7 @@
 
                     <!-- ===== CRONÔMETRO / CONTAGEM ===== -->
                     <article class="tool-card" data-tool="cronometro">
-                        <h2 class="tool-card__title">⏲️ Cronômetro e Contagem Regressiva</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">⏲️ Cronômetro e Contagem Regressiva</h2><button type="button" class="tool-fav-btn" data-tool="cronometro" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="timer-display">00:00:00</div>
                         <div class="tool-card__row">
                             <label class="tool-field">
@@ -1722,7 +1724,7 @@
 
                     <!-- ===== POMODORO ===== -->
                     <article class="tool-card" data-tool="pomodoro">
-                        <h2 class="tool-card__title">🍅 Pomodoro Timer</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🍅 Pomodoro Timer</h2><button type="button" class="tool-fav-btn" data-tool="pomodoro" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="timer-display pomodoro-display">25:00</div>
                         <p class="tool-hint pomodoro-status">Foco</p>
                         <div class="tool-card__row">
@@ -1744,7 +1746,7 @@
 
                     <!-- ===== SIMULADOR DE POUPANÇA ===== -->
                     <article class="tool-card" data-tool="poupanca">
-                        <h2 class="tool-card__title">🐷 Simulador de Poupança</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🐷 Simulador de Poupança</h2><button type="button" class="tool-fav-btn" data-tool="poupanca" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Valor inicial
@@ -1773,7 +1775,7 @@
 
                     <!-- ===== SIMULADOR DE FINANCIAMENTO ===== -->
                     <article class="tool-card" data-tool="financiamento">
-                        <h2 class="tool-card__title">🏠 Simulador de Financiamento</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🏠 Simulador de Financiamento</h2><button type="button" class="tool-fav-btn" data-tool="financiamento" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Valor financiado
@@ -1800,7 +1802,7 @@
 
                     <!-- ===== CONVERSOR DE MOEDAS ===== -->
                     <article class="tool-card" data-tool="moeda">
-                        <h2 class="tool-card__title">💱 Conversor de Moedas</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">💱 Conversor de Moedas</h2><button type="button" class="tool-fav-btn" data-tool="moeda" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Valor
@@ -1839,7 +1841,7 @@
 
                     <!-- ===== SALÁRIO MÍNIMO ===== -->
                     <article class="tool-card" data-tool="salario-minimo">
-                        <h2 class="tool-card__title">💵 Salário Mínimo por Ano</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">💵 Salário Mínimo por Ano</h2><button type="button" class="tool-fav-btn" data-tool="salario-minimo" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <label class="tool-field">
                             Ano
                             <input type="number" class="sm-ano" placeholder="2026" min="1900" max="2100">
@@ -1854,7 +1856,7 @@
 
                     <!-- ===== CONVERSOR DE CORES ===== -->
                     <article class="tool-card" data-tool="cor-conversor">
-                        <h2 class="tool-card__title">🎨 Conversor de Cores</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🎨 Conversor de Cores</h2><button type="button" class="tool-fav-btn" data-tool="cor-conversor" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Cor
@@ -1882,7 +1884,7 @@
 
                     <!-- ===== GRADIENTE CSS ===== -->
                     <article class="tool-card" data-tool="gradiente-css">
-                        <h2 class="tool-card__title">🌈 Gerador de Gradiente CSS</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🌈 Gerador de Gradiente CSS</h2><button type="button" class="tool-fav-btn" data-tool="gradiente-css" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Cor 1
@@ -1915,7 +1917,7 @@
 
                     <!-- ===== BOX-SHADOW CSS ===== -->
                     <article class="tool-card" data-tool="box-shadow-css">
-                        <h2 class="tool-card__title">🌫️ Gerador de Box-Shadow</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🌫️ Gerador de Box-Shadow</h2><button type="button" class="tool-fav-btn" data-tool="box-shadow-css" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 X
@@ -1959,7 +1961,7 @@
 
                     <!-- ===== BORDER-RADIUS CSS ===== -->
                     <article class="tool-card" data-tool="border-radius-css">
-                        <h2 class="tool-card__title">⬜ Gerador de Border-Radius</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">⬜ Gerador de Border-Radius</h2><button type="button" class="tool-fav-btn" data-tool="border-radius-css" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Superior esquerdo
@@ -1991,7 +1993,7 @@
 
                     <!-- ===== TESTADOR DE REGEX ===== -->
                     <article class="tool-card" data-tool="regex-tester">
-                        <h2 class="tool-card__title">🧪 Testador de Regex</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🧪 Testador de Regex</h2><button type="button" class="tool-fav-btn" data-tool="regex-tester" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Padrão
@@ -2014,7 +2016,7 @@
 
                     <!-- ===== EXPLICADOR DE CRON ===== -->
                     <article class="tool-card" data-tool="cron-explicador">
-                        <h2 class="tool-card__title">⏰ Explicador de Cron</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">⏰ Explicador de Cron</h2><button type="button" class="tool-fav-btn" data-tool="cron-explicador" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="text" class="cron-input" aria-label="Expressão cron" placeholder="*/15 * * * *">
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary cron-explicar">Explicar</button>
@@ -2027,7 +2029,7 @@
 
                     <!-- ===== FUSO HORÁRIO ===== -->
                     <article class="tool-card" data-tool="fuso-horario">
-                        <h2 class="tool-card__title">🌍 Conversor de Fuso Horário</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🌍 Conversor de Fuso Horário</h2><button type="button" class="tool-fav-btn" data-tool="fuso-horario" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Data e hora
@@ -2056,7 +2058,7 @@
 
                     <!-- ===== CALCULADORA DE SUB-REDE ===== -->
                     <article class="tool-card" data-tool="subnet-calculadora">
-                        <h2 class="tool-card__title">🖧 Calculadora de Sub-rede (CIDR)</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🖧 Calculadora de Sub-rede (CIDR)</h2><button type="button" class="tool-fav-btn" data-tool="subnet-calculadora" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="text" class="subnet-input" aria-label="Endereço IP com CIDR"
                             placeholder="192.168.1.10/24">
                         <div class="tool-card__actions">
@@ -2069,7 +2071,7 @@
 
                     <!-- ===== PARSER DE USER-AGENT ===== -->
                     <article class="tool-card" data-tool="user-agent-parser">
-                        <h2 class="tool-card__title">🕵️ Parser de User-Agent</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🕵️ Parser de User-Agent</h2><button type="button" class="tool-fav-btn" data-tool="user-agent-parser" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input ua-input" aria-label="User-Agent"
                             placeholder="Cole o User-Agent aqui, ou deixe em branco pra usar o seu"></textarea>
                         <div class="tool-card__actions">
@@ -2087,7 +2089,7 @@
 
                     <!-- ===== COMPARADOR DE SEMVER ===== -->
                     <article class="tool-card" data-tool="semver-comparador">
-                        <h2 class="tool-card__title">🔢 Comparador de SemVer</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔢 Comparador de SemVer</h2><button type="button" class="tool-fav-btn" data-tool="semver-comparador" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Versão A
@@ -2108,7 +2110,7 @@
 
                     <!-- ===== FORMATADOR DE SQL ===== -->
                     <article class="tool-card" data-tool="sql-formatter">
-                        <h2 class="tool-card__title">🗄️ Formatador de SQL</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🗄️ Formatador de SQL</h2><button type="button" class="tool-fav-btn" data-tool="sql-formatter" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input" aria-label="SQL de entrada"
                             placeholder="SELECT * FROM tabela WHERE id = 1..."></textarea>
                         <div class="tool-card__actions">
@@ -2125,7 +2127,7 @@
 
                     <!-- ===== CASE DE IDENTIFICADOR ===== -->
                     <article class="tool-card" data-tool="case-identificador">
-                        <h2 class="tool-card__title">🐫 Conversor de Case de Identificador</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🐫 Conversor de Case de Identificador</h2><button type="button" class="tool-fav-btn" data-tool="case-identificador" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="text" class="case-input" aria-label="Identificador"
                             placeholder="minhaVariavelExemplo">
                         <div class="tool-card__actions">
@@ -2138,7 +2140,7 @@
 
                     <!-- ===== GERADOR DE .GITIGNORE ===== -->
                     <article class="tool-card" data-tool="gitignore-gerador">
-                        <h2 class="tool-card__title">🚫 Gerador de .gitignore</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🚫 Gerador de .gitignore</h2><button type="button" class="tool-fav-btn" data-tool="gitignore-gerador" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Linguagem / Stack
@@ -2170,7 +2172,7 @@
 
                     <!-- ===== JWT ENCODER ===== -->
                     <article class="tool-card" data-tool="jwt-encoder">
-                        <h2 class="tool-card__title">✍️ JWT Encoder (assinar)</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">✍️ JWT Encoder (assinar)</h2><button type="button" class="tool-fav-btn" data-tool="jwt-encoder" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input jwt-payload" aria-label="Payload JSON"
                             placeholder='{"sub": "1234", "name": "Diego"}'></textarea>
                         <div class="tool-card__row">
@@ -2197,7 +2199,7 @@
 
                     <!-- ===== COMPARADOR DE JSON ===== -->
                     <article class="tool-card" data-tool="json-diff">
-                        <h2 class="tool-card__title">🔍 Comparador de JSON</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🔍 Comparador de JSON</h2><button type="button" class="tool-fav-btn" data-tool="json-diff" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input compare-a" aria-label="JSON A" placeholder="JSON A..."></textarea>
                         <textarea class="tool-input compare-b" aria-label="JSON B" placeholder="JSON B..."></textarea>
                         <div class="tool-card__actions">
@@ -2210,7 +2212,7 @@
 
                     <!-- ===== GERADOR DE JSON MOCK ===== -->
                     <article class="tool-card" data-tool="json-mock">
-                        <h2 class="tool-card__title">🎲 Gerador de JSON Mock</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🎲 Gerador de JSON Mock</h2><button type="button" class="tool-fav-btn" data-tool="json-mock" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <textarea class="tool-input mock-schema" aria-label="Schema"
                             placeholder='{"nome": "nome", "email": "email", "idade": "numero", "id": "uuid", "ativo": "booleano", "criadoEm": "data"}'></textarea>
                         <div class="tool-card__row">
@@ -2232,7 +2234,7 @@
 
                     <!-- ===== ASCII ART / BANNER ===== -->
                     <article class="tool-card" data-tool="ascii-art">
-                        <h2 class="tool-card__title">🅰️ ASCII Art / Banner</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🅰️ ASCII Art / Banner</h2><button type="button" class="tool-fav-btn" data-tool="ascii-art" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="text" class="ascii-input" maxlength="20" aria-label="Texto para o banner"
                             placeholder="OI">
                         <div class="tool-card__actions">
@@ -2246,7 +2248,7 @@
 
                     <!-- ===== META TAGS / OPEN GRAPH ===== -->
                     <article class="tool-card" data-tool="meta-tags-gerador">
-                        <h2 class="tool-card__title">🏷️ Gerador de Meta Tags / Open Graph</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🏷️ Gerador de Meta Tags / Open Graph</h2><button type="button" class="tool-fav-btn" data-tool="meta-tags-gerador" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Título
@@ -2277,7 +2279,7 @@
 
                     <!-- ===== GERADOR DE ROBOTS.TXT ===== -->
                     <article class="tool-card" data-tool="robots-gerador">
-                        <h2 class="tool-card__title">🤖 Gerador de robots.txt</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🤖 Gerador de robots.txt</h2><button type="button" class="tool-fav-btn" data-tool="robots-gerador" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <label class="tool-check">
                             <input type="checkbox" class="robots-bloquear-tudo">
                             Bloquear tudo (Disallow: /)
@@ -2301,7 +2303,7 @@
 
                     <!-- ===== GERADOR DE FAVICON ===== -->
                     <article class="tool-card" data-tool="favicon-gerador">
-                        <h2 class="tool-card__title">⭐ Gerador de Favicon</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">⭐ Gerador de Favicon</h2><button type="button" class="tool-fav-btn" data-tool="favicon-gerador" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Emoji ou texto (1-2 caracteres)
@@ -2323,7 +2325,7 @@
 
                     <!-- ===== COMPRIMIR IMAGEM ===== -->
                     <article class="tool-card" data-tool="comprimir-imagem">
-                        <h2 class="tool-card__title">🗜️ Comprimir Imagem</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🗜️ Comprimir Imagem</h2><button type="button" class="tool-fav-btn" data-tool="comprimir-imagem" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="file" class="img-input" accept="image/*" aria-label="Selecionar imagem">
                         <div class="tool-card__row">
                             <label class="tool-field">
@@ -2350,7 +2352,7 @@
 
                     <!-- ===== REDIMENSIONAR IMAGEM ===== -->
                     <article class="tool-card" data-tool="redimensionar-imagem">
-                        <h2 class="tool-card__title">📏 Redimensionar Imagem</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📏 Redimensionar Imagem</h2><button type="button" class="tool-fav-btn" data-tool="redimensionar-imagem" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="file" class="img-input" accept="image/*" aria-label="Selecionar imagem">
                         <div class="tool-card__row">
                             <label class="tool-field">
@@ -2378,7 +2380,7 @@
 
                     <!-- ===== RECORTAR IMAGEM ===== -->
                     <article class="tool-card" data-tool="recortar-imagem">
-                        <h2 class="tool-card__title">✂️ Recortar Imagem</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">✂️ Recortar Imagem</h2><button type="button" class="tool-fav-btn" data-tool="recortar-imagem" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="file" class="img-input" accept="image/*" aria-label="Selecionar imagem">
                         <p class="tool-hint">Clique e arraste sobre a imagem pra selecionar a área de recorte.</p>
                         <div class="img-preview-wrap">
@@ -2393,7 +2395,7 @@
 
                     <!-- ===== FOTO EM PRETO E BRANCO ===== -->
                     <article class="tool-card" data-tool="preto-e-branco">
-                        <h2 class="tool-card__title">⚫ Foto em Preto e Branco</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">⚫ Foto em Preto e Branco</h2><button type="button" class="tool-fav-btn" data-tool="preto-e-branco" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="file" class="img-input" accept="image/*" aria-label="Selecionar imagem">
                         <div class="img-preview-wrap">
                             <canvas class="img-canvas" aria-label="Pré-visualização da imagem"></canvas>
@@ -2406,7 +2408,7 @@
 
                     <!-- ===== JPG EM PDF ===== -->
                     <article class="tool-card" data-tool="jpg-para-pdf">
-                        <h2 class="tool-card__title">📄 Converter JPG em PDF</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📄 Converter JPG em PDF</h2><button type="button" class="tool-fav-btn" data-tool="jpg-para-pdf" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="file" class="jpg2pdf-input" accept="image/jpeg" multiple
                             aria-label="Selecionar imagens JPEG">
                         <p class="tool-hint">Pode selecionar várias imagens — cada uma vira uma página.</p>
@@ -2419,7 +2421,7 @@
 
                     <!-- ===== JUNTAR PDFs ===== -->
                     <article class="tool-card" data-tool="juntar-pdf">
-                        <h2 class="tool-card__title">📎 Juntar PDFs</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">📎 Juntar PDFs</h2><button type="button" class="tool-fav-btn" data-tool="juntar-pdf" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <input type="file" class="pdf-merge-input" accept="application/pdf" multiple
                             aria-label="Selecionar arquivos PDF">
                         <p class="tool-hint">
@@ -2438,7 +2440,7 @@
 
                     <!-- ===== PERFIL DE PESSOA ===== -->
                     <article class="tool-card" data-tool="perfil">
-                        <h2 class="tool-card__title">👤 Gerador de Perfil de Pessoa</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">👤 Gerador de Perfil de Pessoa</h2><button type="button" class="tool-fav-btn" data-tool="perfil" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 Gênero
@@ -2460,7 +2462,7 @@
 
                     <!-- ===== DADOS DE EMPRESA ===== -->
                     <article class="tool-card" data-tool="empresa">
-                        <h2 class="tool-card__title">🏭 Gerador de Dados de Empresa</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🏭 Gerador de Dados de Empresa</h2><button type="button" class="tool-fav-btn" data-tool="empresa" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__actions">
                             <button type="button" class="btn btn--primary empresa-gerar">Gerar</button>
                             <button type="button" class="btn btn--outline tool-copy">Copiar</button>
@@ -2472,7 +2474,7 @@
 
                     <!-- ===== SORTEADOR DE NÚMEROS ===== -->
                     <article class="tool-card" data-tool="sorteio">
-                        <h2 class="tool-card__title">🎲 Sorteador de Números</h2>
+                        <div class="tool-card__header"><h2 class="tool-card__title">🎲 Sorteador de Números</h2><button type="button" class="tool-fav-btn" data-tool="sorteio" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button></div>
                         <div class="tool-card__row">
                             <label class="tool-field">
                                 De

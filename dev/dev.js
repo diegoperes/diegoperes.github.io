@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   wireCopyButtons();
   initDevNav();
   initDevNavFilter();
+  initFavoritos();
   initDateInputGuards();
 
   initSlugCard(document.querySelector('[data-tool="slug"]'));
@@ -127,25 +128,26 @@ function initDevNavFilter() {
 
 /* ---------- Menu lateral: mostra só a ferramenta selecionada ---------- */
 function initDevNav() {
-  const links = document.querySelectorAll(".dev-nav__link");
+  const sidebar = document.querySelector(".dev-sidebar");
   const panels = document.querySelectorAll(".dev-content .tool-card");
-  if (!links.length || !panels.length) return;
+  if (!sidebar || !panels.length) return;
 
   function activate(tool) {
     const target = Array.from(panels).find((panel) => panel.dataset.tool === tool);
     if (!target) return false;
 
     panels.forEach((panel) => panel.classList.toggle("is-active", panel === target));
-    links.forEach((link) => link.classList.toggle("is-active", link.dataset.target === tool));
+    sidebar.querySelectorAll(".dev-nav__link").forEach((link) => link.classList.toggle("is-active", link.dataset.target === tool));
     return true;
   }
 
-  links.forEach((link) => {
-    link.addEventListener("click", () => {
-      const tool = link.dataset.target;
-      if (!activate(tool)) return;
-      history.replaceState(null, "", `#${tool}`);
-    });
+  // Delegação de evento: cobre também os links de favoritos criados dinamicamente.
+  sidebar.addEventListener("click", (event) => {
+    const link = event.target.closest(".dev-nav__link");
+    if (!link) return;
+    const tool = link.dataset.target;
+    if (!activate(tool)) return;
+    history.replaceState(null, "", `#${tool}`);
   });
 
   window.addEventListener("hashchange", () => {
@@ -154,8 +156,75 @@ function initDevNav() {
 
   const initialTool = window.location.hash.slice(1);
   if (!initialTool || !activate(initialTool)) {
-    activate(links[0].dataset.target);
+    const firstLink = sidebar.querySelector(".dev-nav__link:not(.dev-nav__link--fav-copy)");
+    if (firstLink) activate(firstLink.dataset.target);
   }
+}
+
+/* ---------- Favoritos: estrela nos cards + cópia dos links no topo do menu ---------- */
+const FAVORITOS_KEY = "devtools:favoritos";
+
+function loadFavoritos() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(FAVORITOS_KEY) || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function initFavoritos() {
+  const sidebar = document.querySelector(".dev-sidebar");
+  const group = document.querySelector(".dev-nav__group--favoritos");
+  const starButtons = document.querySelectorAll(".tool-fav-btn");
+  if (!sidebar || !group || !starButtons.length) return;
+
+  let favoritos = loadFavoritos();
+
+  function persist() {
+    localStorage.setItem(FAVORITOS_KEY, JSON.stringify(favoritos));
+  }
+
+  function syncStarButtons() {
+    starButtons.forEach((btn) => {
+      const isFav = favoritos.includes(btn.dataset.tool);
+      btn.classList.toggle("is-fav", isFav);
+      btn.textContent = isFav ? "★" : "☆";
+      btn.setAttribute("aria-pressed", String(isFav));
+      btn.setAttribute("aria-label", isFav ? "Remover dos favoritos" : "Adicionar aos favoritos");
+    });
+  }
+
+  function renderFavGroup() {
+    sidebar.querySelectorAll(".dev-nav__link--fav-copy").forEach((el) => el.remove());
+
+    const originais = Array.from(sidebar.querySelectorAll(".dev-nav__link:not(.dev-nav__link--fav-copy)"));
+    const clones = originais
+      .filter((link) => favoritos.includes(link.dataset.target))
+      .map((original) => {
+        const clone = original.cloneNode(true);
+        clone.classList.add("dev-nav__link--fav-copy");
+        return clone;
+      });
+
+    if (clones.length) group.after(...clones);
+    group.classList.toggle("is-hidden", clones.length === 0);
+  }
+
+  starButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const tool = btn.dataset.tool;
+      const idx = favoritos.indexOf(tool);
+      if (idx >= 0) favoritos.splice(idx, 1);
+      else favoritos.push(tool);
+      persist();
+      syncStarButtons();
+      renderFavGroup();
+    });
+  });
+
+  syncStarButtons();
+  renderFavGroup();
 }
 
 /* ---------- Evita anos absurdos nos campos de data e de ano ---------- */
