@@ -555,27 +555,27 @@ function renderCalendarRange(container, startDate, endDate, holidaysMap, highlig
       const isWeekend = weekday === 0 || weekday === 6;
       const holiday = holidaysMap.get(date.toDateString());
       const inBlock = !!highlightOption && date >= highlightOption.start && date <= highlightOption.end;
-      const isVacation = inBlock && !holiday && !isWeekend;
-      const isFreeInBlock = inBlock && (isWeekend || !!holiday);
       const isBonus = !!highlightOption && (
         (highlightOption.bonusBeforeStart && date >= highlightOption.bonusBeforeStart && date < highlightOption.start)
         || (highlightOption.bonusAfterEnd && date > highlightOption.end && date <= highlightOption.bonusAfterEnd)
       );
 
-      if (holiday) {
+      if (inBlock) {
+        cell.classList.add("cal-cell--vacation");
+        if (holiday) {
+          cell.title = `${holiday.nome} (${HOLIDAY_TYPE_LABEL[holiday.tipo]}) — dentro do período de férias`;
+        } else if (isWeekend) {
+          cell.title = "Fim de semana — dentro do período de férias";
+        }
+      } else if (holiday) {
         cell.classList.add(holiday.tipo === "facultativo" ? "cal-cell--facultativo" : holiday.tipo === "municipal" ? "cal-cell--municipal" : holiday.tipo === "estadual" ? "cal-cell--estadual" : "cal-cell--holiday");
         cell.title = `${holiday.nome} (${HOLIDAY_TYPE_LABEL[holiday.tipo]})`;
       } else if (isWeekend) {
         cell.classList.add("cal-cell--weekend");
-      } else if (isVacation) {
-        cell.classList.add("cal-cell--vacation");
       }
       if (isBonus) {
         cell.classList.add("cal-cell--bonus");
         cell.title = cell.title ? `${cell.title} — bônus (fora do período de férias)` : "Bônus (fora do período de férias)";
-      } else if (isFreeInBlock) {
-        cell.classList.add("cal-cell--periodo-livre");
-        cell.title = cell.title ? `${cell.title} — dentro do período de férias` : "Dentro do período de férias";
       }
 
       grid.appendChild(cell);

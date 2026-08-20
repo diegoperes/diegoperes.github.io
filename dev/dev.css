@@ -488,22 +488,10 @@ input.tool-input {
   outline-offset: -2px;
 }
 
-.cal-cell--periodo-livre {
-  outline: 2px dashed var(--accent);
-  outline-offset: -2px;
-}
-
 .legenda-bonus {
   background: var(--surface);
   border: 1px solid var(--surface-border);
   outline: 2px solid var(--accent);
-  outline-offset: -3px;
-}
-
-.legenda-periodo-livre {
-  background: var(--surface);
-  border: 1px solid var(--surface-border);
-  outline: 2px dashed var(--accent);
   outline-offset: -3px;
 }
 
