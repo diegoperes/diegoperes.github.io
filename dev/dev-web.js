@@ -213,11 +213,39 @@ function faviconTextColor(hex) {
   return luminance > 0.5 ? "#000000" : "#ffffff";
 }
 
+// Desenha o caminho da forma de fundo (sem dar fill) — usado tanto pro
+// preenchimento quanto, se precisar, por outros efeitos futuros.
+function tracarFormaFavicon(ctx, shape, size) {
+  ctx.beginPath();
+  if (shape === "circle") {
+    ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+  } else if (shape === "rounded") {
+    const r = size * 0.22;
+    if (typeof ctx.roundRect === "function") {
+      ctx.roundRect(0, 0, size, size, r);
+    } else {
+      ctx.moveTo(r, 0);
+      ctx.lineTo(size - r, 0);
+      ctx.quadraticCurveTo(size, 0, size, r);
+      ctx.lineTo(size, size - r);
+      ctx.quadraticCurveTo(size, size, size - r, size);
+      ctx.lineTo(r, size);
+      ctx.quadraticCurveTo(0, size, 0, size - r);
+      ctx.lineTo(0, r);
+      ctx.quadraticCurveTo(0, 0, r, 0);
+    }
+  } else {
+    ctx.rect(0, 0, size, size);
+  }
+  ctx.closePath();
+}
+
 function initFaviconCard(card) {
   if (!card) return;
   const texto = card.querySelector(".favicon-texto");
   const cor = card.querySelector(".favicon-cor");
   const corTexto = card.querySelector(".favicon-texto-cor");
+  const forma = card.querySelector(".favicon-forma");
   const canvas = card.querySelector(".favicon-canvas");
   const ctx = canvas.getContext("2d");
   let hasRendered = false;
@@ -239,7 +267,8 @@ function initFaviconCard(card) {
     canvas.width = size;
     canvas.height = size;
     ctx.fillStyle = cor.value;
-    ctx.fillRect(0, 0, size, size);
+    tracarFormaFavicon(ctx, forma.value, size);
+    ctx.fill();
     ctx.fillStyle = corTexto.value;
     ctx.font = `${size * 0.6}px sans-serif`;
     ctx.textAlign = "center";
