@@ -451,7 +451,7 @@ function describeAdjacentFreeSpan(days, fromIdx, toIdx) {
 // não estende nada, só é "engolido"). O ganho de verdade vem de feriado ou
 // dia de folga já livre colado imediatamente antes do início ou depois do
 // fim do bloco — isso é o "bônus".
-function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, extrasByYear, workdays, reservedRanges) {
+function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, extrasByYear, workdays) {
   if (vacationDays < 5 || vacationDays > 30) return [];
 
   const days = buildDayTypesForRange(startDate, endDate, uf, extrasByYear, workdays);
@@ -464,7 +464,6 @@ function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, ext
     if (!isValidVacationStart(days[i].date, holidaySet, workdays)) continue;
     const j = i + vacationDays - 1;
     if (j >= n) continue;
-    if (reservedRanges && reservedRanges.some((r) => !(days[j].date < r.start || days[i].date > r.end))) continue;
 
     let k = i - 1;
     while (k >= 0 && days[k].type !== "work") k--;
@@ -509,41 +508,14 @@ function findBestVacationWindows(startDate, endDate, vacationDays, topN, uf, ext
   return selected;
 }
 
-// Art. 134 §1 da CLT: as férias podem ser fracionadas em até 3 períodos,
-// desde que um deles não seja inferior a 14 dias corridos e os demais não
-// sejam inferiores a 5 dias corridos cada (isso já é validado antes de
-// chamar essa função). Empacota do maior período pro menor, sempre achando
-// o melhor encaixe que não sobrepõe um período já escolhido — o maior
-// período é o mais "rígido" (menos datas possíveis), então trava ele primeiro.
-function findBestSplitVacationWindows(startDate, endDate, periodSizes, uf, extrasByYear, workdays) {
-  const order = periodSizes
-    .map((days, periodIndex) => ({ days, periodIndex }))
-    .sort((a, b) => b.days - a.days);
-
-  const reserved = [];
-  const chosen = [];
-
-  for (const { days, periodIndex } of order) {
-    const [best] = findBestVacationWindows(startDate, endDate, days, 1, uf, extrasByYear, workdays, reserved);
-    if (!best) return null;
-    best.periodIndex = periodIndex;
-    chosen.push(best);
-    reserved.push({ start: best.start, end: best.end });
-  }
-
-  chosen.sort((a, b) => a.start - b.start);
-  return chosen;
-}
-
 const CAL_MESES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 const CAL_DIAS_SEMANA = ["D", "S", "T", "Q", "Q", "S", "S"];
 
 // Desenha só os meses entre startDate e endDate (inclusive) — nunca o ano
 // inteiro, pra não mostrar mês passado. startDate/endDate sempre alinhados
 // ao 1º e último dia de um mês (vem do seletor de período).
-function renderCalendarRange(container, startDate, endDate, holidaysMap, highlightOptions, workdays) {
+function renderCalendarRange(container, startDate, endDate, holidaysMap, highlightOption, workdays) {
   const workdaySet = workdays || DEFAULT_WORKDAYS;
-  const options = highlightOptions ? [].concat(highlightOptions) : [];
   container.innerHTML = "";
 
   const cursor = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
@@ -588,10 +560,10 @@ function renderCalendarRange(container, startDate, endDate, holidaysMap, highlig
       const weekday = date.getDay();
       const isWeekend = !workdaySet.has(weekday);
       const holiday = holidaysMap.get(date.toDateString());
-      const inBlock = options.some((opt) => date >= opt.start && date <= opt.end);
-      const isBonus = options.some((opt) =>
-        (opt.bonusBeforeStart && date >= opt.bonusBeforeStart && date < opt.start)
-        || (opt.bonusAfterEnd && date > opt.end && date <= opt.bonusAfterEnd)
+      const inBlock = !!highlightOption && date >= highlightOption.start && date <= highlightOption.end;
+      const isBonus = !!highlightOption && (
+        (highlightOption.bonusBeforeStart && date >= highlightOption.bonusBeforeStart && date < highlightOption.start)
+        || (highlightOption.bonusAfterEnd && date > highlightOption.end && date <= highlightOption.bonusAfterEnd)
       );
 
       if (inBlock) {
@@ -665,14 +637,6 @@ function initFeriasPlanejadorCard(card) {
   const trabalhoInputs = card.querySelectorAll(".ferias-dia-trabalho");
   const opcoesEl = card.querySelector(".ferias-opcoes");
   const calendarioEl = card.querySelector(".ferias-calendario");
-  const numPeriodosInput = card.querySelector(".ferias-num-periodos");
-  const periodoUnicoField = card.querySelector(".ferias-periodo-unico");
-  const periodoSplitFields = card.querySelectorAll(".ferias-periodo-split");
-  const diasSplitInputs = [
-    card.querySelector(".ferias-dias-1"),
-    card.querySelector(".ferias-dias-2"),
-    card.querySelector(".ferias-dias-3"),
-  ];
 
   function resolveWorkdays() {
     const checked = Array.from(trabalhoInputs).filter((el) => el.checked).map((el) => Number(el.value));
@@ -685,36 +649,6 @@ function initFeriasPlanejadorCard(card) {
   }
   periodoInput.addEventListener("change", togglePeriodoCustom);
   togglePeriodoCustom();
-
-  function toggleNumPeriodos() {
-    const n = parseInt(numPeriodosInput.value, 10) || 1;
-    periodoUnicoField.hidden = n !== 1;
-    periodoSplitFields.forEach((el) => {
-      const isTerceiro = el.classList.contains("ferias-periodo-split-3");
-      el.hidden = n === 1 || (isTerceiro && n < 3);
-    });
-  }
-  numPeriodosInput.addEventListener("change", toggleNumPeriodos);
-  toggleNumPeriodos();
-
-  // Art. 134 §1 da CLT: um dos períodos precisa ter 14+ dias corridos, os
-  // demais no mínimo 5 cada.
-  function resolveSplitDays(n) {
-    const values = diasSplitInputs.slice(0, n).map((el) => parseInt(el.value, 10));
-    if (values.some((v) => !v || v < 1)) {
-      showToast("Preencha a quantidade de dias de todos os períodos.");
-      return null;
-    }
-    if (values.some((v) => v < 5 || v > 30)) {
-      showToast("Cada período precisa ter entre 5 e 30 dias corridos.");
-      return null;
-    }
-    if (!values.some((v) => v >= 14)) {
-      showToast("Pelo menos um dos períodos precisa ter 14 dias ou mais (Art. 134 da CLT).");
-      return null;
-    }
-    return values;
-  }
 
   function resolvePeriod() {
     if (periodoInput.value === "custom") {
@@ -767,29 +701,15 @@ function initFeriasPlanejadorCard(card) {
     renderCalendarRange(calendarioEl, start, end, holidaysMap, defaultOpt, workdays);
   }
 
-  function renderSplitOptions(windows, start, end, uf, workdays) {
-    opcoesEl.innerHTML = "";
-    const holidaysMap = holidaysMapForRange(start, end, uf, extrasByYear, false);
-
-    windows.forEach((opt, idx) => {
-      const bonusParts = [];
-      if (opt.bonusBefore > 0) bonusParts.push(`${opt.bonusBefore} antes (${opt.bonusBeforeDesc})`);
-      if (opt.bonusAfter > 0) bonusParts.push(`${opt.bonusAfter} depois (${opt.bonusAfterDesc})`);
-      const bonusText = bonusParts.length ? ` + bônus: ${bonusParts.join(", ")}` : "";
-
-      const p = document.createElement("p");
-      p.className = "tool-hint ferias-split-item";
-      p.textContent = `${idx + 1}º período: ${opt.start.toLocaleDateString("pt-BR")} a ${opt.end.toLocaleDateString("pt-BR")} — ${opt.vacationDays} dias de férias${bonusText} = ${opt.totalDaysOff} dias de folga`;
-      opcoesEl.appendChild(p);
-    });
-
-    renderCalendarRange(calendarioEl, start, end, holidaysMap, windows, workdays);
-  }
-
   card.querySelector(".ferias-calcular").addEventListener("click", () => {
     const period = resolvePeriod();
     if (!period) {
       showToast("Selecione um período personalizado válido (De até Até).");
+      return;
+    }
+    const dias = parseInt(diasInput.value, 10);
+    if (!dias || dias < 1) {
+      showToast("Digite quantos dias de férias você tem.");
       return;
     }
     const workdays = resolveWorkdays();
@@ -798,28 +718,6 @@ function initFeriasPlanejadorCard(card) {
       return;
     }
     const uf = ufInput.value;
-    const numPeriodos = parseInt(numPeriodosInput.value, 10) || 1;
-
-    if (numPeriodos > 1) {
-      const splitDays = resolveSplitDays(numPeriodos);
-      if (!splitDays) return;
-
-      const windows = findBestSplitVacationWindows(period.start, period.end, splitDays, uf, extrasByYear, workdays);
-      if (!windows) {
-        opcoesEl.innerHTML = "";
-        calendarioEl.innerHTML = "";
-        showToast("Não achei uma combinação de períodos que caiba nesse intervalo.");
-        return;
-      }
-      renderSplitOptions(windows, period.start, period.end, uf, workdays);
-      return;
-    }
-
-    const dias = parseInt(diasInput.value, 10);
-    if (!dias || dias < 1) {
-      showToast("Digite quantos dias de férias você tem.");
-      return;
-    }
     const options = findBestVacationWindows(period.start, period.end, dias, 10, uf, extrasByYear, workdays);
     if (!options.length) {
       opcoesEl.innerHTML = "";
