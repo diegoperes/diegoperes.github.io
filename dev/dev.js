@@ -126,6 +126,21 @@ function initDevNavFilter() {
   });
 }
 
+// Manda pro GA4 qual ferramenta foi aberta, pra dar pra ver no relatório de
+// eventos quais são as mais usadas. Só faz algo se o gtag estiver carregado
+// (ou seja, se houver measurement ID configurado no deploy).
+function trackToolView(toolId, panel) {
+  if (typeof window.gtag !== "function") return;
+  const titleEl = panel.querySelector(".tool-card__title");
+  const rawTitle = titleEl ? titleEl.textContent.trim() : toolId;
+  const spaceIdx = rawTitle.indexOf(" ");
+  const toolName = spaceIdx > -1 ? rawTitle.slice(spaceIdx + 1) : rawTitle;
+  window.gtag("event", "select_tool", {
+    tool_id: toolId,
+    tool_name: toolName,
+  });
+}
+
 /* ---------- Menu lateral: mostra só a ferramenta selecionada ---------- */
 function initDevNav() {
   const sidebar = document.querySelector(".dev-sidebar");
@@ -135,9 +150,11 @@ function initDevNav() {
   function activate(tool) {
     const target = Array.from(panels).find((panel) => panel.dataset.tool === tool);
     if (!target) return false;
+    const alreadyActive = target.classList.contains("is-active");
 
     panels.forEach((panel) => panel.classList.toggle("is-active", panel === target));
     sidebar.querySelectorAll(".dev-nav__link").forEach((link) => link.classList.toggle("is-active", link.dataset.target === tool));
+    if (!alreadyActive) trackToolView(tool, target);
     return true;
   }
 
