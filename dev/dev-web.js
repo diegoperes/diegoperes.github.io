@@ -217,9 +217,18 @@ function initFaviconCard(card) {
   if (!card) return;
   const texto = card.querySelector(".favicon-texto");
   const cor = card.querySelector(".favicon-cor");
+  const corTexto = card.querySelector(".favicon-texto-cor");
   const canvas = card.querySelector(".favicon-canvas");
   const ctx = canvas.getContext("2d");
   let hasRendered = false;
+  let corTextoTocada = false;
+
+  // Enquanto a pessoa não mexer manualmente na cor do texto, sugere
+  // automaticamente preto ou branco com base na cor de fundo escolhida.
+  corTexto.addEventListener("input", () => { corTextoTocada = true; });
+  cor.addEventListener("input", () => {
+    if (!corTextoTocada) corTexto.value = faviconTextColor(cor.value);
+  });
 
   function render() {
     if (!texto.value.trim()) {
@@ -231,7 +240,7 @@ function initFaviconCard(card) {
     canvas.height = size;
     ctx.fillStyle = cor.value;
     ctx.fillRect(0, 0, size, size);
-    ctx.fillStyle = faviconTextColor(cor.value);
+    ctx.fillStyle = corTexto.value;
     ctx.font = `${size * 0.6}px sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
